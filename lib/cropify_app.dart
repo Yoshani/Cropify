@@ -14,7 +14,7 @@ class CropifyApp extends StatelessWidget {
       initialBinding: AuthBinding(),
       initialRoute: "/",
       getPages: GetPages.init(),
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
     );
   }
 }
