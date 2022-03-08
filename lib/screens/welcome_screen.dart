@@ -16,7 +16,7 @@ class WelcomeScreen extends GetWidget<AuthController> {
       },
       builder: (_) {
         if (Get.find<AuthController>().user?.uid != null) {
-          return const FarmerHome();
+          return FarmerHome();
         } else {
           return Login();
         }
