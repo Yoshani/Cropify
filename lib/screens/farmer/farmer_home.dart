@@ -6,9 +6,7 @@ import '../../controllers/user_controller.dart';
 import '../../services/database.dart';
 
 class FarmerHome extends GetWidget<AuthController> {
-  FarmerHome({Key? key}) : super(key: key);
-
-  final TextEditingController _todoController = TextEditingController();
+  const FarmerHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

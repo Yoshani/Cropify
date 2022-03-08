@@ -5,8 +5,8 @@ import '../controllers/user_controller.dart';
 import 'auth/login.dart';
 import 'farmer/farmer_home.dart';
 
-class WelcomeScreen extends GetWidget<AuthController> {
-  const WelcomeScreen({Key? key}) : super(key: key);
+class Root extends GetWidget<AuthController> {
+  const Root({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
