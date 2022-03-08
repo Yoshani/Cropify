@@ -11,7 +11,7 @@ class SplashScreen extends GetWidget<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 6, 182, 85),
+      backgroundColor: const Color.fromARGB(255, 6, 182, 85),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(5.0),
