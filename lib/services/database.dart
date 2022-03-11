@@ -11,6 +11,8 @@ class Database {
       await _firestore.collection("users").doc(user.id).set({
         "name": user.name,
         "email": user.email,
+        "nic": user.nic,
+        "role": user.role
       });
       return true;
     } catch (e) {

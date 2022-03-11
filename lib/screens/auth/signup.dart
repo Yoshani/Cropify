@@ -4,7 +4,7 @@ import 'package:get/state_manager.dart';
 import '../../controllers/auth_controller.dart';
 
 class SignUp extends GetWidget<AuthController> {
-  final TextEditingController nameController = TextEditingController();
+  // final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -22,13 +22,13 @@ class SignUp extends GetWidget<AuthController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(hintText: "Full Name"),
-                controller: nameController,
-              ),
-              const SizedBox(
-                height: 40,
-              ),
+              // TextFormField(
+              //   decoration: const InputDecoration(hintText: "Full Name"),
+              //   controller: nameController,
+              // ),
+              // const SizedBox(
+              //   height: 40,
+              // ),
               TextFormField(
                 decoration: const InputDecoration(hintText: "Email"),
                 controller: emailController,
@@ -44,7 +44,7 @@ class SignUp extends GetWidget<AuthController> {
               TextButton(
                 child: const Text("Sign Up"),
                 onPressed: () {
-                  controller.createUser(nameController.text,
+                  controller.createUser(
                       emailController.text, passwordController.text);
                 },
               )

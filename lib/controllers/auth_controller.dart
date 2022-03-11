@@ -17,24 +17,31 @@ class AuthController extends GetxController {
     super.onInit();
   }
 
-  void createUser(String name, String email, String password) async {
+  void createUser(String email, String password) async {
     try {
       UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
-      //create user in database.dart
+      //create user in database
       UserModel _user = UserModel(
-        id: _authResult.user?.uid,
-        name: name,
-        email: _authResult.user?.email,
-      );
+          id: _authResult.user?.uid,
+          name: null,
+          email: _authResult.user?.email,
+          nic: null,
+          role: "FARMER");
       if (await Database().createNewUser(_user)) {
         Get.find<UserController>().user = _user;
-        Get.back();
+        Get.toNamed("/home");
       }
     } on FirebaseAuthException catch (e) {
       Get.snackbar(
         "Error creating Account",
         e.message.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } catch (e) {
+      Get.snackbar(
+        "Error creating Account",
+        e.toString(),
         snackPosition: SnackPosition.BOTTOM,
       );
     }
