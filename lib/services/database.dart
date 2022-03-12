@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cropify/models/bank.dart';
+import 'package:cropify/models/farm.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/user.dart';
@@ -34,6 +36,38 @@ class Database {
         print(e);
       }
       rethrow;
+    }
+  }
+
+  Future<bool> registerUser(
+      UserModel user, FarmModel farm, BankModel bank) async {
+    try {
+      // update user
+      await _firestore.collection("users").doc(user.id).update({
+        "name": user.name,
+        "email": user.email,
+        "nic": user.nic,
+        "role": user.role
+      });
+      // save farm 
+      await _firestore.collection("farms").doc().set({
+        "userId": user.id,
+        "name": farm.name,
+        "address": farm.address,
+        "regNum": farm.regNum
+      });
+      // save bank
+      await _firestore.collection("banks").doc().set({
+        "userId": user.id,
+        "name": bank.name,
+        "accountNum": bank.accountNum
+      });
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return false;
     }
   }
 }

@@ -32,7 +32,7 @@ class AuthController extends GetxController {
         Get.find<UserController>().user = _user;
         Get.toNamed("/home");
       }
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseException catch (e) {
       Get.snackbar(
         "Error creating Account",
         e.message.toString(),
