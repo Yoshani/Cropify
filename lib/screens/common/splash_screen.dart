@@ -21,35 +21,39 @@ class SplashScreen extends GetWidget<SplashController> {
                 height: 40,
               ),
               Center(
-                child: Image.asset('assets/splash.gif', fit: BoxFit.cover),
+                child: Column(
+                  children: [
+                    Image.asset('assets/splash.gif', fit: BoxFit.cover),
+                    AnimatedTextKit(animatedTexts: [
+                      TyperAnimatedText('Cropify',
+                          textStyle: const TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 50,
+                              fontFamily: "Lobster",
+                              shadows: [
+                                Shadow(
+                                    // bottomLeft
+                                    offset: Offset(-1.5, -1.5),
+                                    color: Color.fromARGB(255, 2, 70, 2)),
+                                Shadow(
+                                    // bottomRight
+                                    offset: Offset(1.5, -1.5),
+                                    color: Color.fromARGB(255, 2, 70, 2)),
+                                Shadow(
+                                    // topRight
+                                    offset: Offset(1.5, 1.5),
+                                    color: Color.fromARGB(255, 2, 70, 2)),
+                                Shadow(
+                                    // topLeft
+                                    offset: Offset(-1.5, 1.5),
+                                    color: Color.fromARGB(255, 2, 70, 2)),
+                              ]),
+                          speed: const Duration(milliseconds: 300))
+                    ]),
+                  ],
+                ),
               ),
-              AnimatedTextKit(animatedTexts: [
-                TyperAnimatedText('Cropify',
-                    textStyle: const TextStyle(
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 50,
-                        fontFamily: "Lobster",
-                        shadows: [
-                          Shadow(
-                              // bottomLeft
-                              offset: Offset(-1.5, -1.5),
-                              color: Color.fromARGB(255, 2, 70, 2)),
-                          Shadow(
-                              // bottomRight
-                              offset: Offset(1.5, -1.5),
-                              color: Color.fromARGB(255, 2, 70, 2)),
-                          Shadow(
-                              // topRight
-                              offset: Offset(1.5, 1.5),
-                              color: Color.fromARGB(255, 2, 70, 2)),
-                          Shadow(
-                              // topLeft
-                              offset: Offset(-1.5, 1.5),
-                              color: Color.fromARGB(255, 2, 70, 2)),
-                        ]),
-                    speed: const Duration(milliseconds: 300))
-              ]),
               const SizedBox(
                 height: 40,
               ),

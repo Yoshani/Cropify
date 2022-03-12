@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
 import '../../controllers/auth_controller.dart';
+import '../common/appbar.dart';
 
 class SignUp extends GetWidget<AuthController> {
-  // final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -13,22 +13,14 @@ class SignUp extends GetWidget<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Sign Up"),
-      ),
+      resizeToAvoidBottomInset: false,
+      appBar: const CropifyAppBar(),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // TextFormField(
-              //   decoration: const InputDecoration(hintText: "Full Name"),
-              //   controller: nameController,
-              // ),
-              // const SizedBox(
-              //   height: 40,
-              // ),
               TextFormField(
                 decoration: const InputDecoration(hintText: "Email"),
                 controller: emailController,
@@ -41,13 +33,16 @@ class SignUp extends GetWidget<AuthController> {
                 obscureText: true,
                 controller: passwordController,
               ),
-              TextButton(
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
                 child: const Text("Sign Up"),
                 onPressed: () {
                   controller.createUser(
                       emailController.text, passwordController.text);
                 },
-              )
+              ),
             ],
           ),
         ),
