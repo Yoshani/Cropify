@@ -15,7 +15,7 @@ class Login extends GetWidget<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const CropifyAppBar(),
+      appBar: const CropifyAppBar(visible: false),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
