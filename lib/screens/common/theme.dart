@@ -5,10 +5,14 @@ class Themes {
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
               primary: const Color.fromARGB(255, 2, 70, 2))),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          primary: const Color.fromARGB(255, 2, 70, 2),
+        ),
+      ),
       textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color.fromARGB(255, 2, 70, 2)),
       inputDecorationTheme: const InputDecorationTheme(
-        fillColor: Color.fromARGB(255, 2, 70, 2),
         focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Color.fromARGB(255, 2, 70, 2))),
         border: UnderlineInputBorder(
