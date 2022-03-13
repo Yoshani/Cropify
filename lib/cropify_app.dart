@@ -16,6 +16,7 @@ class CropifyApp extends StatelessWidget {
       theme: Themes.light,
       initialRoute: "/",
       getPages: GetPages.init(),
+      defaultTransition: Transition.zoom,
     );
   }
 }

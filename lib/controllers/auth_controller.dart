@@ -25,6 +25,7 @@ class AuthController extends GetxController {
       UserModel _user = UserModel(
           id: _authResult.user?.uid,
           name: null,
+          phone: null,
           email: _authResult.user?.email,
           nic: null,
           role: "FARMER");
@@ -32,7 +33,7 @@ class AuthController extends GetxController {
         Get.find<UserController>().user = _user;
         Get.toNamed("/home");
       }
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseException catch (e) {
       Get.snackbar(
         "Error creating Account",
         e.message.toString(),
