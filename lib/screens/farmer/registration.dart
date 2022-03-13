@@ -2,13 +2,13 @@ import 'package:cropify/screens/common/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/auth_controller.dart';
 import '../../controllers/user_controller.dart';
 
 class FarmerRegistration extends GetWidget<UserController> {
   FarmerRegistration({Key? key}) : super(key: key);
 
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController nicController = TextEditingController();
   final TextEditingController bankNameController = TextEditingController();
   final TextEditingController accountNumController = TextEditingController();
@@ -19,6 +19,7 @@ class FarmerRegistration extends GetWidget<UserController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: const CropifyAppBar(),
       body: Align(
         alignment: Alignment.center,
@@ -63,8 +64,13 @@ class FarmerRegistration extends GetWidget<UserController> {
                         ),
                         TextFormField(
                           decoration:
+                              const InputDecoration(hintText: "Mobile Number"),
+                          controller: phoneController,
+                          keyboardType: TextInputType.number,
+                        ),
+                        TextFormField(
+                          decoration:
                               const InputDecoration(hintText: "NIC Number"),
-                          obscureText: true,
                           controller: nicController,
                         ),
                       ]),
@@ -96,18 +102,17 @@ class FarmerRegistration extends GetWidget<UserController> {
                         TextFormField(
                           decoration:
                               const InputDecoration(hintText: "Farm Name"),
-                          controller: nameController,
+                          controller: farmNameController,
                         ),
                         TextFormField(
                           decoration:
                               const InputDecoration(hintText: "Address"),
-                          controller: nameController,
+                          controller: addressController,
                         ),
                         TextFormField(
                           decoration: const InputDecoration(
                               hintText: "Registration Number"),
-                          obscureText: true,
-                          controller: nicController,
+                          controller: regNumController,
                         ),
                       ]),
                 ),
@@ -138,13 +143,12 @@ class FarmerRegistration extends GetWidget<UserController> {
                         TextFormField(
                           decoration:
                               const InputDecoration(hintText: "Bank Name"),
-                          controller: nameController,
+                          controller: bankNameController,
                         ),
                         TextFormField(
                           decoration:
                               const InputDecoration(hintText: "Account Number"),
-                          obscureText: true,
-                          controller: nicController,
+                          controller: accountNumController,
                         ),
                       ]),
                 ),
@@ -156,16 +160,23 @@ class FarmerRegistration extends GetWidget<UserController> {
             ElevatedButton(
               child: const Text("Register"),
               onPressed: () {
-                controller.registerUser(
-                  Get.find<AuthController>().user!.uid,
-                  nameController.text,
-                  nicController.text,
-                  bankNameController.text,
-                  accountNumController.text,
-                  farmNameController.text,
-                  addressController.text,
-                  regNumController.text,
-                );
+                if (GetUtils.isPhoneNumber(phoneController.text)) {
+                  controller.registerUser(
+                    nameController.text,
+                    phoneController.text,
+                    nicController.text,
+                    bankNameController.text,
+                    accountNumController.text,
+                    farmNameController.text,
+                    addressController.text,
+                    regNumController.text,
+                  );
+                } else {
+                  Get.snackbar(
+                      "Incorrect Format", "Please enter a valid phone number",
+                      snackPosition: SnackPosition.BOTTOM,
+                      snackStyle: SnackStyle.FLOATING);
+                }
               },
             ),
           ],

@@ -13,6 +13,7 @@ class Database {
       await _firestore.collection("users").doc(user.id).set({
         "name": user.name,
         "email": user.email,
+        "phone": user.phone,
         "nic": user.nic,
         "role": user.role
       });
@@ -45,11 +46,12 @@ class Database {
       // update user
       await _firestore.collection("users").doc(user.id).update({
         "name": user.name,
+        "phone": user.phone,
         "email": user.email,
         "nic": user.nic,
         "role": user.role
       });
-      // save farm 
+      // save farm
       await _firestore.collection("farms").doc().set({
         "userId": user.id,
         "name": farm.name,

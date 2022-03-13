@@ -18,21 +18,23 @@ class UserController extends GetxController {
     _userModel.value = UserModel();
   }
 
-  void registerUser(String userId, String userName, String nic, String bankName,
+  void registerUser(String userName, String phone, String nic, String bankName,
       String accountNum, String farmName, String address, String regNum) async {
     try {
-      UserModel _user = UserModel(name: userName.trim(), nic: nic.trim());
+      user.name = userName.trim();
+      user.nic = nic.trim();
+      user.phone = phone;
       BankModel _bank = BankModel(
-          userId: userId, name: bankName.trim(), accountNum: accountNum.trim());
+          userId: user.id,
+          name: bankName.trim(),
+          accountNum: accountNum.trim());
       FarmModel _farm = FarmModel(
-          userId: userId,
+          userId: user.id,
           name: farmName.trim(),
           address: address.trim(),
           regNum: regNum.trim());
-      if (await Database().registerUser(_user, _farm, _bank)) {
-        Get.find<UserController>().user.name = _user.name;
-        Get.find<UserController>().user.nic = _user.nic;
-        Get.toNamed("/farmerHome");
+      if (await Database().registerUser(user, _farm, _bank)) {
+        Get.offAllNamed("/farmerHome");
       }
     } on FirebaseException catch (e) {
       Get.snackbar(

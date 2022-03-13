@@ -25,6 +25,7 @@ class AuthController extends GetxController {
       UserModel _user = UserModel(
           id: _authResult.user?.uid,
           name: null,
+          phone: null,
           email: _authResult.user?.email,
           nic: null,
           role: "FARMER");
