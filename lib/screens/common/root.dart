@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/user_controller.dart';
 import '../auth/login.dart';
-import '../farmer/home.dart';
 
 class Root extends GetWidget<AuthController> {
   const Root({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class Root extends GetWidget<AuthController> {
       },
       builder: (_) {
         if (Get.find<AuthController>().user?.uid != null) {
-          return RootHome();
+          return const RootHome();
         } else {
           return Login();
         }

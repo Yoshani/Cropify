@@ -1,4 +1,3 @@
-import 'package:cropify/cropify_app.dart';
 import 'package:cropify/screens/common/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
