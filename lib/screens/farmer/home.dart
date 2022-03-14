@@ -1,3 +1,4 @@
+import 'package:cropify/screens/common/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,105 +12,46 @@ class FarmerHome extends GetWidget<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: GetX<UserController>(
-          initState: (_) async {
-            Get.find<UserController>().user =
-                await Database().getUser(Get.find<AuthController>().user!.uid);
-          },
-          builder: (_) {
-            if (_.user.name != null) {
-              return Text("Welcome " + _.user.name!);
-            } else {
-              return const Text("loading...");
-            }
-          },
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () {
-              controller.signOut();
-            },
+      appBar: const CropifyAppBar(),
+      body: Column(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/vegies-home.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            height: 250,
+            width: double.infinity,
           ),
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              if (Get.isDarkMode) {
-                Get.changeTheme(ThemeData.light());
-              } else {
-                Get.changeTheme(ThemeData.dark());
-              }
-            },
-          )
+          Expanded(
+              child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                        minimumSize: const Size.fromHeight(50),
+                        elevation: 5),
+                    onPressed: () {},
+                    child: const Text(
+                      "REPORT INCIDENT",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ))
         ],
       ),
-      // body: Column(
-      //   children: <Widget>[
-      //     SizedBox(
-      //       height: 20,
-      //     ),
-      //     Text(
-      //       "Add Todo Here:",
-      //       style: TextStyle(
-      //         fontSize: 20,
-      //         fontWeight: FontWeight.bold,
-      //       ),
-      //     ),
-      //     Card(
-      //       margin: EdgeInsets.all(20),
-      //       child: Padding(
-      //         padding: const EdgeInsets.all(10.0),
-      //         child: Row(
-      //           children: [
-      //             Expanded(
-      //               child: TextFormField(
-      //                 controller: _todoController,
-      //               ),
-      //             ),
-      //             IconButton(
-      //               icon: Icon(Icons.add),
-      //               onPressed: () {
-      //                 if (_todoController.text != "") {
-      //                   Database()
-      //                       .addTodo(_todoController.text, controller.user.uid);
-      //                   _todoController.clear();
-      //                 }
-      //               },
-      //             )
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //     Text(
-      //       "Your Todos",
-      //       style: TextStyle(
-      //         fontSize: 20,
-      //         fontWeight: FontWeight.bold,
-      //       ),
-      //     ),
-      //     GetX<TodoController>(
-      //       init: Get.put<TodoController>(TodoController()),
-      //       builder: (TodoController todoController) {
-      //         if (todoController != null && todoController.todos != null) {
-      //           return Expanded(
-      //             child: ListView.builder(
-      //               itemCount: todoController.todos.length,
-      //               itemBuilder: (_, index) {
-      //                 return TodoCard(
-      //                     uid: controller.user.uid,
-      //                     todo: todoController.todos[index]);
-      //               },
-      //             ),
-      //           );
-      //         } else {
-      //           return Text("loading...");
-      //         }
-      //       },
-      //     )
-      //   ],
-      // ),
     );
   }
 }
