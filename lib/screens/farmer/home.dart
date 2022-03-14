@@ -2,12 +2,13 @@ import 'package:cropify/screens/common/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/auth_controller.dart';
-import '../../controllers/user_controller.dart';
-import '../../services/database.dart';
+import '../../controllers/bottom_nav_controller.dart';
 
-class FarmerHome extends GetWidget<AuthController> {
-  const FarmerHome({Key? key}) : super(key: key);
+class FarmerHome extends GetView<BottomNavController> {
+  FarmerHome({Key? key}) : super(key: key);
+
+  final BottomNavController bottomNavController =
+      Get.put(BottomNavController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class FarmerHome extends GetWidget<AuthController> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.red,
-                        minimumSize: const Size.fromHeight(50),
+                        minimumSize: const Size.fromHeight(60),
                         elevation: 5),
                     onPressed: () {},
                     child: const Text(
@@ -49,9 +50,34 @@ class FarmerHome extends GetWidget<AuthController> {
                 ],
               ),
             ),
-          ))
+          )),
         ],
       ),
+      bottomNavigationBar: Obx(() => BottomNavigationBar(
+            elevation: 10,
+            type: BottomNavigationBarType.fixed,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Log',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.check_circle),
+                label: 'Complete',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Account',
+              ),
+            ],
+            currentIndex: controller.currentIndex.value,
+            selectedItemColor: Colors.pink,
+            onTap: controller.changePage,
+          )),
     );
   }
 }

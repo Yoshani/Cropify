@@ -11,7 +11,7 @@ class SplashController extends GetxController {
 
   Future<void> loading() async {
     Timer(const Duration(seconds: 3), () {
-      Get.offAndToNamed("/home");
+      Get.offAndToNamed("/root");
     });
   }
 }
