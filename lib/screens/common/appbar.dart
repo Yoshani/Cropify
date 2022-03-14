@@ -53,7 +53,11 @@ class CropifyAppBar extends GetWidget<AuthController>
                     itemBuilder: (context) => [
                           PopupMenuItem(
                               child: TextButton(
-                                  child: const Text("Sign Out"),
+                                  child: const Text(
+                                    "Sign Out",
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 80, 79, 79)),
+                                  ),
                                   onPressed: () {
                                     Get.back();
                                     controller.signOut();
