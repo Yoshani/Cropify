@@ -34,7 +34,7 @@ class UserController extends GetxController {
           address: address.trim(),
           regNum: regNum.trim());
       if (await Database().registerUser(user, _farm, _bank)) {
-        Get.offAllNamed("/farmerHome");
+        Get.offAllNamed("/farmerHomeRoot");
       }
     } on FirebaseException catch (e) {
       Get.snackbar(

@@ -1,10 +1,5 @@
-import 'package:cropify/controllers/bindings/bottom_nav_binding.dart';
-import 'package:cropify/screens/farmer/account.dart';
-import 'package:cropify/screens/farmer/complete_incident.dart';
-import 'package:cropify/screens/farmer/home.dart';
 import 'package:cropify/screens/common/splash_screen.dart';
-import 'package:cropify/screens/farmer/incident_log.dart';
-import 'package:cropify/screens/farmer/report_incident.dart';
+import 'package:cropify/screens/farmer/home_root.dart';
 import 'package:get/get.dart';
 
 import '../controllers/bindings/splash_binding.dart';
@@ -25,25 +20,8 @@ class GetPages {
           page: () => const RootHome(),
           transition: Transition.zoom),
       GetPage(
-          name: "/farmerHome",
-          page: () => FarmerHome(),
-          binding: BottomNavBinding(),
-          transition: Transition.zoom),
-      GetPage(
-          name: "/farmerReportIncident",
-          page: () => const ReportIncident(),
-          transition: Transition.zoom),
-      GetPage(
-          name: "/farmerIncidentLog",
-          page: () => const IncidentLog(),
-          transition: Transition.zoom),
-      GetPage(
-          name: "/farmerCompleteIncident",
-          page: () => const CompleteIncident(),
-          transition: Transition.zoom),
-      GetPage(
-          name: "/farmerAccount",
-          page: () => const FarmerAccount(),
+          name: "/farmerHomeRoot",
+          page: () => FarmerHomeRoot(),
           transition: Transition.zoom),
     ];
   }

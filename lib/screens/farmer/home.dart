@@ -1,19 +1,12 @@
-import 'package:cropify/screens/common/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/bottom_nav_controller.dart';
-
-class FarmerHome extends GetView<BottomNavController> {
-  FarmerHome({Key? key}) : super(key: key);
-
-  final BottomNavController bottomNavController =
-      Get.put(BottomNavController());
+class FarmerHome extends StatelessWidget {
+  const FarmerHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CropifyAppBar(),
       body: Column(
         children: [
           Container(
@@ -53,31 +46,6 @@ class FarmerHome extends GetView<BottomNavController> {
           )),
         ],
       ),
-      bottomNavigationBar: Obx(() => BottomNavigationBar(
-            elevation: 10,
-            type: BottomNavigationBarType.fixed,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Log',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.check_circle),
-                label: 'Complete',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Account',
-              ),
-            ],
-            currentIndex: controller.currentIndex.value,
-            selectedItemColor: Colors.pink,
-            onTap: controller.changePage,
-          )),
     );
   }
 }
