@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class FarmerHome extends StatelessWidget {
   const FarmerHome({Key? key}) : super(key: key);
