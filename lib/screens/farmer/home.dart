@@ -1,115 +1,164 @@
+import 'package:cropify/utils/carousal_items.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-import '../../controllers/auth_controller.dart';
-import '../../controllers/user_controller.dart';
-import '../../services/database.dart';
-
-class FarmerHome extends GetWidget<AuthController> {
+class FarmerHome extends StatelessWidget {
   const FarmerHome({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: GetX<UserController>(
-          initState: (_) async {
-            Get.find<UserController>().user =
-                await Database().getUser(Get.find<AuthController>().user!.uid);
-          },
-          builder: (_) {
-            if (_.user.name != null) {
-              return Text("Welcome " + _.user.name!);
-            } else {
-              return const Text("loading...");
-            }
-          },
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () {
-              controller.signOut();
-            },
+      body: Column(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/vegie-home.jpg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            height: 250,
+            width: double.infinity,
           ),
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              if (Get.isDarkMode) {
-                Get.changeTheme(ThemeData.light());
-              } else {
-                Get.changeTheme(ThemeData.dark());
-              }
-            },
-          )
+          Expanded(
+              child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: <Widget>[
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                        minimumSize: const Size.fromHeight(60),
+                        elevation: 5),
+                    onPressed: () {},
+                    child: const Text(
+                      "REPORT INCIDENT",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Expanded(
+                    child: CarouselSlider(
+                      options: CarouselOptions(
+                        enableInfiniteScroll: true,
+                        scrollDirection: Axis.vertical,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 15),
+                        autoPlayCurve: Curves.decelerate,
+                        viewportFraction: 1.0,
+                      ),
+                      items: adCarousal.map((i) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 5.0),
+                                decoration:
+                                    const BoxDecoration(color: Colors.amber),
+                                child: Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: i.image,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            height: 250,
+                                            width: double.infinity,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                            child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: const [
+                                                Text(
+                                                  "Ad",
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                    i.title,
+                                                    style: const TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      i.description,
+                                                      overflow:
+                                                          TextOverflow.fade,
+                                                      maxLines: null,
+                                                      style: const TextStyle(
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          color: Color.fromARGB(
+                                                              255, 63, 62, 62)),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            ElevatedButton(
+                                              child: const Text("Read more..."),
+                                              onPressed: () {},
+                                            ),
+                                          ],
+                                        ))
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                          },
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
+            ),
+          )),
         ],
       ),
-      // body: Column(
-      //   children: <Widget>[
-      //     SizedBox(
-      //       height: 20,
-      //     ),
-      //     Text(
-      //       "Add Todo Here:",
-      //       style: TextStyle(
-      //         fontSize: 20,
-      //         fontWeight: FontWeight.bold,
-      //       ),
-      //     ),
-      //     Card(
-      //       margin: EdgeInsets.all(20),
-      //       child: Padding(
-      //         padding: const EdgeInsets.all(10.0),
-      //         child: Row(
-      //           children: [
-      //             Expanded(
-      //               child: TextFormField(
-      //                 controller: _todoController,
-      //               ),
-      //             ),
-      //             IconButton(
-      //               icon: Icon(Icons.add),
-      //               onPressed: () {
-      //                 if (_todoController.text != "") {
-      //                   Database()
-      //                       .addTodo(_todoController.text, controller.user.uid);
-      //                   _todoController.clear();
-      //                 }
-      //               },
-      //             )
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //     Text(
-      //       "Your Todos",
-      //       style: TextStyle(
-      //         fontSize: 20,
-      //         fontWeight: FontWeight.bold,
-      //       ),
-      //     ),
-      //     GetX<TodoController>(
-      //       init: Get.put<TodoController>(TodoController()),
-      //       builder: (TodoController todoController) {
-      //         if (todoController != null && todoController.todos != null) {
-      //           return Expanded(
-      //             child: ListView.builder(
-      //               itemCount: todoController.todos.length,
-      //               itemBuilder: (_, index) {
-      //                 return TodoCard(
-      //                     uid: controller.user.uid,
-      //                     todo: todoController.todos[index]);
-      //               },
-      //             ),
-      //           );
-      //         } else {
-      //           return Text("loading...");
-      //         }
-      //       },
-      //     )
-      //   ],
-      // ),
     );
   }
 }

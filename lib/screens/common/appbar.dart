@@ -20,7 +20,7 @@ class CropifyAppBar extends GetWidget<AuthController>
           child: Text(
             'Cropify',
             style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: Colors.white,
                 fontWeight: FontWeight.w100,
                 fontSize: 25,
                 fontFamily: "Lobster",
@@ -28,23 +28,23 @@ class CropifyAppBar extends GetWidget<AuthController>
                   Shadow(
                       // bottomLeft
                       offset: Offset(-1.5, -1.5),
-                      color: Color.fromARGB(255, 2, 70, 2)),
+                      color: Color.fromARGB(255, 75, 53, 45)),
                   Shadow(
                       // bottomRight
                       offset: Offset(1.5, -1.5),
-                      color: Color.fromARGB(255, 2, 70, 2)),
+                      color: Color.fromARGB(255, 75, 53, 45)),
                   Shadow(
                       // topRight
                       offset: Offset(1.5, 1.5),
-                      color: Color.fromARGB(255, 2, 70, 2)),
+                      color: Color.fromARGB(255, 75, 53, 45)),
                   Shadow(
                       // topLeft
                       offset: Offset(-1.5, 1.5),
-                      color: Color.fromARGB(255, 2, 70, 2)),
+                      color: Color.fromARGB(255, 75, 53, 45)),
                 ]),
           ),
         ),
-        backgroundColor: const Color.fromRGBO(6, 182, 85, 1),
+        backgroundColor: const Color.fromARGB(255, 2, 70, 2),
         actions: visible
             ? [
                 PopupMenuButton(
@@ -53,7 +53,11 @@ class CropifyAppBar extends GetWidget<AuthController>
                     itemBuilder: (context) => [
                           PopupMenuItem(
                               child: TextButton(
-                                  child: const Text("Sign Out"),
+                                  child: const Text(
+                                    "Sign Out",
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 80, 79, 79)),
+                                  ),
                                   onPressed: () {
                                     Get.back();
                                     controller.signOut();

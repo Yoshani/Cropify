@@ -1,5 +1,5 @@
-import 'package:cropify/screens/farmer/home.dart';
 import 'package:cropify/screens/common/splash_screen.dart';
+import 'package:cropify/screens/farmer/home_root.dart';
 import 'package:get/get.dart';
 
 import '../controllers/bindings/splash_binding.dart';
@@ -14,15 +14,15 @@ class GetPages {
           page: () => const SplashScreen(),
           binding: SplashBinding()),
       GetPage(
-          name: "/home", page: () => const Root(), transition: Transition.zoom),
+          name: "/root", page: () => const Root(), transition: Transition.zoom),
       GetPage(
           name: "/rootHome",
           page: () => const RootHome(),
           transition: Transition.zoom),
       GetPage(
-          name: "/farmerHome",
-          page: () => const FarmerHome(),
-          transition: Transition.zoom)
+          name: "/farmerHomeRoot",
+          page: () => FarmerHomeRoot(),
+          transition: Transition.zoom),
     ];
   }
 }
