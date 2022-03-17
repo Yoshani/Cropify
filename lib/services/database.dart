@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/bank.dart';
+import 'package:cropify/models/crop_type.dart';
 import 'package:cropify/models/farm.dart';
 import 'package:flutter/foundation.dart';
 
@@ -70,6 +71,23 @@ class Database {
         print(e);
       }
       return false;
+    }
+  }
+
+  Future<List<CropType>> getCropTypes() async {
+    try {
+      List<CropType> cropTypes = [];
+
+      QuerySnapshot _query = await _firestore.collection("crops").get();
+      for (var _doc in _query.docs) {
+        cropTypes.add(CropType.fromDocumentSnapshot(documentSnapshot: _doc));
+      }
+      return cropTypes;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
   }
 }
