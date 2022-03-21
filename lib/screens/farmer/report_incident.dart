@@ -1,15 +1,9 @@
 import 'package:cropify/controllers/report_incident_controller.dart';
-import 'package:cropify/models/crop_type.dart';
 import 'package:cropify/screens/common/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
-import 'package:multi_select_flutter/util/multi_select_list_type.dart';
-
-import '../../controllers/auth_controller.dart';
 
 class ReportIncident extends StatelessWidget {
   final TextEditingController descriptionController = TextEditingController();
@@ -24,6 +18,7 @@ class ReportIncident extends StatelessWidget {
       child: Scaffold(
           appBar: const CropifyAppBar(),
           body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
                 child: const Align(
@@ -168,13 +163,13 @@ class ReportIncident extends StatelessWidget {
                                   hintStyle: TextStyle(fontSize: 10),
                                 ),
                               ),
-                              height: 90,
+                              height: 120,
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: const Color.fromARGB(255, 2, 70, 2),
                                 ),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
+                                    const BorderRadius.all(Radius.circular(10)),
                               ),
                             ))
                           ],
@@ -182,66 +177,43 @@ class ReportIncident extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8),
-                        //   child: Container(
-                        //     width: 60,
-                        //     height: 90,
-                        //     decoration: BoxDecoration(
-                        //       border: Border.all(
-                        //         color: Colors.indigo,
-                        //       ),
-                        //       borderRadius: BorderRadius.all(Radius.circular(20)),
-                        //     ),
-                        // child: Column(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: <Widget>[
-                        //     //increase quantity
-                        //     GestureDetector(
-                        //       child: Icon(
-                        //         Icons.add,
-                        //         color: Colors.indigo[900],
-                        //         size: 25,
-                        //       ),
-                        //       onTap: () {
-                        //         Get.find<ReportIncidentController>().increment();
-                        //       },
-                        //     ),
-                        //     const SizedBox(width: 10.0),
-                        //     GetBuilder<ReportIncidentController>(
-                        //       init: ReportIncidentController(),
-                        //       builder: (_) => Text(
-                        //         '${_.acres}',
-                        //         style: TextStyle(
-                        //           color: Colors.indigo[900],
-                        //           fontWeight: FontWeight.w900,
-                        //           fontSize: 25,
-                        //         ),
-                        //       ),
-                        //     ),
-
-                        //     const SizedBox(width: 10.0),
-                        //     //decrease quantity
-                        //     GestureDetector(
-                        //       child: Icon(
-                        //         Icons.remove,
-                        //         color: Colors.indigo[900],
-                        //         size: 25,
-                        //       ),
-                        //       onTap: () {
-                        //         //cannot decrease quantity below 1
-                        //         if (Get.find<ReportIncidentController>().acres !=
-                        //             1) {
-                        //           Get.find<ReportIncidentController>()
-                        //               .decrement();
-                        //         }
-                        //       },
-                        //     ),
-                        //   ],
-                        // ),
-                        //   ),
-                        // )
+                        Row(
+                          children: [
+                            const SizedBox(
+                              width: 100,
+                              child: Text("Photos & Videos"),
+                            ),
+                            Expanded(
+                                child: Container(
+                              child: OutlinedButton.icon(
+                                icon: const Icon(Icons.image),
+                                label: const Text(
+                                  "Select Images/Videos",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                onPressed: () => {Get.toNamed('/camera')},
+                                style: ElevatedButton.styleFrom(
+                                  side: const BorderSide(
+                                      width: 1.0,
+                                      color: Color.fromARGB(255, 2, 70, 2)),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(32.0),
+                                  ),
+                                ),
+                              ),
+                              height: 50,
+                            ))
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        ElevatedButton(
+                          child: const Text("Submit"),
+                          onPressed: () {},
+                        ),
                       ],
                     ),
                   ),
