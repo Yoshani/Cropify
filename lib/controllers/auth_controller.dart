@@ -9,12 +9,20 @@ class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Rxn<User> _firebaseUser = Rxn<User>();
 
+  var isProfilePathSet = false.obs;
+  var profilePath = ''.obs;
+
   User? get user => _firebaseUser.value;
 
   @override
   onInit() {
     _firebaseUser.bindStream(_auth.authStateChanges());
     super.onInit();
+  }
+
+  void setProfileImagePath(String path) {
+    profilePath.value = path;
+    isProfilePathSet.value = true;
   }
 
   void createUser(String email, String password) async {
@@ -42,6 +50,37 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar(
         "Error creating Account",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  void createOfficer(String email, String password, String name, String nic,
+      String phone) async {
+    try {
+      UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
+          email: email.trim(), password: password);
+      //create user in database
+      UserModel _user = UserModel(
+          id: _authResult.user?.uid,
+          name: name.trim(),
+          phone: phone,
+          email: _authResult.user?.email,
+          nic: nic.trim(),
+          role: "OFFICER");
+      if (await Database().createNewUser(_user)) {
+        Get.offAllNamed("/officerHome");
+      }
+    } on FirebaseException catch (e) {
+      Get.snackbar(
+        "Error Creating Account",
+        e.message.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } catch (e) {
+      Get.snackbar(
+        "Error Creating Account",
         e.toString(),
         snackPosition: SnackPosition.BOTTOM,
       );
