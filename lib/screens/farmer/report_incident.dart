@@ -1,5 +1,6 @@
 import 'package:cropify/controllers/report_incident_controller.dart';
 import 'package:cropify/screens/common/appbar.dart';
+import 'package:cropify/screens/farmer/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -184,7 +185,7 @@ class ReportIncident extends StatelessWidget {
                               child: Text("Photos & Videos"),
                             ),
                             Expanded(
-                                child: Container(
+                                child: SizedBox(
                               child: OutlinedButton.icon(
                                 icon: const Icon(Icons.image),
                                 label: const Text(
@@ -193,7 +194,42 @@ class ReportIncident extends StatelessWidget {
                                       color: Colors.black,
                                       fontWeight: FontWeight.w400),
                                 ),
-                                onPressed: () => {Get.toNamed('/camera')},
+                                onPressed: () => {
+                                  Get.dialog(Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Camera(),
+                                    ],
+                                  )),
+                                  // Get.defaultDialog(
+                                  //     titlePadding: EdgeInsets.all(0),
+                                  //     contentPadding:
+                                  //         EdgeInsets.fromLTRB(0, 0, 0, 5),
+                                  //     title: "",
+                                  //     content: Camera(),
+                                  //     barrierDismissible: false,
+                                  //     actions: [
+                                  //       OutlinedButton(
+                                  //           style: OutlinedButton.styleFrom(
+                                  //             side: const BorderSide(
+                                  //                 width: 1.0,
+                                  //                 color: Color.fromARGB(
+                                  //                     255, 2, 70, 2)),
+                                  //           ),
+                                  //           onPressed: () {
+                                  //             Get.back();
+                                  //           },
+                                  //           child: const Text(
+                                  //             "Cancel",
+                                  //             style: TextStyle(
+                                  //                 color: Color.fromARGB(
+                                  //                     255, 2, 70, 2)),
+                                  //           )),
+                                  //       ElevatedButton(
+                                  //           onPressed: () {},
+                                  //           child: const Text("Save"))
+                                  //     ])
+                                },
                                 style: ElevatedButton.styleFrom(
                                   side: const BorderSide(
                                       width: 1.0,

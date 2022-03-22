@@ -28,15 +28,15 @@ class Camera extends GetView<CameraController> {
                         onPressed: () {
                           controller.swipeLeft();
                         },
-                        icon: const Icon(Icons.arrow_left_outlined),
+                        icon: const Icon(Icons.keyboard_arrow_left),
                       ),
                       Expanded(
                         child: Container(
-                          height: 300,
+                          height: MediaQuery.of(context).size.width,
                           child: controller.medias!.isEmpty
                               ? FittedBox(
-                                  child: Image.asset('assets/no-image.png'),
-                                  fit: BoxFit.contain,
+                                  child: Image.asset('assets/no-image.jpg'),
+                                  fit: BoxFit.fill,
                                 )
                               // : Image.file(File(controller.selectedImagePath.value))
                               : Image.file(File(controller
@@ -47,8 +47,6 @@ class Camera extends GetView<CameraController> {
                             border: Border.all(
                               color: const Color.fromARGB(255, 2, 70, 2),
                             ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
                           ),
                         ),
                       ),
@@ -61,11 +59,29 @@ class Camera extends GetView<CameraController> {
                     ],
                   ),
                 )),
-            ElevatedButton(
-                onPressed: () {
-                  controller.pickImageFromGallery();
-                },
-                child: const Text("Camera")),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                OutlinedButton.icon(
+                  icon: const Icon(Icons.image_search),
+                  label: const Text(
+                    "Photo",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.w400),
+                  ),
+                  onPressed: () => {},
+                ),
+                OutlinedButton.icon(
+                  icon: const Icon(Icons.video_camera_back),
+                  label: const Text(
+                    "Video",
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.w400),
+                  ),
+                  onPressed: () => {},
+                ),
+              ],
+            ),
           ],
         ),
       ),

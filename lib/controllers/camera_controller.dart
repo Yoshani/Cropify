@@ -5,21 +5,21 @@ import 'package:image_picker/image_picker.dart';
 class CameraController extends GetxController {
   var selectedImagePath = ''.obs;
   final RxList<Media> _mediaList = <Media>[].obs;
-  final Rx<int> _visibleFile = 0.obs;
+  final Rx<int> _visibleFileIndex = 0.obs;
   Rx<String> visibleMediaPath = ''.obs;
 
   List<Media>? get medias => _mediaList;
-  int? get visibleFileIndex => _visibleFile.value;
+  int? get visibleFileIndex => _visibleFileIndex.value;
 
   void swipeRight() {
-    if (_visibleFile.value < _mediaList.length - 1) {
-      _visibleFile.value++;
+    if (_visibleFileIndex.value < _mediaList.length - 1) {
+      _visibleFileIndex.value++;
     }
   }
 
   void swipeLeft() {
-    if (_visibleFile.value != 0) {
-      _visibleFile.value--;
+    if (_visibleFileIndex.value != 0) {
+      _visibleFileIndex.value--;
     }
   }
 
@@ -37,7 +37,6 @@ class CameraController extends GetxController {
         await ImagePicker().pickImage(source: ImageSource.camera);
 
     if (pickedFile != null) {
-      // selectedImagePath.value = pickedFile.path;
       _mediaList.add(Media(file: pickedFile, type: "Image"));
     }
   }
