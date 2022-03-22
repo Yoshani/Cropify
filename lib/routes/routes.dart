@@ -1,11 +1,12 @@
 import 'package:cropify/screens/common/splash_screen.dart';
 import 'package:cropify/screens/farmer/home_root.dart';
-import 'package:cropify/screens/officer/home.dart';
 import 'package:get/get.dart';
 
 import '../controllers/bindings/splash_binding.dart';
 import '../screens/common/root.dart';
 import '../screens/common/root_home.dart';
+import '../screens/officer/home_root.dart';
+import '../screens/officer/incident_info.dart';
 
 class GetPages {
   static List<GetPage> init() {
@@ -26,8 +27,12 @@ class GetPages {
           transition: Transition.zoom),
       GetPage(
           name: "/officerHomeRoot",
-          page: () => OfficerHome(),
+          page: () => OfficerHomeRoot(),
           transition: Transition.zoom),
+      GetPage(
+          name: "/IncidentInfo",
+          page: () => IncidentInfo(),
+          transition: Transition.cupertinoDialog),
     ];
   }
 }

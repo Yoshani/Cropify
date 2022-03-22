@@ -12,7 +12,7 @@ class OfficerHomeRoot extends GetView<OfficerBottomNavController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: OfficerAppBar(),
+        appBar: const OfficerAppBar(),
         body: Navigator(
           key: Get.nestedKey(1),
           initialRoute: 'officerHome',
