@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cropify/controllers/user_controller.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 
 import '../models/user.dart';
@@ -36,7 +39,8 @@ class AuthController extends GetxController {
           phone: null,
           email: _authResult.user?.email,
           nic: null,
-          role: "FARMER");
+          role: "FARMER",
+          profilePicRef: null);
       if (await Database().createNewUser(_user)) {
         Get.find<UserController>().user = _user;
         Get.toNamed("/home");
@@ -61,6 +65,22 @@ class AuthController extends GetxController {
     try {
       UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
+
+      //upload profile picture to firebase storage
+      String? url;
+      if (isProfilePathSet.value == true) {
+        String filename = profilePath.value;
+        File imageFile = File(profilePath.value);
+
+        final Reference storageReference =
+            FirebaseStorage.instance.ref().child("profiles/$filename");
+        UploadTask uploadTask = storageReference.putFile(imageFile);
+
+        url = await (await uploadTask).ref.getDownloadURL();
+      } else {
+        url = null;
+      }
+
       //create user in database
       UserModel _user = UserModel(
           id: _authResult.user?.uid,
@@ -68,9 +88,10 @@ class AuthController extends GetxController {
           phone: phone,
           email: _authResult.user?.email,
           nic: nic.trim(),
-          role: "OFFICER");
+          role: "OFFICER",
+          profilePicRef: url);
       if (await Database().createNewUser(_user)) {
-        Get.offAllNamed("/officerHome");
+        Get.offAllNamed("/officerHomeRoot");
       }
     } on FirebaseException catch (e) {
       Get.snackbar(

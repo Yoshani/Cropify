@@ -15,7 +15,8 @@ class Database {
         "email": user.email,
         "phone": user.phone,
         "nic": user.nic,
-        "role": user.role
+        "role": user.role,
+        "profilePicRef": user.profilePicRef
       });
       return true;
     } catch (e) {
@@ -49,7 +50,8 @@ class Database {
         "phone": user.phone,
         "email": user.email,
         "nic": user.nic,
-        "role": user.role
+        "role": user.role,
+        "profilePicRef": user.profilePicRef
       });
       // save farm
       await _firestore.collection("farms").doc().set({

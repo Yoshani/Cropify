@@ -161,7 +161,7 @@ class OfficerRegistration extends StatelessWidget {
                 backgroundImage: authController.isProfilePathSet.value == true
                     ? FileImage(File(authController.profilePath.value))
                         as ImageProvider
-                    : AssetImage("assets/profile.png"),
+                    : const AssetImage("assets/profile.png"),
               )),
           Positioned(
             child: InkWell(
@@ -224,9 +224,9 @@ class OfficerRegistration extends StatelessWidget {
   Future<void> takePhoto(ImageSource source) async {
     final pickedFile = await ImagePicker().getImage(source: source);
     if (pickedFile != null) {
-      userImageFile = File(pickedFile!.path);
+      userImageFile = File(pickedFile.path);
       authController.setProfileImagePath(pickedFile.path);
-      // print(userImageFile);
+
       Get.back();
     }
   }
