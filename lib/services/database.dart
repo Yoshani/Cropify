@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/bank.dart';
 import 'package:cropify/models/farm.dart';
 import 'package:cropify/models/incident.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/user.dart';

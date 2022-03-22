@@ -12,5 +12,6 @@ class IncidentController extends GetxController {
   void onInit() async {
     List<IncidentModel> _list = await Database().getIncidents();
     incidentList.assignAll(_list);
+    print(incidents);
   }
 }

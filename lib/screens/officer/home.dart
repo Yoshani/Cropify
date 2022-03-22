@@ -27,7 +27,7 @@ class OfficerHome extends StatelessWidget {
           GetX<IncidentController>(
             init: Get.put<IncidentController>(IncidentController()),
             builder: (IncidentController incidentController) {
-              if (!incidentController.incidents.isNotEmpty) {
+              if (incidentController.incidents.isNotEmpty) {
                 return Expanded(
                   child: ListView.builder(
                       itemCount: incidentController.incidents.length,
@@ -48,9 +48,10 @@ class OfficerHome extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        const Text(
-                                          "Sachini Dissanayaka",
-                                          style: TextStyle(
+                                        Text(
+                                          incidentController
+                                              .incidents[index].user!.name!,
+                                          style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                               color:
