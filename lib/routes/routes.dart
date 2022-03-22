@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import '../controllers/bindings/splash_binding.dart';
 import '../screens/common/root.dart';
 import '../screens/common/root_home.dart';
-import '../screens/farmer/camera_screen.dart';
 
 class GetPages {
   static List<GetPage> init() {
@@ -31,11 +30,6 @@ class GetPages {
           name: "/farmerReportIncident",
           page: () => ReportIncident(),
           binding: ReportIncidentBinding(),
-          transition: Transition.zoom),
-      GetPage(
-          name: "/camera",
-          page: () => Camera(),
-          binding: CameraBinding(),
           transition: Transition.zoom),
     ];
   }
