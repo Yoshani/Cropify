@@ -201,34 +201,6 @@ class ReportIncident extends StatelessWidget {
                                       Camera(),
                                     ],
                                   )),
-                                  // Get.defaultDialog(
-                                  //     titlePadding: EdgeInsets.all(0),
-                                  //     contentPadding:
-                                  //         EdgeInsets.fromLTRB(0, 0, 0, 5),
-                                  //     title: "",
-                                  //     content: Camera(),
-                                  //     barrierDismissible: false,
-                                  //     actions: [
-                                  //       OutlinedButton(
-                                  //           style: OutlinedButton.styleFrom(
-                                  //             side: const BorderSide(
-                                  //                 width: 1.0,
-                                  //                 color: Color.fromARGB(
-                                  //                     255, 2, 70, 2)),
-                                  //           ),
-                                  //           onPressed: () {
-                                  //             Get.back();
-                                  //           },
-                                  //           child: const Text(
-                                  //             "Cancel",
-                                  //             style: TextStyle(
-                                  //                 color: Color.fromARGB(
-                                  //                     255, 2, 70, 2)),
-                                  //           )),
-                                  //       ElevatedButton(
-                                  //           onPressed: () {},
-                                  //           child: const Text("Save"))
-                                  //     ])
                                 },
                                 style: ElevatedButton.styleFrom(
                                   side: const BorderSide(
