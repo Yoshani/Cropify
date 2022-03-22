@@ -1,5 +1,6 @@
 import 'package:cropify/screens/common/splash_screen.dart';
 import 'package:cropify/screens/farmer/home_root.dart';
+import 'package:cropify/screens/officer/home.dart';
 import 'package:get/get.dart';
 
 import '../controllers/bindings/splash_binding.dart';
@@ -22,6 +23,10 @@ class GetPages {
       GetPage(
           name: "/farmerHomeRoot",
           page: () => FarmerHomeRoot(),
+          transition: Transition.zoom),
+      GetPage(
+          name: "/officerHomeRoot",
+          page: () => OfficerHome(),
           transition: Transition.zoom),
     ];
   }
