@@ -14,8 +14,6 @@ class ReportIncident extends GetView<ReportIncidentController> {
 
   final CameraController cameraController = Get.put(CameraController());
 
-  List<String>? _selectedCropTypes = [];
-
   ReportIncident({Key? key}) : super(key: key);
 
   @override
@@ -74,7 +72,7 @@ class ReportIncident extends GetView<ReportIncidentController> {
                                           .toList(),
                                       listType: MultiSelectListType.CHIP,
                                       onConfirm: (values) {
-                                        _selectedCropTypes = values
+                                        controller.selectedCropTypes = values
                                             .map((e) => e.toString())
                                             .toList();
                                       },
@@ -228,9 +226,9 @@ class ReportIncident extends GetView<ReportIncidentController> {
                         ElevatedButton(
                           child: const Text("Submit"),
                           onPressed: () {
-                            if (GetUtils.isNull(_selectedCropTypes) ||
-                                GetUtils.isNull(acresController.value) ||
-                                GetUtils.isNull(descriptionController.value)) {
+                            if (controller.selectedCrops.isEmpty ||
+                                acresController.value.text.isEmpty ||
+                                descriptionController.value.text.isEmpty) {
                               Get.snackbar(
                                   "Invalid Report", "Please fill all fields",
                                   snackPosition: SnackPosition.BOTTOM,
@@ -248,10 +246,17 @@ class ReportIncident extends GetView<ReportIncidentController> {
                             } else {
                               controller.reportIncident(
                                   Get.find<UserController>().user,
-                                  _selectedCropTypes!,
+                                  controller.selectedCrops,
                                   double.parse(acresController.text),
                                   descriptionController.text,
                                   Get.find<CameraController>().medias!);
+                            }
+
+                            if (controller.isLoading.value) {
+                              Get.dialog(
+                                  const Center(
+                                      child: CircularProgressIndicator()),
+                                  barrierDismissible: false);
                             }
                           },
                         ),

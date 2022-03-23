@@ -13,8 +13,14 @@ import '../services/database.dart';
 
 class ReportIncidentController extends GetxController {
   final List<String> _cropTypeList = <String>[].obs;
+  List<String> _selectedCropTypes = [];
 
   List<String>? get crops => _cropTypeList;
+
+  set selectedCropTypes(List<String> value) => _selectedCropTypes = value;
+  List<String> get selectedCrops => _selectedCropTypes;
+
+  final isLoading = false.obs;
 
   @override
   onInit() {
@@ -26,9 +32,9 @@ class ReportIncidentController extends GetxController {
     _cropTypeList.assignAll(await Database().getCropTypes());
   }
 
-  Future<bool> reportIncident(UserModel user, List<String> cropTypes,
-      double acres, String description, List<Media> media) async {
-    bool result = false;
+  void reportIncident(UserModel user, List<String> cropTypes, double acres,
+      String description, List<Media> media) async {
+    isLoading.value = true;
     UserAvatar _userAvatar = UserAvatar(
         userId: user.id,
         name: user.name,
@@ -71,16 +77,15 @@ class ReportIncidentController extends GetxController {
           user: _userAvatar);
 
       if (await Database().createIncident(_incident)) {
-        Get.offNamed("/farmerReportIncident");
-        result = true;
+        isLoading.value = false;
+        Get.back();
         Get.snackbar("Success", "Your incident has been reported",
             snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green);
       }
     } catch (_) {
+      isLoading.value = false;
       Get.snackbar("Sorry", "Something went wrong",
           snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red);
-      result = false;
     }
-    return result;
   }
 }
