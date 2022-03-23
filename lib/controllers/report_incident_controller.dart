@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/incident.dart';
+import 'package:cropify/models/incident_status.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +74,7 @@ class ReportIncidentController extends GetxController {
           media: mediaDTOs,
           acres: acres,
           date: Timestamp.fromDate(DateTime.now()),
-          status: "NEW",
+          status: IncidentStatus.NEW,
           user: _userAvatar);
 
       if (await Database().createIncident(_incident)) {

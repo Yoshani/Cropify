@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cropify/models/bank.dart';
-import 'package:cropify/models/crop_type.dart';
-import 'package:cropify/models/farm.dart';
 import 'package:cropify/models/incident.dart';
+import 'package:cropify/models/incident_status.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/user.dart';
@@ -49,8 +47,22 @@ class Database {
 
       return _doc.docs
           .map((doc) => IncidentModel.fromDocumentSnapshot(
-              documentSnapshot: doc.data() as Map<String, dynamic>))
+              id: doc.id, documentSnapshot: doc.data() as Map<String, dynamic>))
           .toList();
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+  }
+
+  Future<void> setIncidentStatus(String id, IncidentStatus status) async {
+    try {
+      await _firestore
+          .collection("incidents")
+          .doc(id)
+          .update({"status": status.name});
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -120,7 +132,7 @@ class Database {
         "media": media,
         "acres": incident.acres,
         "date": incident.date,
-        "status": incident.status,
+        "status": incident.status!.name,
         "user": incident.user!.toMap()
       });
       return true;
