@@ -94,15 +94,15 @@ class Database {
     }
   }
 
-  Future<List<CropType>> getCropTypes() async {
+  Future<List<String>> getCropTypes() async {
     try {
-      List<CropType> cropTypes = [];
+      List<String> cropTypeNames = [];
 
       QuerySnapshot _query = await _firestore.collection("crops").get();
       for (var _doc in _query.docs) {
-        cropTypes.add(CropType.fromDocumentSnapshot(documentSnapshot: _doc));
+        cropTypeNames.add(_doc["name"]);
       }
-      return cropTypes;
+      return cropTypeNames;
     } catch (e) {
       if (kDebugMode) {
         print(e);

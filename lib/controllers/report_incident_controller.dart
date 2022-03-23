@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cropify/models/crop_type.dart';
 import 'package:cropify/models/incident.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
@@ -13,9 +12,9 @@ import '../models/user.dart';
 import '../services/database.dart';
 
 class ReportIncidentController extends GetxController {
-  final List<CropType> _cropTypeList = <CropType>[].obs;
+  final List<String> _cropTypeList = <String>[].obs;
 
-  List<CropType>? get crops => _cropTypeList;
+  List<String>? get crops => _cropTypeList;
 
   @override
   onInit() {
@@ -27,8 +26,9 @@ class ReportIncidentController extends GetxController {
     _cropTypeList.assignAll(await Database().getCropTypes());
   }
 
-  void reportIncident(UserModel user, List<String> cropTypes, double acres,
-      String description, List<Media> media) async {
+  Future<bool> reportIncident(UserModel user, List<String> cropTypes,
+      double acres, String description, List<Media> media) async {
+    bool result = false;
     UserAvatar _userAvatar = UserAvatar(
         userId: user.id,
         name: user.name,
@@ -62,7 +62,7 @@ class ReportIncidentController extends GetxController {
 
     try {
       IncidentModel _incident = IncidentModel(
-          types: cropTypes,
+          types: cropTypes.join(', '),
           description: description.trim(),
           media: mediaDTOs,
           acres: acres,
@@ -72,12 +72,15 @@ class ReportIncidentController extends GetxController {
 
       if (await Database().createIncident(_incident)) {
         Get.offNamed("/farmerReportIncident");
+        result = true;
         Get.snackbar("Success", "Your incident has been reported",
             snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green);
       }
     } catch (_) {
       Get.snackbar("Sorry", "Something went wrong",
           snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red);
+      result = false;
     }
+    return result;
   }
 }

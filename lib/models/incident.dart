@@ -4,7 +4,7 @@ import 'package:cropify/models/user.dart';
 
 class IncidentModel {
   String? id;
-  List<String>? types;
+  String? types;
   String? description;
   double? acres;
   List<MediaDTO>? media;

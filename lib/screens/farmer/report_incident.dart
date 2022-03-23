@@ -14,7 +14,7 @@ class ReportIncident extends GetView<ReportIncidentController> {
 
   final CameraController cameraController = Get.put(CameraController());
 
-  List<String>? _selectedCropTypes;
+  List<String>? _selectedCropTypes = [];
 
   ReportIncident({Key? key}) : super(key: key);
 
@@ -70,8 +70,7 @@ class ReportIncident extends GetView<ReportIncidentController> {
                                   if (_.crops!.isNotEmpty) {
                                     return MultiSelectDialogField(
                                       items: _.crops!
-                                          .map((e) =>
-                                              MultiSelectItem(e, e.name!))
+                                          .map((e) => MultiSelectItem(e, e))
                                           .toList(),
                                       listType: MultiSelectListType.CHIP,
                                       onConfirm: (values) {
