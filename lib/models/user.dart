@@ -35,9 +35,8 @@ class UserModel {
   //   // TODO: get bank and farm if needed
   // }
 
-  UserModel.fromDocumentSnapshot(
-      {required Map<String, dynamic> documentSnapshot}) {
-    id = documentSnapshot["id"];
+  UserModel.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
+    id = documentSnapshot.id;
     name = documentSnapshot["name"];
     phone = documentSnapshot["phone"];
     email = documentSnapshot["email"];

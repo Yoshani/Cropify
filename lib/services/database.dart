@@ -33,11 +33,8 @@ class Database {
     try {
       DocumentSnapshot _doc =
           await _firestore.collection("users").doc(uid).get();
-      print("---------------------------------------");
-      print(_doc.data());
 
-      return UserModel.fromDocumentSnapshot(
-          documentSnapshot: _doc.data() as Map<String, dynamic>);
+      return UserModel.fromDocumentSnapshot(documentSnapshot: _doc);
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -87,19 +84,7 @@ class Database {
         "bank": user.bank!.toMap(),
         "farm": user.farm!.toMap()
       });
-      // // save farm
-      // await _firestore.collection("farms").doc().set({
-      //   "userId": _firestore.collection("users").doc(user.id),
-      //   "name": farm.name,
-      //   "address": farm.address,
-      //   "regNum": farm.regNum
-      // });
-      // // save bank
-      // await _firestore.collection("banks").doc().set({
-      //   "userId": _firestore.collection("users").doc(user.id),
-      //   "name": bank.name,
-      //   "accountNum": bank.accountNum
-      // });
+
       return true;
     } catch (e) {
       if (kDebugMode) {
