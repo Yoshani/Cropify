@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/bank.dart';
 import 'package:cropify/models/crop_type.dart';
 import 'package:cropify/models/farm.dart';
+import 'package:cropify/models/incident.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/user.dart';
@@ -54,14 +55,14 @@ class Database {
       });
       // save farm
       await _firestore.collection("farms").doc().set({
-        "userId": user.id,
+        "userId": _firestore.collection("users").doc(user.id),
         "name": farm.name,
         "address": farm.address,
         "regNum": farm.regNum
       });
       // save bank
       await _firestore.collection("banks").doc().set({
-        "userId": user.id,
+        "userId": _firestore.collection("users").doc(user.id),
         "name": bank.name,
         "accountNum": bank.accountNum
       });
@@ -88,6 +89,26 @@ class Database {
         print(e);
       }
       rethrow;
+    }
+  }
+
+  Future<bool> createIncident(IncidentModel incident) async {
+    try {
+      await _firestore.collection("incidents").add({
+        "types": incident.types,
+        "description": incident.description,
+        "media": incident.media,
+        "acres": incident.acres,
+        "date": incident.date,
+        "status": incident.status,
+        "user": _firestore.collection("users").doc(incident.userId)
+      });
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return false;
     }
   }
 }

@@ -68,9 +68,7 @@ class ReportIncident extends StatelessWidget {
                                               MultiSelectItem(e, e.name!))
                                           .toList(),
                                       listType: MultiSelectListType.CHIP,
-                                      onConfirm: (values) {
-                                        // _selectedCropTypes = values;
-                                      },
+                                      onConfirm: (values) {},
                                     );
                                   } else {
                                     return const Center(
