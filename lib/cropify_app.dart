@@ -13,7 +13,7 @@ class CropifyApp extends StatelessWidget {
       title: "Cropify",
       debugShowCheckedModeBanner: false,
       initialBinding: AuthBinding(),
-      theme: Themes.light,
+      theme: CropifyThemes.light,
       initialRoute: "/",
       getPages: GetPages.init(),
       defaultTransition: Transition.zoom,

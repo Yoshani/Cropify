@@ -6,6 +6,7 @@
 import 'dart:io';
 
 import 'package:cropify/controllers/auth_controller.dart';
+import 'package:cropify/screens/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cropify/screens/officer/appbar.dart';
@@ -35,14 +36,11 @@ class OfficerRegistration extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 20,
+              height: 15,
             ),
             const Text(
               "Complete Profile",
-              style: TextStyle(
-                  color: Color.fromARGB(255, 20, 9, 119),
-                  fontFamily: "AbhayaLibre",
-                  fontSize: 30),
+              style: CropifyThemes.titleTextTheme,
             ),
             const SizedBox(
               height: 25,

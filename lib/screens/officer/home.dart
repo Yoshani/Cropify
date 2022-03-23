@@ -1,4 +1,6 @@
 import 'package:cropify/controllers/incident_controller.dart';
+import 'package:cropify/models/incident_status.dart';
+import 'package:cropify/screens/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,7 +36,7 @@ class OfficerHome extends StatelessWidget {
                       itemCount: incidentController.incidents.length,
                       itemBuilder: (BuildContext context, int index) {
                         if ((incidentController.incidents[index].status ==
-                            "NEW")) {
+                            IncidentStatus.NEW)) {
                           return Padding(
                             padding:
                                 const EdgeInsets.fromLTRB(10.0, 0.0, 0, 10.0),
@@ -55,12 +57,7 @@ class OfficerHome extends StatelessWidget {
                                           Text(
                                             incidentController
                                                 .incidents[index].user!.name!,
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromARGB(
-                                                    255, 1, 0, 8),
-                                                fontFamily: "AbhayaLibre"),
+                                            style: CropifyThemes.mainTextTheme,
                                           ),
                                           Text(
                                             incidentController
@@ -69,11 +66,7 @@ class OfficerHome extends StatelessWidget {
                                                 .toString()
                                                 .split(" ")
                                                 .first,
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Color.fromARGB(
-                                                    255, 78, 78, 80),
-                                                fontFamily: "AbhayaLibre"),
+                                            style: CropifyThemes.subTextTheme,
                                           ),
                                         ],
                                       ),
@@ -81,13 +74,8 @@ class OfficerHome extends StatelessWidget {
                                         alignment: Alignment.bottomLeft,
                                         child: Text(
                                           incidentController
-                                              .incidents[index].description!,
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 78, 78, 80),
-                                              fontFamily: "AbhayaLibre"),
+                                              .incidents[index].types!,
+                                          style: CropifyThemes.subTextTheme,
                                         ),
                                       ),
                                       Align(
@@ -95,18 +83,16 @@ class OfficerHome extends StatelessWidget {
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               primary: const Color.fromARGB(
-                                                  255, 2, 3, 70)),
+                                                  255, 20, 9, 119)),
                                           onPressed: () {
-                                            Get.toNamed("/IncidentInfo");
+                                            Get.toNamed("/IncidentInfo",
+                                                arguments: incidentController
+                                                    .incidents[index]);
                                           },
                                           child: const Text(
                                             "Info",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontFamily: "AbhayaLibre",
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                            style:
+                                                CropifyThemes.buttonTextTheme,
                                           ),
                                         ),
                                       ),
