@@ -61,17 +61,44 @@ class FarmerRegistration extends GetWidget<UserController> {
                           TextFormField(
                             decoration: const InputDecoration(hintText: "Name"),
                             controller: nameController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Name is required";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           TextFormField(
                             decoration: const InputDecoration(
                                 hintText: "Mobile Number"),
                             controller: phoneController,
                             keyboardType: TextInputType.number,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Mobile number is required";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           TextFormField(
                             decoration:
                                 const InputDecoration(hintText: "NIC Number"),
                             controller: nicController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "NIC number is required";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                         ]),
                   ),
@@ -103,16 +130,43 @@ class FarmerRegistration extends GetWidget<UserController> {
                             decoration:
                                 const InputDecoration(hintText: "Farm Name"),
                             controller: farmNameController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Farm name is required";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           TextFormField(
                             decoration:
                                 const InputDecoration(hintText: "Address"),
                             controller: addressController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Address is required";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           TextFormField(
                             decoration: const InputDecoration(
                                 hintText: "Registration Number"),
                             controller: regNumController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Registration number is required";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                         ]),
                   ),
@@ -144,11 +198,29 @@ class FarmerRegistration extends GetWidget<UserController> {
                             decoration:
                                 const InputDecoration(hintText: "Bank Name"),
                             controller: bankNameController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Bank name is required";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                           TextFormField(
                             decoration: const InputDecoration(
                                 hintText: "Account Number"),
                             controller: accountNumController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Account number is required";
+                              } else {
+                                return null;
+                              }
+                            },
                           ),
                         ]),
                   ),
@@ -160,7 +232,25 @@ class FarmerRegistration extends GetWidget<UserController> {
               ElevatedButton(
                 child: const Text("Register"),
                 onPressed: () {
-                  if (GetUtils.isPhoneNumber(phoneController.text)) {
+                  if (nameController.value.text.isEmpty ||
+                      phoneController.value.text.isEmpty ||
+                      nicController.value.text.isEmpty ||
+                      bankNameController.value.text.isEmpty ||
+                      accountNumController.value.text.isEmpty ||
+                      farmNameController.value.text.isEmpty ||
+                      addressController.value.text.isEmpty ||
+                      regNumController.value.text.isEmpty) {
+                    Get.snackbar("Invalid", "Please fill all fields",
+                        snackPosition: SnackPosition.BOTTOM,
+                        snackStyle: SnackStyle.FLOATING,
+                        backgroundColor: Colors.red);
+                  } else if (!GetUtils.isPhoneNumber(phoneController.text)) {
+                    Get.snackbar(
+                        "Incorrect Format", "Please enter a valid phone number",
+                        snackPosition: SnackPosition.BOTTOM,
+                        snackStyle: SnackStyle.FLOATING,
+                        backgroundColor: Colors.red);
+                  } else {
                     controller.registerUser(
                       nameController.text,
                       phoneController.text,
@@ -171,11 +261,6 @@ class FarmerRegistration extends GetWidget<UserController> {
                       addressController.text,
                       regNumController.text,
                     );
-                  } else {
-                    Get.snackbar(
-                        "Incorrect Format", "Please enter a valid phone number",
-                        snackPosition: SnackPosition.BOTTOM,
-                        snackStyle: SnackStyle.FLOATING);
                   }
                 },
               ),

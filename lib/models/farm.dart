@@ -1,19 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class FarmModel {
-  String? id;
-  String? userId;
   String? name;
   String? address;
   String? regNum;
 
-  FarmModel({this.id, this.userId, this.name, this.address, this.regNum});
+  FarmModel({this.name, this.address, this.regNum});
 
-  FarmModel.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
-    id = documentSnapshot.id;
-    userId = documentSnapshot["userId"];
-    name = documentSnapshot["name"];
-    address = documentSnapshot["address"];
-    regNum = documentSnapshot["regNum"];
+  FarmModel.fromData(Map<String, dynamic>? documentSnapshot) {
+    name = documentSnapshot != null ? documentSnapshot["name"] : null;
+    address = documentSnapshot != null ? documentSnapshot["address"] : null;
+    regNum = documentSnapshot != null ? documentSnapshot["regNum"] : null;
+  }
+
+  Map<String, dynamic> toMap() {
+    return {'name': name, 'address': address, 'regNum': regNum};
   }
 }

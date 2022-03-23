@@ -40,7 +40,9 @@ class AuthController extends GetxController {
           email: _authResult.user?.email,
           nic: null,
           role: "FARMER",
-          profilePicRef: null);
+          profilePicRef: null,
+          bank: null,
+          farm: null);
       if (await Database().createNewUser(_user)) {
         Get.find<UserController>().user = _user;
         Get.toNamed("/home");

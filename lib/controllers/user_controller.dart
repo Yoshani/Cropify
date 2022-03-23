@@ -21,19 +21,19 @@ class UserController extends GetxController {
   void registerUser(String userName, String phone, String nic, String bankName,
       String accountNum, String farmName, String address, String regNum) async {
     try {
-      user.name = userName.trim();
-      user.nic = nic.trim();
-      user.phone = phone;
-      BankModel _bank = BankModel(
-          userId: user.id,
-          name: bankName.trim(),
-          accountNum: accountNum.trim());
+      BankModel _bank =
+          BankModel(name: bankName.trim(), accountNum: accountNum.trim());
       FarmModel _farm = FarmModel(
-          userId: user.id,
           name: farmName.trim(),
           address: address.trim(),
           regNum: regNum.trim());
-      if (await Database().registerUser(user, _farm, _bank)) {
+      user.name = userName.trim();
+      user.nic = nic.trim();
+      user.phone = phone;
+      user.bank = _bank;
+      user.farm = _farm;
+
+      if (await Database().registerUser(user)) {
         Get.offAllNamed("/farmerHomeRoot");
       }
     } on FirebaseException catch (e) {

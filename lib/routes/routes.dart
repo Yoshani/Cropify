@@ -1,5 +1,8 @@
+import 'package:cropify/controllers/bindings/camera_binding.dart';
+import 'package:cropify/controllers/bindings/report_incident_binding.dart';
 import 'package:cropify/screens/common/splash_screen.dart';
 import 'package:cropify/screens/farmer/home_root.dart';
+import 'package:cropify/screens/farmer/report_incident.dart';
 import 'package:get/get.dart';
 
 import '../controllers/bindings/splash_binding.dart';
@@ -24,6 +27,11 @@ class GetPages {
       GetPage(
           name: "/farmerHomeRoot",
           page: () => FarmerHomeRoot(),
+          transition: Transition.zoom),
+      GetPage(
+          name: "/farmerReportIncident",
+          page: () => ReportIncident(),
+          binding: ReportIncidentBinding(),
           transition: Transition.zoom),
       GetPage(
           name: "/officerHomeRoot",

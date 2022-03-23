@@ -1,6 +1,7 @@
 import 'package:cropify/utils/carousal_items.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:get/get.dart';
 
 class FarmerHome extends StatelessWidget {
   const FarmerHome({Key? key}) : super(key: key);
@@ -32,7 +33,9 @@ class FarmerHome extends StatelessWidget {
                         primary: Colors.red,
                         minimumSize: const Size.fromHeight(60),
                         elevation: 5),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed('/farmerReportIncident');
+                    },
                     child: const Text(
                       "REPORT INCIDENT",
                       style: TextStyle(
@@ -84,6 +87,7 @@ class FarmerHome extends StatelessWidget {
                                         const SizedBox(
                                           width: 10,
                                         ),
+                                        // TODO: fix overflow on registration path
                                         Expanded(
                                             child: Column(
                                           mainAxisAlignment:
