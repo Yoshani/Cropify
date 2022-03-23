@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/crop_type.dart';
-import 'package:cropify/models/incident.dart';
+import 'package:cropify/models/incident2.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
