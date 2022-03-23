@@ -6,8 +6,7 @@ import '../screens/farmer/complete_incident.dart';
 import '../screens/farmer/home.dart';
 import '../screens/farmer/incident_log.dart';
 
-class BottomNavController extends GetxController {
-  // static BottomNavController get to => Get.find();
+class FarmerBottomNavController extends GetxController {
   var currentIndex = 0.obs;
 
   final pages = <String>[
