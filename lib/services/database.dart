@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/bank.dart';
 import 'package:cropify/models/farm.dart';
+import 'package:cropify/models/incident.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/user.dart';
@@ -40,6 +42,34 @@ class Database {
       rethrow;
     }
   }
+
+  Future<List<IncidentModel>> getIncidents() async {
+    try {
+      QuerySnapshot _doc = await _firestore.collection("incidents").get();
+
+      return _doc.docs
+          .map((doc) => IncidentModel.fromDocumentSnapshot(
+              documentSnapshot: doc.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+  }
+
+  // Stream<List<IncidentModel>> incidentStream() {
+  //   Stream<List<IncidentModel>> stream = _firestore
+  //       .collection("incidents")
+  //       .orderBy("date", descending: true)
+  //       .snapshots()
+  //       .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+  //           .map((doc) => IncidentModel.fromDocumentSnapshot(
+  //               documentSnapshot: doc.data() as Map<String, dynamic>))
+  //           .toList());
+  //   return stream;
+  // }
 
   Future<bool> registerUser(
       UserModel user, FarmModel farm, BankModel bank) async {

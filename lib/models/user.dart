@@ -28,3 +28,19 @@ class UserModel {
     profilePicRef = documentSnapshot["profilePicRef"];
   }
 }
+
+class UserAvatar {
+  String? userId;
+  String? name;
+  String? address;
+  String? bankName;
+  String? accountNum;
+
+  UserAvatar.fromData(Map<String, dynamic> data) {
+    userId = data["userId"];
+    name = data["name"];
+    address = data["address"];
+    bankName = data["bankName"];
+    accountNum = data["accountNum"];
+  }
+}

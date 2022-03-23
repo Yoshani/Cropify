@@ -52,7 +52,7 @@ class OfficerRegistration extends StatelessWidget {
               height: 25,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(5.0, 0, 0, 5.0),
+              padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 10.0),
               child: Card(
                 shadowColor: const Color.fromARGB(255, 6, 118, 182),
                 elevation: 5,
@@ -89,7 +89,7 @@ class OfficerRegistration extends StatelessWidget {
               height: 10,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(5.0, 0, 0, 5.0),
+              padding: const EdgeInsets.fromLTRB(10.0, 0, 0, 10.0),
               child: Card(
                 shadowColor: const Color.fromARGB(255, 6, 118, 182),
                 elevation: 5,
@@ -129,6 +129,8 @@ class OfficerRegistration extends StatelessWidget {
             ),
             ElevatedButton(
               child: const Text("Submit"),
+              style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 2, 3, 70)),
               onPressed: () {
                 if (GetUtils.isPhoneNumber(phoneController.text)) {
                   authController.createOfficer(

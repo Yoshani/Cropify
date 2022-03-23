@@ -1,7 +1,7 @@
 import 'package:cropify/screens/common/loading.dart';
 import 'package:cropify/screens/farmer/home_root.dart';
 import 'package:cropify/screens/farmer/registration.dart';
-import 'package:cropify/screens/officer/home.dart';
+import 'package:cropify/screens/officer/home_root.dart';
 import 'package:cropify/screens/officer/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +26,7 @@ class RootHome extends GetWidget<AuthController> {
             if (_.user.role == "FARMER") {
               return FarmerHomeRoot();
             } else {
-              return OfficerHome();
+              return OfficerHomeRoot();
             }
           } else {
             if (_.user.role == "FARMER") {
