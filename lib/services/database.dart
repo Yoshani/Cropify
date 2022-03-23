@@ -123,15 +123,16 @@ class Database {
   }
 
   Future<bool> createIncident(IncidentModel incident) async {
+    List media = incident.media!.map((e) => e.toMap()).toList();
     try {
       await _firestore.collection("incidents").add({
         "types": incident.types,
         "description": incident.description,
-        "media": incident.media,
+        "media": media,
         "acres": incident.acres,
         "date": incident.date,
         "status": incident.status,
-        // "user": _firestore.collection("users").doc(incident.userId)
+        "user": incident.user!.toMap()
       });
       return true;
     } catch (e) {

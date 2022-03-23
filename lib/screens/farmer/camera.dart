@@ -10,8 +10,6 @@ import 'package:image_picker/image_picker.dart';
 class Camera extends GetView<CameraController> {
   Camera({Key? key}) : super(key: key);
 
-  final CameraController cameraController = Get.put(CameraController());
-
   @override
   Widget build(BuildContext context) {
     return Card(

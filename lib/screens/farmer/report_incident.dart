@@ -1,4 +1,6 @@
+import 'package:cropify/controllers/camera_controller.dart';
 import 'package:cropify/controllers/report_incident_controller.dart';
+import 'package:cropify/controllers/user_controller.dart';
 import 'package:cropify/screens/common/appbar.dart';
 import 'package:cropify/screens/farmer/camera.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-class ReportIncident extends StatelessWidget {
+class ReportIncident extends GetView<ReportIncidentController> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController acresController = TextEditingController();
+
+  final CameraController cameraController = Get.put(CameraController());
+
+  List<String>? _selectedCropTypes;
 
   ReportIncident({Key? key}) : super(key: key);
 
@@ -68,7 +74,11 @@ class ReportIncident extends StatelessWidget {
                                               MultiSelectItem(e, e.name!))
                                           .toList(),
                                       listType: MultiSelectListType.CHIP,
-                                      onConfirm: (values) {},
+                                      onConfirm: (values) {
+                                        _selectedCropTypes = values
+                                            .map((e) => e.toString())
+                                            .toList();
+                                      },
                                     );
                                   } else {
                                     return const Center(
@@ -218,7 +228,33 @@ class ReportIncident extends StatelessWidget {
                         ),
                         ElevatedButton(
                           child: const Text("Submit"),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (GetUtils.isNull(_selectedCropTypes) ||
+                                GetUtils.isNull(acresController.value) ||
+                                GetUtils.isNull(descriptionController.value)) {
+                              Get.snackbar(
+                                  "Invalid Report", "Please fill all fields",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  snackStyle: SnackStyle.FLOATING,
+                                  backgroundColor: Colors.red);
+                            } else if (Get.find<CameraController>()
+                                    .medias!
+                                    .length <
+                                3) {
+                              Get.snackbar("Invalid Report",
+                                  "Please select at least 3 photos/videos",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  snackStyle: SnackStyle.FLOATING,
+                                  backgroundColor: Colors.red);
+                            } else {
+                              controller.reportIncident(
+                                  Get.find<UserController>().user,
+                                  _selectedCropTypes!,
+                                  double.parse(acresController.text),
+                                  descriptionController.text,
+                                  Get.find<CameraController>().medias!);
+                            }
+                          },
                         ),
                       ],
                     ),

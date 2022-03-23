@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cropify/models/media.dart';
 import 'package:cropify/models/user.dart';
 
 class IncidentModel {
   String? id;
-  List? types;
+  List<String>? types;
   String? description;
   double? acres;
-  List? media;
+  List<MediaDTO>? media;
   Timestamp? date;
   String? status;
   UserAvatar? user;
@@ -18,7 +19,8 @@ class IncidentModel {
       this.acres,
       this.media,
       this.date,
-      required this.status});
+      required this.status,
+      this.user});
 
   IncidentModel.fromDocumentSnapshot(
       {required Map<String, dynamic> documentSnapshot}) {
