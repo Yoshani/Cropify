@@ -79,7 +79,7 @@ class ReportIncidentController extends GetxController {
 
       if (await Database().createIncident(_incident)) {
         isLoading.value = false;
-        Get.back();
+        Get.back(closeOverlays: true);
         Get.snackbar("Success", "Your incident has been reported",
             snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green);
       }
