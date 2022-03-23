@@ -33,8 +33,11 @@ class Database {
     try {
       DocumentSnapshot _doc =
           await _firestore.collection("users").doc(uid).get();
+      print("---------------------------------------");
+      print(_doc.data());
 
-      return UserModel.fromDocumentSnapshot(documentSnapshot: _doc);
+      return UserModel.fromDocumentSnapshot(
+          documentSnapshot: _doc.data() as Map<String, dynamic>);
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -71,8 +74,7 @@ class Database {
   //   return stream;
   // }
 
-  Future<bool> registerUser(
-      UserModel user, FarmModel farm, BankModel bank) async {
+  Future<bool> registerUser(UserModel user) async {
     try {
       // update user
       await _firestore.collection("users").doc(user.id).update({
@@ -81,21 +83,23 @@ class Database {
         "email": user.email,
         "nic": user.nic,
         "role": user.role,
-        "profilePicRef": user.profilePicRef
+        "profilePicRef": user.profilePicRef,
+        "bank": user.bank!.toMap(),
+        "farm": user.farm!.toMap()
       });
-      // save farm
-      await _firestore.collection("farms").doc().set({
-        "userId": _firestore.collection("users").doc(user.id),
-        "name": farm.name,
-        "address": farm.address,
-        "regNum": farm.regNum
-      });
-      // save bank
-      await _firestore.collection("banks").doc().set({
-        "userId": _firestore.collection("users").doc(user.id),
-        "name": bank.name,
-        "accountNum": bank.accountNum
-      });
+      // // save farm
+      // await _firestore.collection("farms").doc().set({
+      //   "userId": _firestore.collection("users").doc(user.id),
+      //   "name": farm.name,
+      //   "address": farm.address,
+      //   "regNum": farm.regNum
+      // });
+      // // save bank
+      // await _firestore.collection("banks").doc().set({
+      //   "userId": _firestore.collection("users").doc(user.id),
+      //   "name": bank.name,
+      //   "accountNum": bank.accountNum
+      // });
       return true;
     } catch (e) {
       if (kDebugMode) {

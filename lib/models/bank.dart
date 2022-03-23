@@ -1,17 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class BankModel {
-  String? id;
-  String? userId;
   String? name;
   String? accountNum;
 
-  BankModel({this.id, this.userId, this.name, this.accountNum});
+  BankModel({this.name, this.accountNum});
 
-  BankModel.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
-    id = documentSnapshot.id;
-    userId = documentSnapshot["userId"];
-    name = documentSnapshot["name"];
-    accountNum = documentSnapshot["accountNum"];
+  BankModel.fromData(Map<String, dynamic>? documentSnapshot) {
+    name = documentSnapshot != null ? documentSnapshot["name"] : null;
+    accountNum =
+        documentSnapshot != null ? documentSnapshot["accountNum"] : null;
+  }
+
+  Map<String, dynamic> toMap() {
+    return {'name': name, 'accountNum': accountNum};
   }
 }

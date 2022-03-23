@@ -24,15 +24,28 @@ class UserModel {
       this.bank,
       this.farm});
 
-  UserModel.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
-    id = documentSnapshot.id;
+  // UserModel.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
+  //   id = documentSnapshot.id;
+  //   name = documentSnapshot["name"];
+  //   phone = documentSnapshot["phone"];
+  //   email = documentSnapshot["email"];
+  //   nic = documentSnapshot["nic"];
+  //   role = documentSnapshot["role"];
+  //   profilePicRef = documentSnapshot["profilePicRef"];
+  //   // TODO: get bank and farm if needed
+  // }
+
+  UserModel.fromDocumentSnapshot(
+      {required Map<String, dynamic> documentSnapshot}) {
+    id = documentSnapshot["id"];
     name = documentSnapshot["name"];
     phone = documentSnapshot["phone"];
     email = documentSnapshot["email"];
     nic = documentSnapshot["nic"];
     role = documentSnapshot["role"];
     profilePicRef = documentSnapshot["profilePicRef"];
-    // TODO: get bank and farm if needed
+    bank = BankModel.fromData(documentSnapshot["bank"]);
+    farm = FarmModel.fromData(documentSnapshot["farm"]);
   }
 }
 
