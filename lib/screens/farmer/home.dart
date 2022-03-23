@@ -87,6 +87,7 @@ class FarmerHome extends StatelessWidget {
                                         const SizedBox(
                                           width: 10,
                                         ),
+                                        // TODO: fix overflow on registration path
                                         Expanded(
                                             child: Column(
                                           mainAxisAlignment:
