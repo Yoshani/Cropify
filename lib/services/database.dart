@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/bank.dart';
 import 'package:cropify/models/crop_type.dart';
 import 'package:cropify/models/farm.dart';
-import 'package:cropify/models/incident2.dart';
+import 'package:cropify/models/incident.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/user.dart';
@@ -17,7 +17,8 @@ class Database {
         "email": user.email,
         "phone": user.phone,
         "nic": user.nic,
-        "role": user.role
+        "role": user.role,
+        "profilePicRef": user.profilePicRef
       });
       return true;
     } catch (e) {
@@ -42,6 +43,34 @@ class Database {
     }
   }
 
+  Future<List<IncidentModel>> getIncidents() async {
+    try {
+      QuerySnapshot _doc = await _firestore.collection("incidents").get();
+
+      return _doc.docs
+          .map((doc) => IncidentModel.fromDocumentSnapshot(
+              documentSnapshot: doc.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+  }
+
+  // Stream<List<IncidentModel>> incidentStream() {
+  //   Stream<List<IncidentModel>> stream = _firestore
+  //       .collection("incidents")
+  //       .orderBy("date", descending: true)
+  //       .snapshots()
+  //       .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+  //           .map((doc) => IncidentModel.fromDocumentSnapshot(
+  //               documentSnapshot: doc.data() as Map<String, dynamic>))
+  //           .toList());
+  //   return stream;
+  // }
+
   Future<bool> registerUser(
       UserModel user, FarmModel farm, BankModel bank) async {
     try {
@@ -51,7 +80,8 @@ class Database {
         "phone": user.phone,
         "email": user.email,
         "nic": user.nic,
-        "role": user.role
+        "role": user.role,
+        "profilePicRef": user.profilePicRef
       });
       // save farm
       await _firestore.collection("farms").doc().set({
@@ -101,7 +131,7 @@ class Database {
         "acres": incident.acres,
         "date": incident.date,
         "status": incident.status,
-        "user": _firestore.collection("users").doc(incident.userId)
+        // "user": _firestore.collection("users").doc(incident.userId)
       });
       return true;
     } catch (e) {

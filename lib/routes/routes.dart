@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import '../controllers/bindings/splash_binding.dart';
 import '../screens/common/root.dart';
 import '../screens/common/root_home.dart';
+import '../screens/officer/home_root.dart';
+import '../screens/officer/incident_info.dart';
 
 class GetPages {
   static List<GetPage> init() {
@@ -31,6 +33,14 @@ class GetPages {
           page: () => ReportIncident(),
           binding: ReportIncidentBinding(),
           transition: Transition.zoom),
+      GetPage(
+          name: "/officerHomeRoot",
+          page: () => OfficerHomeRoot(),
+          transition: Transition.zoom),
+      GetPage(
+          name: "/IncidentInfo",
+          page: () => IncidentInfo(),
+          transition: Transition.cupertinoDialog),
     ];
   }
 }
