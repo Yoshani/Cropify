@@ -22,13 +22,13 @@ class InprogressTasks extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: Text(
                     "In-Progress Tasks",
-                    style: CropifyThemes.mainTextTheme,
+                    style: CropifyThemes.titleTextTheme,
                   )),
             ),
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/officer-inprogress.jpg"),
+                image: AssetImage("assets/officer-inprogress.png"),
                 fit: BoxFit.cover,
               ),
             ),

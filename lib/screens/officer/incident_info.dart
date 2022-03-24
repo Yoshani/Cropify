@@ -2,6 +2,7 @@ import 'package:cropify/controllers/incident_controller.dart';
 import 'package:cropify/models/incident.dart';
 import 'package:cropify/models/incident_status.dart';
 import 'package:cropify/screens/common/theme.dart';
+import 'package:cropify/screens/common/video_settings.dart';
 import 'package:cropify/screens/officer/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -172,6 +173,17 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     const SizedBox(
                       height: 20,
                     ),
+                    const Text(
+                      "Photos & Videos",
+                      style: CropifyThemes.subTextTheme,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    _buildGridView(),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     _buildProgressButton(incidentController),
                   ],
                 ),
@@ -180,6 +192,47 @@ class IncidentInfo extends GetWidget<IncidentController> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildGridView() {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 5.0,
+        mainAxisSpacing: 5.0,
+      ),
+      itemCount: incident.media!.length,
+      itemBuilder: (context, index) {
+        bool isVideo = incident.media![index].type == "Video";
+        return GestureDetector(
+          onTap: isVideo
+              ? () => openVideoPlayer(incident.media![index].mediaRef!)
+              : null,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Container(
+                color: Colors.white,
+                child: Image.network(
+                    isVideo
+                        ? incident.media![index].thumbnail!
+                        : incident.media![index].mediaRef!,
+                    fit: BoxFit.cover),
+              ),
+              isVideo
+                  ? const Icon(
+                      Icons.play_circle_fill_rounded,
+                      size: 32,
+                      color: Colors.white70,
+                    )
+                  : Container(),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -246,5 +299,17 @@ class IncidentInfo extends GetWidget<IncidentController> {
       default:
         return Container();
     }
+  }
+
+  openVideoPlayer(String URL) {
+    Get.defaultDialog(
+        title: "Preview",
+        radius: 4,
+        content: SizedBox(
+          height: 400,
+          child: VideoDisplay(
+            URLPath: URL,
+          ),
+        ));
   }
 }

@@ -22,7 +22,7 @@ class CompleteTasks extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 10.0),
                   child: Text(
                     "Completed Tasks",
-                    style: CropifyThemes.mainTextTheme,
+                    style: CropifyThemes.titleTextTheme,
                   )),
             ),
             alignment: Alignment.center,

@@ -28,19 +28,13 @@ class IncidentModel {
     types = documentSnapshot["types"];
     description = documentSnapshot["description"];
     acres = documentSnapshot["acres"];
-    media = getMedia(documentSnapshot["media"]);
+    media = (documentSnapshot["media"] as List<dynamic>)
+        .map((mediaItem) => MediaDTO.fromData(mediaItem))
+        .toList();
     date = documentSnapshot["date"];
     status = getStatus(documentSnapshot["status"]);
     user = UserAvatar.fromData(documentSnapshot["user"]);
   }
-}
-
-List<MediaDTO> getMedia(List<dynamic> media) {
-  List<MediaDTO> _mediaList = [];
-  for (var i = 0; i >= media.length; i++) {
-    _mediaList.add(MediaDTO(mediaRef: media[i][0], type: media[i][1]));
-  }
-  return _mediaList;
 }
 
 IncidentStatus getStatus(String status) {

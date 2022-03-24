@@ -138,6 +138,11 @@ class OfficerRegistration extends StatelessWidget {
                       snackPosition: SnackPosition.BOTTOM,
                       snackStyle: SnackStyle.FLOATING);
                 }
+
+                if (authController.isLoading.value) {
+                  Get.dialog(const Center(child: CircularProgressIndicator()),
+                      barrierDismissible: false);
+                }
               },
             )
           ],
