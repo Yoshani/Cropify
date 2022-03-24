@@ -45,6 +45,8 @@ IncidentStatus getStatus(String status) {
       return IncidentStatus.IN_PROGRESS;
     case "COMPLETED":
       return IncidentStatus.COMPLETED;
+    case "REJECTED":
+      return IncidentStatus.REJECTED;
     default:
       return IncidentStatus.NEW;
   }
