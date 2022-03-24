@@ -1,4 +1,5 @@
 import 'package:cropify/models/incident_status.dart';
+import 'package:cropify/screens/common/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,10 +16,19 @@ class InprogressTasks extends StatelessWidget {
       body: Column(
         children: [
           Container(
+            child: const Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Text(
+                    "In-Progress Tasks",
+                    style: CropifyThemes.titleTextTheme,
+                  )),
+            ),
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/inprogress.png"),
+                image: AssetImage("assets/officer-inprogress.png"),
                 fit: BoxFit.cover,
               ),
             ),

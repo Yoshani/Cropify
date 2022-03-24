@@ -16,7 +16,9 @@ class Database {
         "phone": user.phone,
         "nic": user.nic,
         "role": user.role,
-        "profilePicRef": user.profilePicRef
+        "profilePicRef": user.profilePicRef,
+        "bank": user.bank,
+        "farm": user.farm
       });
       return true;
     } catch (e) {
@@ -71,17 +73,17 @@ class Database {
     }
   }
 
-  // Stream<List<IncidentModel>> incidentStream() {
-  //   Stream<List<IncidentModel>> stream = _firestore
-  //       .collection("incidents")
-  //       .orderBy("date", descending: true)
-  //       .snapshots()
-  //       .map((QuerySnapshot querySnapshot) => querySnapshot.docs
-  //           .map((doc) => IncidentModel.fromDocumentSnapshot(
-  //               documentSnapshot: doc.data() as Map<String, dynamic>))
-  //           .toList());
-  //   return stream;
-  // }
+  Stream<List<IncidentModel>> incidentStream() {
+    return _firestore
+        .collection("incidents")
+        // .orderBy("date", descending: true)
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map((doc) => IncidentModel.fromDocumentSnapshot(
+                id: doc.id,
+                documentSnapshot: doc.data() as Map<String, dynamic>))
+            .toList());
+  }
 
   Future<bool> registerUser(UserModel user) async {
     try {

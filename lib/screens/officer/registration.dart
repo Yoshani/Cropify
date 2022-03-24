@@ -1,8 +1,3 @@
-// Admin registers officer using email/pw and creates user record in firestore
-// On login checks if name is null, redirects to initial registration page if true
-
-// ignore_for_file: deprecated_member_use
-
 import 'dart:io';
 
 import 'package:cropify/controllers/auth_controller.dart';
@@ -142,6 +137,11 @@ class OfficerRegistration extends StatelessWidget {
                       "Incorrect Format", "Please enter a valid phone number",
                       snackPosition: SnackPosition.BOTTOM,
                       snackStyle: SnackStyle.FLOATING);
+                }
+
+                if (authController.isLoading.value) {
+                  Get.dialog(const Center(child: CircularProgressIndicator()),
+                      barrierDismissible: false);
                 }
               },
             )

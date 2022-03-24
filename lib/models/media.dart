@@ -10,12 +10,14 @@ class Media {
 class MediaDTO {
   String? mediaRef;
   String? type;
+  String? thumbnail;
 
-  MediaDTO({this.mediaRef, this.type});
+  MediaDTO({this.mediaRef, this.type, this.thumbnail});
 
   MediaDTO.fromData(Map<String, dynamic> data) {
     mediaRef = data["mediaRef"];
     type = data["type"];
+    thumbnail = data["thumbnail"] ?? '';
   }
 
   Map<String, dynamic> toMap() {
