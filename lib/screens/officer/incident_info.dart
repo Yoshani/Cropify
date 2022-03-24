@@ -173,23 +173,6 @@ class IncidentInfo extends GetWidget<IncidentController> {
                       height: 20,
                     ),
                     _buildProgressButton(incidentController),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //   children: [
-                    //     ElevatedButton(
-                    //       onPressed: () {
-                    //         incidentController.setStatus(
-                    //             incident.id!, IncidentStatus.REJECTED);
-                    //       },
-                    //       style: ElevatedButton.styleFrom(primary: Colors.red),
-                    //       child: const Text(
-                    //         "Reject",
-                    //         style: CropifyThemes.buttonTextTheme,
-                    //       ),
-                    //     ),
-                    //     _buildProgressButton(incidentController),
-                    //   ],
-                    // )
                   ],
                 ),
               )
@@ -230,17 +213,6 @@ class IncidentInfo extends GetWidget<IncidentController> {
             ),
           ],
         );
-      // return ElevatedButton(
-      //   onPressed: () {
-      //     incidentController.setStatus(
-      //         incident.id!, IncidentStatus.IN_PROGRESS);
-      //   },
-      //   style: ElevatedButton.styleFrom(primary: Colors.green),
-      //   child: const Text(
-      //     "In-Progress",
-      //     style: CropifyThemes.buttonTextTheme,
-      //   ),
-      // );
 
       case IncidentStatus.IN_PROGRESS:
         return Row(
@@ -270,17 +242,6 @@ class IncidentInfo extends GetWidget<IncidentController> {
             )
           ],
         );
-      // return ElevatedButton(
-      //   onPressed: () {
-      //     incidentController.setStatus(
-      //         incident.id!, IncidentStatus.COMPLETED);
-      //   },
-      //   style: ElevatedButton.styleFrom(primary: Colors.green),
-      //   child: const Text(
-      //     "Complete",
-      //     style: CropifyThemes.buttonTextTheme,
-      //   ),
-      // );
 
       default:
         return Container();

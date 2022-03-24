@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:cropify/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cropify/controllers/user_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 import '../models/user.dart';
 import '../services/database.dart';
@@ -71,7 +73,7 @@ class AuthController extends GetxController {
       //upload profile picture to firebase storage
       String? url;
       if (isProfilePathSet.value == true) {
-        String filename = profilePath.value;
+        String filename = basename(profilePath.value);
         File imageFile = File(profilePath.value);
 
         final Reference storageReference =
@@ -91,22 +93,16 @@ class AuthController extends GetxController {
           email: _authResult.user?.email,
           nic: nic.trim(),
           role: "OFFICER",
-          profilePicRef: url);
+          profilePicRef: url,
+          bank: null,
+          farm: null);
       if (await Database().createNewUser(_user)) {
         Get.offAllNamed("/officerHomeRoot");
       }
     } on FirebaseException catch (e) {
-      Get.snackbar(
-        "Error Creating Account",
-        e.message.toString(),
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Snackbar.showError("Error Creating Account");
     } catch (e) {
-      Get.snackbar(
-        "Error Creating Account",
-        e.toString(),
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      Snackbar.showError("Error Creating Account");
     }
   }
 

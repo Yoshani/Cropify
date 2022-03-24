@@ -16,7 +16,9 @@ class Database {
         "phone": user.phone,
         "nic": user.nic,
         "role": user.role,
-        "profilePicRef": user.profilePicRef
+        "profilePicRef": user.profilePicRef,
+        "bank": user.bank,
+        "farm": user.farm
       });
       return true;
     } catch (e) {
