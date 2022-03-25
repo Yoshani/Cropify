@@ -1,3 +1,6 @@
+import 'package:cropify/controllers/bindings/farmer_complete_incident_binding.dart';
+import 'package:cropify/controllers/bindings/incident_binding.dart';
+import 'package:cropify/controllers/bindings/incident_log_binding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,6 +36,7 @@ class FarmerBottomNavController extends GetxController {
       return GetPageRoute(
           settings: settings,
           page: () => const IncidentLog(),
+          binding: IncidentBinding(),
           transition: Transition.noTransition);
     }
 
@@ -40,6 +44,7 @@ class FarmerBottomNavController extends GetxController {
       return GetPageRoute(
           settings: settings,
           page: () => const CompleteIncident(),
+          binding: IncidentBinding(),
           transition: Transition.noTransition);
     }
 
