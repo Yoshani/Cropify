@@ -28,7 +28,9 @@ class IncidentModel {
     types = documentSnapshot["types"];
     description = documentSnapshot["description"];
     acres = documentSnapshot["acres"];
-    media = documentSnapshot["media"];
+    media = (documentSnapshot["media"] as List<dynamic>)
+        .map((mediaItem) => MediaDTO.fromData(mediaItem))
+        .toList();
     date = documentSnapshot["date"];
     status = getStatus(documentSnapshot["status"]);
     user = UserAvatar.fromData(documentSnapshot["user"]);
@@ -43,6 +45,8 @@ IncidentStatus getStatus(String status) {
       return IncidentStatus.IN_PROGRESS;
     case "COMPLETED":
       return IncidentStatus.COMPLETED;
+    case "REJECTED":
+      return IncidentStatus.REJECTED;
     default:
       return IncidentStatus.NEW;
   }

@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:cropify/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cropify/controllers/user_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 import '../models/user.dart';
 import '../services/database.dart';
@@ -14,6 +16,7 @@ class AuthController extends GetxController {
 
   var isProfilePathSet = false.obs;
   var profilePath = ''.obs;
+  final isLoading = false.obs;
 
   User? get user => _firebaseUser.value;
 
@@ -64,6 +67,7 @@ class AuthController extends GetxController {
 
   void createOfficer(String email, String password, String name, String nic,
       String phone) async {
+    isLoading.value = true;
     try {
       UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
@@ -71,7 +75,7 @@ class AuthController extends GetxController {
       //upload profile picture to firebase storage
       String? url;
       if (isProfilePathSet.value == true) {
-        String filename = profilePath.value;
+        String filename = basename(profilePath.value);
         File imageFile = File(profilePath.value);
 
         final Reference storageReference =
@@ -91,22 +95,19 @@ class AuthController extends GetxController {
           email: _authResult.user?.email,
           nic: nic.trim(),
           role: "OFFICER",
-          profilePicRef: url);
+          profilePicRef: url,
+          bank: null,
+          farm: null);
       if (await Database().createNewUser(_user)) {
+        isLoading.value = false;
         Get.offAllNamed("/officerHomeRoot");
       }
     } on FirebaseException catch (e) {
-      Get.snackbar(
-        "Error Creating Account",
-        e.message.toString(),
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      isLoading.value = false;
+      Snackbar.showError("Error Creating Account");
     } catch (e) {
-      Get.snackbar(
-        "Error Creating Account",
-        e.toString(),
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      isLoading.value = false;
+      Snackbar.showError("Error Creating Account");
     }
   }
 

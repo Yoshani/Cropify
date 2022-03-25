@@ -12,8 +12,7 @@ class IncidentController extends GetxController {
 
   @override
   void onInit() async {
-    List<IncidentModel> _list = await Database().getIncidents();
-    incidentList.assignAll(_list);
+    incidentList.bindStream(Database().incidentStream());
   }
 
   void setStatus(String id, IncidentStatus value) async {

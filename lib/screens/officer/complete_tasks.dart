@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../controllers/incident_controller.dart';
 import '../../models/incident_status.dart';
+import '../common/theme.dart';
 
 class CompleteTasks extends StatelessWidget {
   const CompleteTasks({Key? key}) : super(key: key);
@@ -15,10 +16,19 @@ class CompleteTasks extends StatelessWidget {
       body: Column(
         children: [
           Container(
+            child: const Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Text(
+                    "Completed Tasks",
+                    style: CropifyThemes.titleTextTheme,
+                  )),
+            ),
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/inprogress.png"),
+                image: AssetImage("assets/officer-complete.png"),
                 fit: BoxFit.cover,
               ),
             ),
