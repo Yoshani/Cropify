@@ -3,17 +3,17 @@ import 'package:get/get.dart';
 
 class Snackbar {
   Snackbar.showSuccess(String message) {
-    _showSnackbar(message, Colors.greenAccent);
+    _showSnackbar(message, Color.fromARGB(255, 3, 99, 6));
   }
 
   Snackbar.showError(String message) {
-    _showSnackbar(message, Colors.redAccent);
+    _showSnackbar(message, Color.fromARGB(255, 185, 21, 21));
   }
 
   void _showSnackbar(String message, Color bgColor) {
     Get.snackbar('', '',
-        margin: EdgeInsets.all(0),
-        borderRadius: 0,
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        borderRadius: 4,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: bgColor,
         titleText: Text(
