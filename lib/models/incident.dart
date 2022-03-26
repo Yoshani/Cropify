@@ -15,7 +15,7 @@ class IncidentModel {
   Timestamp? reviewDate;
   Timestamp? completeDate;
   Timestamp? rejectDate;
-  double? amount;
+  num? amount;
   String? comment;
 
   IncidentModel(
