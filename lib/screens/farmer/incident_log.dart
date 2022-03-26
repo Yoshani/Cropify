@@ -131,6 +131,51 @@ class IncidentLog extends GetWidget<IncidentLogController> {
                                                   ),
                                                 ),
                                                 children: [
+                                                  if (controller
+                                                          .newIncidents[index]
+                                                          .reviewDate !=
+                                                      null) ...[
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          0, 0, 40, 0),
+                                                      child: Row(
+                                                        children: [
+                                                          const SizedBox(
+                                                            child: Text(
+                                                                "Reviewed Date:",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontFamily:
+                                                                        "AbhayaLibre",
+                                                                    fontSize:
+                                                                        18)),
+                                                          ),
+                                                          Expanded(
+                                                            child: Align(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .topRight,
+                                                                child: Text(
+                                                                  controller
+                                                                      .newIncidents[
+                                                                          index]
+                                                                      .reviewDate!
+                                                                      .toDate()
+                                                                      .toString()
+                                                                      .split(
+                                                                          " ")
+                                                                      .first,
+                                                                )),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
                                                   Padding(
                                                     padding: const EdgeInsets
                                                         .fromLTRB(0, 0, 40, 0),
@@ -201,51 +246,6 @@ class IncidentLog extends GetWidget<IncidentLogController> {
                                                       ],
                                                     ),
                                                   ),
-                                                  if (controller
-                                                          .newIncidents[index]
-                                                          .reviewDate !=
-                                                      null) ...[
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                              .fromLTRB(
-                                                          0, 0, 40, 0),
-                                                      child: Row(
-                                                        children: [
-                                                          const SizedBox(
-                                                            child: Text(
-                                                                "Reviewed Date:",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    fontFamily:
-                                                                        "AbhayaLibre",
-                                                                    fontSize:
-                                                                        18)),
-                                                          ),
-                                                          Expanded(
-                                                            child: Align(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .topRight,
-                                                                child: Text(
-                                                                  controller
-                                                                      .newIncidents[
-                                                                          index]
-                                                                      .reviewDate!
-                                                                      .toDate()
-                                                                      .toString()
-                                                                      .split(
-                                                                          " ")
-                                                                      .first,
-                                                                )),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
                                                 ],
                                               ),
                                             )
