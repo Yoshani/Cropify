@@ -46,7 +46,7 @@ class OfficerBottomNavController extends GetxController {
     if (settings.name == 'officerAccount') {
       return GetPageRoute(
           settings: settings,
-          page: () => const OfficerAccount(),
+          page: () => OfficerAccount(),
           transition: Transition.noTransition);
     }
 

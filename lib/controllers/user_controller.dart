@@ -1,7 +1,12 @@
+import 'dart:io';
+
+import 'package:cropify/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cropify/models/bank.dart';
 import 'package:cropify/models/farm.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:path/path.dart';
 
 import '../models/user.dart';
 import '../services/database.dart';
@@ -13,6 +18,16 @@ class UserController extends GetxController {
   UserModel get user => _userModel.value; // getter
 
   set user(UserModel value) => _userModel.value = value; // setter
+
+  var isProfilePathSet = false.obs;
+  var profilePath = ''.obs;
+
+  final isLoading = false.obs;
+
+  void setProfileImagePath(String path) {
+    profilePath.value = path;
+    isProfilePathSet.value = true;
+  }
 
   void clear() {
     _userModel.value = UserModel();
@@ -42,6 +57,41 @@ class UserController extends GetxController {
         e.message.toString(),
         snackPosition: SnackPosition.BOTTOM,
       );
+    }
+  }
+
+  void updateOfficer(String userName, String phone, String nic) async {
+    isLoading.value = true;
+    try {
+      //upload profile picture to firebase storage
+      String? url;
+      if (isProfilePathSet.value == true) {
+        String filename = basename(profilePath.value);
+        File imageFile = File(profilePath.value);
+
+        final Reference storageReference =
+            FirebaseStorage.instance.ref().child("profiles/$filename");
+        UploadTask uploadTask = storageReference.putFile(imageFile);
+
+        url = await (await uploadTask).ref.getDownloadURL();
+      } else {
+        url =
+            "https://www.kindpng.com/picc/m/69-691018_blank-profile-picture-gmail-hd-png-download.png";
+      }
+
+      user.name = userName.trim();
+      user.phone = phone;
+      user.nic = nic.trim();
+      user.profilePicRef = url;
+
+      if (await Database().updateOfficer(user)) {
+        isLoading.value = false;
+        Snackbar.showSuccess("Succefully update the profile");
+        Get.offAllNamed("/OfficerHomeRoot");
+      }
+    } catch (e) {
+      isLoading.value = false;
+      Snackbar.showError("Error updating profile");
     }
   }
 }

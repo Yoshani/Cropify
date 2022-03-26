@@ -108,6 +108,23 @@ class Database {
     }
   }
 
+  Future<bool> updateOfficer(UserModel user) async {
+    try {
+      await _firestore.collection("users").doc(user.id).update({
+        "name": user.name,
+        "phone": user.phone,
+        "nic": user.nic,
+        "profilePicRef": user.profilePicRef
+      });
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return false;
+    }
+  }
+
   Future<List<String>> getCropTypes() async {
     try {
       List<String> cropTypeNames = [];

@@ -16,19 +16,10 @@ class InprogressTasks extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            child: const Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    "In-Progress Tasks",
-                    style: CropifyThemes.titleTextTheme,
-                  )),
-            ),
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/officer-inprogress.png"),
+                image: AssetImage("assets/officer-inprogress.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -129,10 +120,7 @@ class InprogressTasks extends StatelessWidget {
                             ),
                           );
                         } else {
-                          return Container(
-                            width: 0,
-                            height: 0,
-                          );
+                          return Container();
                         }
                       }),
                 );

@@ -4,6 +4,7 @@ import 'package:cropify/models/incident_status.dart';
 import 'package:cropify/screens/common/theme.dart';
 import 'package:cropify/screens/common/video_settings.dart';
 import 'package:cropify/screens/officer/appbar.dart';
+import 'package:cropify/screens/officer/home_root.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -120,6 +121,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
                       height: 20,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
                           "Crop Types :",
@@ -128,8 +130,13 @@ class IncidentInfo extends GetWidget<IncidentController> {
                         const SizedBox(
                           width: 20,
                         ),
-                        Text(incident.types!,
-                            style: CropifyThemes.mainTextTheme),
+                        SizedBox(
+                          width: 200,
+                          child: Text(
+                            incident.types!,
+                            style: CropifyThemes.mainTextTheme,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -244,8 +251,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
           children: [
             ElevatedButton(
               onPressed: () {
-                incidentController.setStatus(
-                    incident.id!, IncidentStatus.REJECTED);
+                openAlertBox(incidentController);
               },
               style: ElevatedButton.styleFrom(primary: Colors.red),
               child: const Text(
@@ -273,8 +279,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
           children: [
             ElevatedButton(
               onPressed: () {
-                incidentController.setStatus(
-                    incident.id!, IncidentStatus.REJECTED);
+                openAlertBox(incidentController);
               },
               style: ElevatedButton.styleFrom(primary: Colors.red),
               child: const Text(
@@ -310,6 +315,65 @@ class IncidentInfo extends GetWidget<IncidentController> {
           child: VideoDisplay(
             URLPath: URL,
           ),
+        ));
+  }
+
+  openAlertBox(IncidentController incidentController) {
+    Get.defaultDialog(
+        title: "",
+        radius: 10,
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Confirm Rejection",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 8, 8, 56),
+                  fontFamily: "AbhayaLibre"),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.white70),
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "AbhayaLibre",
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    incidentController.setStatus(
+                        incident.id!, IncidentStatus.REJECTED);
+                    Get.offAllNamed("/OfficerHomeRoot");
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                  child: const Text(
+                    "Confirm",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "AbhayaLibre",
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
         ));
   }
 }
