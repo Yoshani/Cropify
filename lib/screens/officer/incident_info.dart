@@ -4,6 +4,7 @@ import 'package:cropify/models/incident_status.dart';
 import 'package:cropify/screens/common/theme.dart';
 import 'package:cropify/screens/common/video_settings.dart';
 import 'package:cropify/screens/officer/appbar.dart';
+import 'package:cropify/screens/officer/home_root.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +12,8 @@ class IncidentInfo extends GetWidget<IncidentController> {
   IncidentInfo({Key? key}) : super(key: key);
 
   IncidentModel incident = Get.arguments;
+
+  final TextEditingController commentController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +123,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
                       height: 20,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
                           "Crop Types :",
@@ -128,8 +132,13 @@ class IncidentInfo extends GetWidget<IncidentController> {
                         const SizedBox(
                           width: 20,
                         ),
-                        Text(incident.types!,
-                            style: CropifyThemes.mainTextTheme),
+                        SizedBox(
+                          width: 200,
+                          child: Text(
+                            incident.types!,
+                            style: CropifyThemes.mainTextTheme,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -244,8 +253,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
           children: [
             ElevatedButton(
               onPressed: () {
-                incidentController.setStatus(
-                    incident.id!, IncidentStatus.REJECTED);
+                openAlertBox(incidentController);
               },
               style: ElevatedButton.styleFrom(primary: Colors.red),
               child: const Text(
@@ -256,7 +264,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
             ElevatedButton(
               onPressed: () {
                 incidentController.setStatus(
-                    incident.id!, IncidentStatus.IN_PROGRESS);
+                    incident.id!, IncidentStatus.IN_PROGRESS, '');
               },
               style: ElevatedButton.styleFrom(primary: Colors.green),
               child: const Text(
@@ -273,8 +281,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
           children: [
             ElevatedButton(
               onPressed: () {
-                incidentController.setStatus(
-                    incident.id!, IncidentStatus.REJECTED);
+                openAlertBox(incidentController);
               },
               style: ElevatedButton.styleFrom(primary: Colors.red),
               child: const Text(
@@ -285,7 +292,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
             ElevatedButton(
               onPressed: () {
                 incidentController.setStatus(
-                    incident.id!, IncidentStatus.COMPLETED);
+                    incident.id!, IncidentStatus.COMPLETED, '');
               },
               style: ElevatedButton.styleFrom(primary: Colors.green),
               child: const Text(
@@ -310,6 +317,81 @@ class IncidentInfo extends GetWidget<IncidentController> {
           child: VideoDisplay(
             URLPath: URL,
           ),
+        ));
+  }
+
+  openAlertBox(IncidentController incidentController) {
+    Get.defaultDialog(
+        title: "",
+        radius: 10,
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Confirm Rejection",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 8, 8, 56),
+                  fontFamily: "AbhayaLibre"),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            TextFormField(
+              controller: commentController,
+              keyboardType: TextInputType.multiline,
+              textInputAction: TextInputAction.newline,
+              minLines: 1,
+              maxLines: 5,
+              decoration: const InputDecoration(
+                contentPadding:
+                    EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                hintText: "Leave a comment...",
+                hintStyle: TextStyle(fontSize: 15),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.white70),
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "AbhayaLibre",
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    incidentController.setStatus(incident.id!,
+                        IncidentStatus.REJECTED, commentController.text);
+                    Get.offAllNamed("/OfficerHomeRoot");
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                  child: const Text(
+                    "Confirm",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "AbhayaLibre",
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
         ));
   }
 }

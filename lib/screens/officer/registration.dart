@@ -161,7 +161,7 @@ class OfficerRegistration extends StatelessWidget {
                 backgroundImage: authController.isProfilePathSet.value == true
                     ? FileImage(File(authController.profilePath.value))
                         as ImageProvider
-                    : const AssetImage("assets/profile.png"),
+                    : const AssetImage("assets/profile2.png"),
               )),
           Positioned(
             child: InkWell(

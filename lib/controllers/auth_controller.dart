@@ -16,7 +16,9 @@ class AuthController extends GetxController {
 
   var isProfilePathSet = false.obs;
   var profilePath = ''.obs;
+
   final isLoading = false.obs;
+  bool showPassword = false;
 
   User? get user => _firebaseUser.value;
 
@@ -24,6 +26,10 @@ class AuthController extends GetxController {
   onInit() {
     _firebaseUser.bindStream(_auth.authStateChanges());
     super.onInit();
+  }
+
+  void setShowPassword() {
+    showPassword = !showPassword;
   }
 
   void setProfileImagePath(String path) {
@@ -84,7 +90,7 @@ class AuthController extends GetxController {
 
         url = await (await uploadTask).ref.getDownloadURL();
       } else {
-        url = null;
+        url = "https://urlty.co/Zcs";
       }
 
       //create user in database
@@ -100,6 +106,7 @@ class AuthController extends GetxController {
           farm: null);
       if (await Database().createNewUser(_user)) {
         isLoading.value = false;
+        Get.find<UserController>().user = _user;
         Get.offAllNamed("/officerHomeRoot");
       }
     } on FirebaseException catch (e) {

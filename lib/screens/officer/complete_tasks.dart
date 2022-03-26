@@ -16,19 +16,10 @@ class CompleteTasks extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            child: const Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    "Completed Tasks",
-                    style: CropifyThemes.titleTextTheme,
-                  )),
-            ),
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/officer-complete.png"),
+                image: AssetImage("assets/officer-complete.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
