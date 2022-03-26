@@ -9,8 +9,11 @@ class VideoPlayer extends StatefulWidget {
 
   const VideoPlayer({Key? key, required this.videoPlayerController})
       : super(key: key);
+
   @override
-  _VideoPlayerState createState() => _VideoPlayerState();
+  _VideoPlayerState createState() {
+    return _VideoPlayerState();
+  }
 }
 
 class _VideoPlayerState extends State<VideoPlayer> {
@@ -24,6 +27,12 @@ class _VideoPlayerState extends State<VideoPlayer> {
         aspectRatio: 1,
         autoInitialize: true);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    chewieController!.dispose();
   }
 
   @override
@@ -47,6 +56,7 @@ class _VideoDisplayState extends State<VideoDisplay> {
   @override
   Widget build(BuildContext context) {
     return VideoPlayer(
+        key: UniqueKey(),
         videoPlayerController: widget.filePath.isNotEmpty
             ? VideoPlayerController.file(File(widget.filePath))
             : VideoPlayerController.network(widget.URLPath));
