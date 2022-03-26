@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cropify/widgets/snackbar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cropify/models/bank.dart';
 import 'package:cropify/models/farm.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -75,8 +74,7 @@ class UserController extends GetxController {
 
         url = await (await uploadTask).ref.getDownloadURL();
       } else {
-        url =
-            "https://www.kindpng.com/picc/m/69-691018_blank-profile-picture-gmail-hd-png-download.png";
+        url = "https://urlty.co/Zcs";
       }
 
       user.name = userName.trim();

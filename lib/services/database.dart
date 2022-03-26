@@ -59,12 +59,22 @@ class Database {
     }
   }
 
-  Future<void> setIncidentStatus(String id, IncidentStatus status) async {
+  Future<void> setIncidentStatus(
+      String id, IncidentStatus status, String comment) async {
     try {
-      await _firestore
-          .collection("incidents")
-          .doc(id)
-          .update({"status": status.name});
+      await _firestore.collection("incidents").doc(id).update({
+        "status": status.name,
+        "reviewDate": status.name == "IN-PROGRESS"
+            ? Timestamp.fromDate(DateTime.now())
+            : null,
+        "completeDate": status.name == "COMPLETED"
+            ? Timestamp.fromDate(DateTime.now())
+            : null,
+        "rejectDate": status.name == "REJECTED"
+            ? Timestamp.fromDate(DateTime.now())
+            : null,
+        "comment": comment.trim()
+      });
     } catch (e) {
       if (kDebugMode) {
         print(e);

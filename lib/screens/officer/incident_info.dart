@@ -13,6 +13,8 @@ class IncidentInfo extends GetWidget<IncidentController> {
 
   IncidentModel incident = Get.arguments;
 
+  final TextEditingController commentController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     IncidentController incidentController =
@@ -262,7 +264,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
             ElevatedButton(
               onPressed: () {
                 incidentController.setStatus(
-                    incident.id!, IncidentStatus.IN_PROGRESS);
+                    incident.id!, IncidentStatus.IN_PROGRESS, '');
               },
               style: ElevatedButton.styleFrom(primary: Colors.green),
               child: const Text(
@@ -290,7 +292,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
             ElevatedButton(
               onPressed: () {
                 incidentController.setStatus(
-                    incident.id!, IncidentStatus.COMPLETED);
+                    incident.id!, IncidentStatus.COMPLETED, '');
               },
               style: ElevatedButton.styleFrom(primary: Colors.green),
               child: const Text(
@@ -336,6 +338,22 @@ class IncidentInfo extends GetWidget<IncidentController> {
             const SizedBox(
               height: 15,
             ),
+            TextFormField(
+              controller: commentController,
+              keyboardType: TextInputType.multiline,
+              textInputAction: TextInputAction.newline,
+              minLines: 1,
+              maxLines: 5,
+              decoration: const InputDecoration(
+                contentPadding:
+                    EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                hintText: "Leave a comment...",
+                hintStyle: TextStyle(fontSize: 15),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -356,8 +374,8 @@ class IncidentInfo extends GetWidget<IncidentController> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    incidentController.setStatus(
-                        incident.id!, IncidentStatus.REJECTED);
+                    incidentController.setStatus(incident.id!,
+                        IncidentStatus.REJECTED, commentController.text);
                     Get.offAllNamed("/OfficerHomeRoot");
                   },
                   style: ElevatedButton.styleFrom(primary: Colors.red),

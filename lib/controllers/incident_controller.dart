@@ -15,9 +15,9 @@ class IncidentController extends GetxController {
     incidentList.bindStream(Database().incidentStream());
   }
 
-  void setStatus(String id, IncidentStatus value) async {
+  void setStatus(String id, IncidentStatus value, String comment) async {
     try {
-      await Database().setIncidentStatus(id, value);
+      await Database().setIncidentStatus(id, value, comment);
       Snackbar.showSuccess("Moved to ${value.name}");
     } catch (e) {
       Snackbar.showError(e.toString());

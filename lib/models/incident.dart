@@ -12,6 +12,11 @@ class IncidentModel {
   Timestamp? date;
   IncidentStatus? status;
   UserAvatar? user;
+  Timestamp? reviewDate;
+  Timestamp? completeDate;
+  Timestamp? rejectDate;
+  double? amount;
+  String? comment;
 
   IncidentModel(
       {this.id,
@@ -21,7 +26,12 @@ class IncidentModel {
       this.media,
       this.date,
       required this.status,
-      this.user});
+      this.user,
+      this.reviewDate,
+      this.completeDate,
+      this.rejectDate,
+      this.amount,
+      this.comment});
 
   IncidentModel.fromDocumentSnapshot(
       {required this.id, required Map<String, dynamic> documentSnapshot}) {

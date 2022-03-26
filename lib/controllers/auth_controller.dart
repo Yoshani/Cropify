@@ -90,8 +90,7 @@ class AuthController extends GetxController {
 
         url = await (await uploadTask).ref.getDownloadURL();
       } else {
-        url =
-            "https://www.kindpng.com/picc/m/69-691018_blank-profile-picture-gmail-hd-png-download.png";
+        url = "https://urlty.co/Zcs";
       }
 
       //create user in database
