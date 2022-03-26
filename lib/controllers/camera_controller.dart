@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CameraController extends GetxController {
   static const platform = MethodChannel('critify.flutter.dev/file_attr');
@@ -68,7 +70,21 @@ class CameraController extends GetxController {
     final pickedFile = await ImagePicker().pickVideo(source: imageSource);
 
     if (pickedFile != null) {
-      _mediaList.add(Media(file: pickedFile, type: "Video"));
+      final bytes = await VideoThumbnail.thumbnailData(
+        video: pickedFile.path,
+        imageFormat: ImageFormat.JPEG,
+        maxWidth: 128,
+        quality: 25,
+      );
+      Directory tempDir = await getTemporaryDirectory();
+
+      File thumbnail =
+          await File('${tempDir.path}/${DateTime.now().toIso8601String()}.JPEG')
+              .create();
+      thumbnail.writeAsBytesSync(bytes!);
+
+      _mediaList
+          .add(Media(file: pickedFile, type: "Video", thumbnail: thumbnail));
     }
   }
 
