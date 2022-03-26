@@ -4,7 +4,6 @@ import 'package:cropify/models/incident_status.dart';
 import 'package:cropify/screens/common/theme.dart';
 import 'package:cropify/screens/common/video_settings.dart';
 import 'package:cropify/screens/officer/appbar.dart';
-import 'package:cropify/screens/officer/home_root.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -183,6 +182,10 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     const SizedBox(
                       height: 20,
                     ),
+                    _showStatus(),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     const Text(
                       "Photos & Videos",
                       style: CropifyThemes.subTextTheme,
@@ -244,6 +247,86 @@ class IncidentInfo extends GetWidget<IncidentController> {
         );
       },
     );
+  }
+
+  Widget _showStatus() {
+    switch (incident.status) {
+      case IncidentStatus.NEW:
+        return Row(
+          children: const [
+            Text(
+              "Status :",
+              style: CropifyThemes.subTextTheme,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Text("New", style: CropifyThemes.mainTextTheme),
+          ],
+        );
+      case IncidentStatus.IN_PROGRESS:
+        return Row(
+          children: const [
+            Text(
+              "Status :",
+              style: CropifyThemes.subTextTheme,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Text("In-Progress", style: CropifyThemes.mainTextTheme),
+          ],
+        );
+      case IncidentStatus.COMPLETED:
+        return Column(children: [
+          Row(
+            children: const [
+              Text(
+                "Status :",
+                style: CropifyThemes.subTextTheme,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Text("Completed", style: CropifyThemes.mainTextTheme),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          // Row(
+          //   children: [
+          //     const Text(
+          //       "Amount :",
+          //       style: CropifyThemes.subTextTheme,
+          //     ),
+          //     const SizedBox(
+          //       width: 20,
+          //     ),
+          //     Text(incident.amount.toString(),
+          //         style: CropifyThemes.mainTextTheme),
+          //   ],
+          // ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
+          // Row(
+          //   children: [
+          //     const Text(
+          //       "Comment :",
+          //       style: CropifyThemes.subTextTheme,
+          //     ),
+          //     const SizedBox(
+          //       width: 20,
+          //     ),
+          //     Text(incident.comment!, style: CropifyThemes.mainTextTheme),
+          //   ],
+          // )
+        ]);
+
+      default:
+        return Container();
+    }
   }
 
   Widget _buildProgressButton(IncidentController incidentController) {
@@ -428,7 +511,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
             ),
             TextFormField(
               controller: commentController,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.multiline,
               textInputAction: TextInputAction.newline,
               minLines: 1,
               maxLines: 5,
@@ -462,12 +545,26 @@ class IncidentInfo extends GetWidget<IncidentController> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    incidentController.setStatus(
+                    Map paymentObject = {
+                      "sandbox": true, // true if using Sandbox Merchant ID
+                      "merchant_id": "1211149", // Replace your Merchant ID
+                      "notify_url": "https://ent13zfovoz7d.x.pipedream.net/",
+                      "amount": double.parse(amoountContorller.text),
+                      "currency": "LKR",
+                      "comment": commentController.text
+                    };
+                    incidentController.startPaymentOption(
                         incident.id!,
                         IncidentStatus.COMPLETED,
                         commentController.text,
-                        double.parse(amoountContorller.text));
-                    ;
+                        double.parse(amoountContorller.text),
+                        paymentObject);
+                    // incidentController.setStatus(
+                    //     incident.id!,
+                    //     IncidentStatus.COMPLETED,
+                    //     commentController.text,
+                    //     double.parse(amoountContorller.text));
+
                     Get.offAllNamed("/OfficerHomeRoot");
                   },
                   style: ElevatedButton.styleFrom(primary: Colors.red),
