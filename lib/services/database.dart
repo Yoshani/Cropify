@@ -60,7 +60,7 @@ class Database {
   }
 
   Future<void> setIncidentStatus(
-      String id, IncidentStatus status, String comment) async {
+      String id, IncidentStatus status, String comment, num amount) async {
     try {
       await _firestore.collection("incidents").doc(id).update({
         "status": status.name,
@@ -73,7 +73,8 @@ class Database {
         "rejectDate": status.name == "REJECTED"
             ? Timestamp.fromDate(DateTime.now())
             : null,
-        "comment": comment.trim()
+        "comment": comment.trim(),
+        "amount": amount
       });
     } catch (e) {
       if (kDebugMode) {
