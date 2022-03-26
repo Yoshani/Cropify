@@ -4,6 +4,6 @@ import 'package:get/get.dart';
 class IncidentBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(() => IncidentController());
+    Get.put(IncidentController());
   }
 }
