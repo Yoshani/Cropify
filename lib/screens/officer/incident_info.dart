@@ -28,17 +28,14 @@ class IncidentInfo extends GetWidget<IncidentController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
               const Text(
                 "Incident Info",
                 style: CropifyThemes.titleTextTheme,
               ),
-              const SizedBox(
-                height: 20,
-              ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 40, 20, 40),
+                padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
                 child: Column(
                   children: [
                     Row(
@@ -294,34 +291,49 @@ class IncidentInfo extends GetWidget<IncidentController> {
           const SizedBox(
             height: 20,
           ),
-          // Row(
-          //   children: [
-          //     const Text(
-          //       "Amount :",
-          //       style: CropifyThemes.subTextTheme,
-          //     ),
-          //     const SizedBox(
-          //       width: 20,
-          //     ),
-          //     Text(incident.amount.toString(),
-          //         style: CropifyThemes.mainTextTheme),
-          //   ],
-          // ),
-          // const SizedBox(
-          //   height: 20,
-          // ),
-          // Row(
-          //   children: [
-          //     const Text(
-          //       "Comment :",
-          //       style: CropifyThemes.subTextTheme,
-          //     ),
-          //     const SizedBox(
-          //       width: 20,
-          //     ),
-          //     Text(incident.comment!, style: CropifyThemes.mainTextTheme),
-          //   ],
-          // )
+          Row(
+            children: [
+              const Text(
+                "Amount :",
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontFamily: "AbhayaLibre"),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Text(incident.amount.toString(),
+                  style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 8, 126, 12),
+                      fontFamily: "AbhayaLibre")),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Comment :",
+                style: CropifyThemes.subTextTheme,
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              SizedBox(
+                width: 220,
+                child: Text(
+                  incident.comment!,
+                  style: CropifyThemes.mainTextTheme,
+                ),
+              ),
+            ],
+          )
         ]);
 
       default:
@@ -545,27 +557,14 @@ class IncidentInfo extends GetWidget<IncidentController> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Map paymentObject = {
-                      "sandbox": true, // true if using Sandbox Merchant ID
-                      "merchant_id": "1211149", // Replace your Merchant ID
-                      "notify_url": "https://ent13zfovoz7d.x.pipedream.net/",
-                      "amount": double.parse(amoountContorller.text),
-                      "currency": "LKR",
-                      "comment": commentController.text
-                    };
                     incidentController.startPaymentOption(
                         incident.id!,
-                        IncidentStatus.COMPLETED,
+                        incident.user!.name!,
+                        incident.user!.accountNum!,
+                        incident.user!.bankName!,
                         commentController.text,
                         double.parse(amoountContorller.text),
-                        paymentObject);
-                    // incidentController.setStatus(
-                    //     incident.id!,
-                    //     IncidentStatus.COMPLETED,
-                    //     commentController.text,
-                    //     double.parse(amoountContorller.text));
-
-                    Get.offAllNamed("/OfficerHomeRoot");
+                        incident.user!.address!);
                   },
                   style: ElevatedButton.styleFrom(primary: Colors.red),
                   child: const Text(
