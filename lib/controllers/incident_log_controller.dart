@@ -11,11 +11,10 @@ class IncidentLogController extends GetxController {
   List<IncidentModel> get newIncidents => _newIncidents;
 
   @override
-  void onInit() {
+  void onInit() async {
     _newIncidents.bindStream(
         Database().userNewIncidents(Get.find<UserController>().user.id!));
 
-    // noNewIncidents.value = _newIncidents.isEmpty ? true : false;
     super.onInit();
   }
 }

@@ -75,7 +75,12 @@ class ReportIncidentController extends GetxController {
           acres: acres,
           date: Timestamp.fromDate(DateTime.now()),
           status: IncidentStatus.NEW,
-          user: _userAvatar);
+          user: _userAvatar,
+          reviewDate: null,
+          rejectDate: null,
+          completeDate: null,
+          amount: null,
+          comment: null);
 
       if (await Database().createIncident(_incident)) {
         isLoading.value = false;

@@ -190,7 +190,12 @@ class Database {
         "acres": incident.acres,
         "date": incident.date,
         "status": incident.status!.name,
-        "user": incident.user!.toMap()
+        "user": incident.user!.toMap(),
+        "reviewDate": incident.reviewDate,
+        "rejectDate": incident.rejectDate,
+        "completeDate": incident.completeDate,
+        "comment": incident.comment,
+        "amount": incident.amount
       });
       return true;
     } catch (e) {

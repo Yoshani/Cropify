@@ -150,6 +150,9 @@ class IncidentLog extends GetWidget<IncidentLogController> {
                                                                   fontSize:
                                                                       18)),
                                                         ),
+                                                        const SizedBox(
+                                                          width: 20,
+                                                        ),
                                                         Expanded(
                                                           child: Align(
                                                             alignment: Alignment
@@ -169,8 +172,7 @@ class IncidentLog extends GetWidget<IncidentLogController> {
                                                     child: Row(
                                                       children: [
                                                         const SizedBox(
-                                                          child: Text(
-                                                              "Reviewed Date:",
+                                                          child: Text("Acres:",
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black,
@@ -182,6 +184,9 @@ class IncidentLog extends GetWidget<IncidentLogController> {
                                                                   fontSize:
                                                                       18)),
                                                         ),
+                                                        const SizedBox(
+                                                          width: 20,
+                                                        ),
                                                         Expanded(
                                                           child: Align(
                                                             alignment: Alignment
@@ -189,12 +194,58 @@ class IncidentLog extends GetWidget<IncidentLogController> {
                                                             child: Text(controller
                                                                 .newIncidents[
                                                                     index]
-                                                                .description!),
+                                                                .acres!
+                                                                .toString()),
                                                           ),
                                                         ),
                                                       ],
                                                     ),
-                                                  )
+                                                  ),
+                                                  if (controller
+                                                          .newIncidents[index]
+                                                          .reviewDate !=
+                                                      null) ...[
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          0, 0, 40, 0),
+                                                      child: Row(
+                                                        children: [
+                                                          const SizedBox(
+                                                            child: Text(
+                                                                "Reviewed Date:",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontFamily:
+                                                                        "AbhayaLibre",
+                                                                    fontSize:
+                                                                        18)),
+                                                          ),
+                                                          Expanded(
+                                                            child: Align(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .topRight,
+                                                                child: Text(
+                                                                  controller
+                                                                      .newIncidents[
+                                                                          index]
+                                                                      .reviewDate!
+                                                                      .toDate()
+                                                                      .toString()
+                                                                      .split(
+                                                                          " ")
+                                                                      .first,
+                                                                )),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
                                                 ],
                                               ),
                                             )
