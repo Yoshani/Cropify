@@ -60,7 +60,7 @@ class Database {
   }
 
   Future<void> setIncidentStatus(
-      String id, IncidentStatus status, String comment, double amount) async {
+      String id, IncidentStatus status, String comment, num amount) async {
     try {
       await _firestore.collection("incidents").doc(id).update({
         "status": status.name,
