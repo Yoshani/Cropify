@@ -55,9 +55,22 @@ class ReportIncidentController extends GetxController {
             FirebaseStorage.instance.ref().child(destination);
         UploadTask uploadTask = storageReference.putFile(file);
 
-        String url = await (await uploadTask).ref.getDownloadURL();
+        String fileUrl = await (await uploadTask).ref.getDownloadURL();
 
-        mediaDTOs.add(MediaDTO(mediaRef: url, type: mediaObj.type));
+        String thumbnailUrl = '';
+        if (mediaObj.thumbnail != null) {
+          final thumbnailName = basename(mediaObj.thumbnail!.path);
+          final thumbnailDestination = 'incident-media/$thumbnailName';
+
+          final Reference storageReference =
+              FirebaseStorage.instance.ref().child(thumbnailDestination);
+          UploadTask uploadTask = storageReference.putFile(mediaObj.thumbnail!);
+
+          thumbnailUrl = await (await uploadTask).ref.getDownloadURL();
+        }
+
+        mediaDTOs.add(MediaDTO(
+            mediaRef: fileUrl, type: mediaObj.type, thumbnail: thumbnailUrl));
       }
     } catch (e) {
       Get.snackbar(

@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:image_picker/image_picker.dart';
 
 class Media {
   XFile file;
   String type;
+  File? thumbnail;
 
-  Media({required this.file, required this.type});
+  Media({required this.file, required this.type, this.thumbnail});
 }
 
 class MediaDTO {
@@ -21,9 +24,6 @@ class MediaDTO {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'mediaRef': mediaRef,
-      'type': type,
-    };
+    return {'mediaRef': mediaRef, 'type': type, 'thumbnail': thumbnail};
   }
 }
