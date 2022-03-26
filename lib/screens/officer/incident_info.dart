@@ -14,6 +14,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
   IncidentModel incident = Get.arguments;
 
   final TextEditingController commentController = TextEditingController();
+  final TextEditingController amoountContorller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -264,7 +265,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
             ElevatedButton(
               onPressed: () {
                 incidentController.setStatus(
-                    incident.id!, IncidentStatus.IN_PROGRESS, '');
+                    incident.id!, IncidentStatus.IN_PROGRESS, '', 0.0);
               },
               style: ElevatedButton.styleFrom(primary: Colors.green),
               child: const Text(
@@ -291,12 +292,11 @@ class IncidentInfo extends GetWidget<IncidentController> {
             ),
             ElevatedButton(
               onPressed: () {
-                incidentController.setStatus(
-                    incident.id!, IncidentStatus.COMPLETED, '');
+                openPaymentAlertBox(incidentController);
               },
               style: ElevatedButton.styleFrom(primary: Colors.green),
               child: const Text(
-                "Complete",
+                "Make Payment",
                 style: CropifyThemes.buttonTextTheme,
               ),
             )
@@ -375,7 +375,99 @@ class IncidentInfo extends GetWidget<IncidentController> {
                 ElevatedButton(
                   onPressed: () {
                     incidentController.setStatus(incident.id!,
-                        IncidentStatus.REJECTED, commentController.text);
+                        IncidentStatus.REJECTED, commentController.text, 0.0);
+                    Get.offAllNamed("/OfficerHomeRoot");
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                  child: const Text(
+                    "Confirm",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "AbhayaLibre",
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ));
+  }
+
+  openPaymentAlertBox(IncidentController incidentController) {
+    Get.defaultDialog(
+        title: "",
+        radius: 10,
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Make Payment",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 8, 8, 56),
+                  fontFamily: "AbhayaLibre"),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            TextFormField(
+              controller: amoountContorller,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                contentPadding:
+                    EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                hintText: "Amount (Rs.)",
+                hintStyle: TextStyle(fontSize: 15),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            TextFormField(
+              controller: commentController,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.newline,
+              minLines: 1,
+              maxLines: 5,
+              decoration: const InputDecoration(
+                contentPadding:
+                    EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                hintText: "Leave a comment...",
+                hintStyle: TextStyle(fontSize: 15),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.white70),
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "AbhayaLibre",
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    incidentController.setStatus(
+                        incident.id!,
+                        IncidentStatus.COMPLETED,
+                        commentController.text,
+                        double.parse(amoountContorller.text));
+                    ;
                     Get.offAllNamed("/OfficerHomeRoot");
                   },
                   style: ElevatedButton.styleFrom(primary: Colors.red),
