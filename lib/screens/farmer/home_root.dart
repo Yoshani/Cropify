@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/bottom_nav_controller.dart';
+import '../../controllers/farmer_bottom_nav_controller.dart';
 import '../common/appbar.dart';
 
-class FarmerHomeRoot extends GetView<BottomNavController> {
+class FarmerHomeRoot extends GetView<FarmerBottomNavController> {
   FarmerHomeRoot({Key? key}) : super(key: key);
 
-  final BottomNavController bottomNavController =
-      Get.put(BottomNavController());
+  final FarmerBottomNavController bottomNavController =
+      Get.put(FarmerBottomNavController());
+  // TODO: delete bottom nav controller on sign out
 
   @override
   Widget build(BuildContext context) {

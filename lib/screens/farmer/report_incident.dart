@@ -21,7 +21,9 @@ class ReportIncident extends GetView<ReportIncidentController> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-          appBar: const CropifyAppBar(),
+          appBar: const CropifyAppBar(
+            visible: false,
+          ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

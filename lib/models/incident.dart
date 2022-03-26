@@ -15,7 +15,7 @@ class IncidentModel {
   Timestamp? reviewDate;
   Timestamp? completeDate;
   Timestamp? rejectDate;
-  double? amount;
+  num? amount;
   String? comment;
 
   IncidentModel(
@@ -44,6 +44,11 @@ class IncidentModel {
     date = documentSnapshot["date"];
     status = getStatus(documentSnapshot["status"]);
     user = UserAvatar.fromData(documentSnapshot["user"]);
+    reviewDate = documentSnapshot["reviewDate"];
+    completeDate = documentSnapshot["completeDate"];
+    rejectDate = documentSnapshot["rejectDate"];
+    amount = documentSnapshot["amount"];
+    comment = documentSnapshot["comment"];
   }
 }
 

@@ -95,6 +95,34 @@ class Database {
             .toList());
   }
 
+  Stream<List<IncidentModel>> userNewIncidents(String userId) {
+    return _firestore
+        .collection("incidents")
+        .where('user.userId', isEqualTo: userId)
+        .where('status', whereIn: ["NEW", "IN_PROGRESS"])
+        .orderBy("date", descending: true)
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map((doc) => IncidentModel.fromDocumentSnapshot(
+                id: doc.id,
+                documentSnapshot: doc.data() as Map<String, dynamic>))
+            .toList());
+  }
+
+  Stream<List<IncidentModel>> userCompleteIncidents(String userId) {
+    return _firestore
+        .collection("incidents")
+        .where('user.userId', isEqualTo: userId)
+        .where('status', whereIn: ["COMPLETED", "REJECTED"])
+        .orderBy("date", descending: true)
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map((doc) => IncidentModel.fromDocumentSnapshot(
+                id: doc.id,
+                documentSnapshot: doc.data() as Map<String, dynamic>))
+            .toList());
+  }
+
   Future<bool> registerUser(UserModel user) async {
     try {
       // update user
@@ -162,7 +190,12 @@ class Database {
         "acres": incident.acres,
         "date": incident.date,
         "status": incident.status!.name,
-        "user": incident.user!.toMap()
+        "user": incident.user!.toMap(),
+        "reviewDate": incident.reviewDate,
+        "rejectDate": incident.rejectDate,
+        "completeDate": incident.completeDate,
+        "comment": incident.comment,
+        "amount": incident.amount
       });
       return true;
     } catch (e) {
