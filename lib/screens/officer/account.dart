@@ -71,7 +71,8 @@ class OfficerAccount extends StatelessWidget {
                     ]),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -106,6 +107,11 @@ class OfficerAccount extends StatelessWidget {
                           Snackbar.showError(
                               "Please enter a valid phone number");
                         }
+                        if (userController.isLoading.value) {
+                          Get.dialog(
+                              const Center(child: CircularProgressIndicator()),
+                              barrierDismissible: false);
+                        }
                       },
                     )
                   ],
@@ -139,10 +145,10 @@ class OfficerAccount extends StatelessWidget {
           Obx(() => CircleAvatar(
                 radius: 80,
                 backgroundColor: const Color.fromARGB(255, 181, 182, 204),
-                backgroundImage: userController.user.profilePicRef != null
-                    ? NetworkImage(userController.user.profilePicRef!)
-                        as ImageProvider
-                    : const AssetImage("assets/profile.png"),
+                backgroundImage: userController.isProfilePathSet.value == true
+                    ? FileImage(File(userController.profilePath.value))
+                    : NetworkImage(userController.user.profilePicRef!)
+                        as ImageProvider,
               )),
           Positioned(
             child: InkWell(
@@ -212,6 +218,7 @@ class OfficerAccount extends StatelessWidget {
     final pickedFile = await ImagePicker().getImage(source: source);
     if (pickedFile != null) {
       userImageFile = File(pickedFile.path);
+      print(userImageFile);
       userController.setProfileImagePath(pickedFile.path);
 
       Get.back();

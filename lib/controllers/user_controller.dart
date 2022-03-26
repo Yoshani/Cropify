@@ -22,6 +22,8 @@ class UserController extends GetxController {
   var isProfilePathSet = false.obs;
   var profilePath = ''.obs;
 
+  final isLoading = false.obs;
+
   void setProfileImagePath(String path) {
     profilePath.value = path;
     isProfilePathSet.value = true;
@@ -59,6 +61,7 @@ class UserController extends GetxController {
   }
 
   void updateOfficer(String userName, String phone, String nic) async {
+    isLoading.value = true;
     try {
       //upload profile picture to firebase storage
       String? url;
@@ -72,7 +75,8 @@ class UserController extends GetxController {
 
         url = await (await uploadTask).ref.getDownloadURL();
       } else {
-        url = null;
+        url =
+            "https://www.kindpng.com/picc/m/69-691018_blank-profile-picture-gmail-hd-png-download.png";
       }
 
       user.name = userName.trim();
@@ -81,9 +85,12 @@ class UserController extends GetxController {
       user.profilePicRef = url;
 
       if (await Database().updateOfficer(user)) {
+        isLoading.value = false;
+        Snackbar.showSuccess("Succefully update the profile");
         Get.offAllNamed("/OfficerHomeRoot");
       }
     } catch (e) {
+      isLoading.value = false;
       Snackbar.showError("Error updating profile");
     }
   }

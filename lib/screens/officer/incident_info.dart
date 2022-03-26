@@ -121,6 +121,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
                       height: 20,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
                           "Crop Types :",
@@ -129,8 +130,13 @@ class IncidentInfo extends GetWidget<IncidentController> {
                         const SizedBox(
                           width: 20,
                         ),
-                        Text(incident.types!,
-                            style: CropifyThemes.mainTextTheme),
+                        SizedBox(
+                          width: 200,
+                          child: Text(
+                            incident.types!,
+                            style: CropifyThemes.mainTextTheme,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -360,7 +366,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     style: TextStyle(
                       fontSize: 20,
                       fontFamily: "AbhayaLibre",
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
