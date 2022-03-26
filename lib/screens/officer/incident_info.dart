@@ -4,7 +4,6 @@ import 'package:cropify/models/incident_status.dart';
 import 'package:cropify/screens/common/theme.dart';
 import 'package:cropify/screens/common/video_settings.dart';
 import 'package:cropify/screens/officer/appbar.dart';
-import 'package:cropify/screens/officer/home_root.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +13,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
   IncidentModel incident = Get.arguments;
 
   final TextEditingController commentController = TextEditingController();
+  final TextEditingController amoountContorller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +28,14 @@ class IncidentInfo extends GetWidget<IncidentController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
               const Text(
                 "Incident Info",
                 style: CropifyThemes.titleTextTheme,
               ),
-              const SizedBox(
-                height: 20,
-              ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 40, 20, 40),
+                padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
                 child: Column(
                   children: [
                     Row(
@@ -182,6 +179,10 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     const SizedBox(
                       height: 20,
                     ),
+                    _showStatus(),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     const Text(
                       "Photos & Videos",
                       style: CropifyThemes.subTextTheme,
@@ -245,6 +246,101 @@ class IncidentInfo extends GetWidget<IncidentController> {
     );
   }
 
+  Widget _showStatus() {
+    switch (incident.status) {
+      case IncidentStatus.NEW:
+        return Row(
+          children: const [
+            Text(
+              "Status :",
+              style: CropifyThemes.subTextTheme,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Text("New", style: CropifyThemes.mainTextTheme),
+          ],
+        );
+      case IncidentStatus.IN_PROGRESS:
+        return Row(
+          children: const [
+            Text(
+              "Status :",
+              style: CropifyThemes.subTextTheme,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Text("In-Progress", style: CropifyThemes.mainTextTheme),
+          ],
+        );
+      case IncidentStatus.COMPLETED:
+        return Column(children: [
+          Row(
+            children: const [
+              Text(
+                "Status :",
+                style: CropifyThemes.subTextTheme,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Text("Completed", style: CropifyThemes.mainTextTheme),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            children: [
+              const Text(
+                "Amount :",
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontFamily: "AbhayaLibre"),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Text(incident.amount.toString(),
+                  style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 8, 126, 12),
+                      fontFamily: "AbhayaLibre")),
+            ],
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Comment :",
+                style: CropifyThemes.subTextTheme,
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              SizedBox(
+                width: 220,
+                child: Text(
+                  incident.comment!,
+                  style: CropifyThemes.mainTextTheme,
+                ),
+              ),
+            ],
+          )
+        ]);
+
+      default:
+        return Container();
+    }
+  }
+
   Widget _buildProgressButton(IncidentController incidentController) {
     switch (incident.status) {
       case IncidentStatus.NEW:
@@ -264,7 +360,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
             ElevatedButton(
               onPressed: () {
                 incidentController.setStatus(
-                    incident.id!, IncidentStatus.IN_PROGRESS, '');
+                    incident.id!, IncidentStatus.IN_PROGRESS, '', 0.0);
               },
               style: ElevatedButton.styleFrom(primary: Colors.green),
               child: const Text(
@@ -291,12 +387,11 @@ class IncidentInfo extends GetWidget<IncidentController> {
             ),
             ElevatedButton(
               onPressed: () {
-                incidentController.setStatus(
-                    incident.id!, IncidentStatus.COMPLETED, '');
+                openPaymentAlertBox(incidentController);
               },
               style: ElevatedButton.styleFrom(primary: Colors.green),
               child: const Text(
-                "Complete",
+                "Make Payment",
                 style: CropifyThemes.buttonTextTheme,
               ),
             )
@@ -375,8 +470,101 @@ class IncidentInfo extends GetWidget<IncidentController> {
                 ElevatedButton(
                   onPressed: () {
                     incidentController.setStatus(incident.id!,
-                        IncidentStatus.REJECTED, commentController.text);
+                        IncidentStatus.REJECTED, commentController.text, 0.0);
                     Get.offAllNamed("/OfficerHomeRoot");
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                  child: const Text(
+                    "Confirm",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "AbhayaLibre",
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ));
+  }
+
+  openPaymentAlertBox(IncidentController incidentController) {
+    Get.defaultDialog(
+        title: "",
+        radius: 10,
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Make Payment",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 8, 8, 56),
+                  fontFamily: "AbhayaLibre"),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            TextFormField(
+              controller: amoountContorller,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                contentPadding:
+                    EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                hintText: "Amount (Rs.)",
+                hintStyle: TextStyle(fontSize: 15),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            TextFormField(
+              controller: commentController,
+              keyboardType: TextInputType.multiline,
+              textInputAction: TextInputAction.newline,
+              minLines: 1,
+              maxLines: 5,
+              decoration: const InputDecoration(
+                contentPadding:
+                    EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                hintText: "Leave a comment...",
+                hintStyle: TextStyle(fontSize: 15),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  style: ElevatedButton.styleFrom(primary: Colors.white70),
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: "AbhayaLibre",
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    incidentController.startPaymentOption(
+                        incident.id!,
+                        incident.user!.name!,
+                        incident.user!.accountNum!,
+                        incident.user!.bankName!,
+                        commentController.text,
+                        double.parse(amoountContorller.text),
+                        incident.user!.address!);
                   },
                   style: ElevatedButton.styleFrom(primary: Colors.red),
                   child: const Text(
