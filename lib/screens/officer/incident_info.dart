@@ -14,6 +14,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
 
   final TextEditingController commentController = TextEditingController();
   final TextEditingController amoountContorller = TextEditingController();
+  final double labelWidth = 135;
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +41,12 @@ class IncidentInfo extends GetWidget<IncidentController> {
                   children: [
                     Row(
                       children: [
-                        const Text(
-                          "Name :",
-                          style: CropifyThemes.subTextTheme,
-                        ),
-                        const SizedBox(
-                          width: 20,
+                        SizedBox(
+                          width: labelWidth,
+                          child: const Text(
+                            "Name :",
+                            style: CropifyThemes.subTextTheme,
+                          ),
                         ),
                         Text(incident.user!.name!,
                             style: CropifyThemes.mainTextTheme),
@@ -56,12 +57,12 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     ),
                     Row(
                       children: [
-                        const Text(
-                          "Date :",
-                          style: CropifyThemes.subTextTheme,
-                        ),
-                        const SizedBox(
-                          width: 20,
+                        SizedBox(
+                          width: labelWidth,
+                          child: const Text(
+                            "Date :",
+                            style: CropifyThemes.subTextTheme,
+                          ),
                         ),
                         Text(
                             incident.date!.toDate().toString().split(" ").first,
@@ -73,12 +74,12 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     ),
                     Row(
                       children: [
-                        const Text(
-                          "Location :",
-                          style: CropifyThemes.subTextTheme,
-                        ),
-                        const SizedBox(
-                          width: 20,
+                        SizedBox(
+                          width: labelWidth,
+                          child: const Text(
+                            "Location :",
+                            style: CropifyThemes.subTextTheme,
+                          ),
                         ),
                         Text(incident.user!.address!,
                             style: CropifyThemes.mainTextTheme),
@@ -89,12 +90,12 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     ),
                     Row(
                       children: [
-                        const Text(
-                          "Bank :",
-                          style: CropifyThemes.subTextTheme,
-                        ),
-                        const SizedBox(
-                          width: 20,
+                        SizedBox(
+                          width: labelWidth,
+                          child: const Text(
+                            "Bank :",
+                            style: CropifyThemes.subTextTheme,
+                          ),
                         ),
                         Text(incident.user!.bankName!,
                             style: CropifyThemes.mainTextTheme),
@@ -105,12 +106,12 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     ),
                     Row(
                       children: [
-                        const Text(
-                          "Account No :",
-                          style: CropifyThemes.subTextTheme,
-                        ),
-                        const SizedBox(
-                          width: 20,
+                        SizedBox(
+                          width: labelWidth,
+                          child: const Text(
+                            "Account No :",
+                            style: CropifyThemes.subTextTheme,
+                          ),
                         ),
                         Text(incident.user!.accountNum!,
                             style: CropifyThemes.mainTextTheme),
@@ -122,12 +123,12 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Crop Types :",
-                          style: CropifyThemes.subTextTheme,
-                        ),
-                        const SizedBox(
-                          width: 20,
+                        SizedBox(
+                          width: labelWidth,
+                          child: const Text(
+                            "Crop Types :",
+                            style: CropifyThemes.subTextTheme,
+                          ),
                         ),
                         SizedBox(
                           width: 200,
@@ -143,12 +144,12 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     ),
                     Row(
                       children: [
-                        const Text(
-                          "Acres Affected :",
-                          style: CropifyThemes.subTextTheme,
-                        ),
-                        const SizedBox(
-                          width: 20,
+                        SizedBox(
+                          width: labelWidth,
+                          child: const Text(
+                            "Acres Affected :",
+                            style: CropifyThemes.subTextTheme,
+                          ),
                         ),
                         Text(incident.acres.toString(),
                             style: CropifyThemes.mainTextTheme),
@@ -160,12 +161,12 @@ class IncidentInfo extends GetWidget<IncidentController> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Description :",
-                          style: CropifyThemes.subTextTheme,
-                        ),
-                        const SizedBox(
-                          width: 20,
+                        SizedBox(
+                          width: labelWidth,
+                          child: const Text(
+                            "Description :",
+                            style: CropifyThemes.subTextTheme,
+                          ),
                         ),
                         SizedBox(
                           width: 200,
@@ -220,7 +221,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
         return GestureDetector(
           onTap: isVideo
               ? () => openVideoPlayer(incident.media![index].mediaRef!)
-              : null,
+              : () => openImageViewer(incident.media![index].mediaRef!),
           child: Stack(
             fit: StackFit.expand,
             children: [
@@ -250,42 +251,42 @@ class IncidentInfo extends GetWidget<IncidentController> {
     switch (incident.status) {
       case IncidentStatus.NEW:
         return Row(
-          children: const [
-            Text(
-              "Status :",
-              style: CropifyThemes.subTextTheme,
-            ),
+          children: [
             SizedBox(
-              width: 20,
+              width: labelWidth,
+              child: const Text(
+                "Status :",
+                style: CropifyThemes.subTextTheme,
+              ),
             ),
-            Text("New", style: CropifyThemes.mainTextTheme),
+            const Text("New", style: CropifyThemes.mainTextTheme),
           ],
         );
       case IncidentStatus.IN_PROGRESS:
         return Row(
-          children: const [
-            Text(
-              "Status :",
-              style: CropifyThemes.subTextTheme,
-            ),
+          children: [
             SizedBox(
-              width: 20,
+              width: labelWidth,
+              child: const Text(
+                "Status :",
+                style: CropifyThemes.subTextTheme,
+              ),
             ),
-            Text("In-Progress", style: CropifyThemes.mainTextTheme),
+            const Text("In-Progress", style: CropifyThemes.mainTextTheme),
           ],
         );
       case IncidentStatus.COMPLETED:
         return Column(children: [
           Row(
-            children: const [
-              Text(
-                "Status :",
-                style: CropifyThemes.subTextTheme,
-              ),
+            children: [
               SizedBox(
-                width: 20,
+                width: labelWidth,
+                child: const Text(
+                  "Status :",
+                  style: CropifyThemes.subTextTheme,
+                ),
               ),
-              Text("Completed", style: CropifyThemes.mainTextTheme),
+              const Text("Completed", style: CropifyThemes.mainTextTheme),
             ],
           ),
           const SizedBox(
@@ -293,16 +294,16 @@ class IncidentInfo extends GetWidget<IncidentController> {
           ),
           Row(
             children: [
-              const Text(
-                "Amount :",
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontFamily: "AbhayaLibre"),
-              ),
-              const SizedBox(
-                width: 20,
+              SizedBox(
+                width: labelWidth,
+                child: const Text(
+                  "Amount :",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontFamily: "AbhayaLibre"),
+                ),
               ),
               Text(incident.amount.toString(),
                   style: const TextStyle(
@@ -318,15 +319,15 @@ class IncidentInfo extends GetWidget<IncidentController> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Comment :",
-                style: CropifyThemes.subTextTheme,
-              ),
-              const SizedBox(
-                width: 20,
+              SizedBox(
+                width: labelWidth,
+                child: const Text(
+                  "Comment :",
+                  style: CropifyThemes.subTextTheme,
+                ),
               ),
               SizedBox(
-                width: 220,
+                width: 200,
                 child: Text(
                   incident.comment!,
                   style: CropifyThemes.mainTextTheme,
@@ -403,15 +404,23 @@ class IncidentInfo extends GetWidget<IncidentController> {
     }
   }
 
-  openVideoPlayer(String URL) {
+  openImageViewer(String url) {
+    Get.defaultDialog(
+        title: "Preview",
+        radius: 4,
+        content: SizedBox(
+          height: 300,
+          child: Container(color: Colors.white, child: Image.network(url)),
+        ));
+  }
+
+  openVideoPlayer(String url) {
     Get.defaultDialog(
         title: "Preview",
         radius: 4,
         content: SizedBox(
           height: 400,
-          child: VideoDisplay(
-            URLPath: URL,
-          ),
+          child: VideoDisplay(urlPath: url),
         ));
   }
 
@@ -565,6 +574,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
                         commentController.text,
                         double.parse(amoountContorller.text),
                         incident.user!.address!);
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(primary: Colors.red),
                   child: const Text(

@@ -3,11 +3,11 @@ import 'package:get/state_manager.dart';
 
 import '../../controllers/auth_controller.dart';
 
-class SignUp extends GetWidget<AuthController> {
+class SignUpScreen extends GetWidget<AuthController> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  SignUp({Key? key}) : super(key: key);
+  SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
