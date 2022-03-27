@@ -25,21 +25,21 @@ class OfficerBottomNavController extends GetxController {
     if (settings.name == 'officerHome') {
       return GetPageRoute(
           settings: settings,
-          page: () => const OfficerHome(),
+          page: () => OfficerHome(),
           transition: Transition.noTransition);
     }
 
     if (settings.name == 'officerInprogressTasks') {
       return GetPageRoute(
           settings: settings,
-          page: () => const InprogressTasks(),
+          page: () => InprogressTasks(),
           transition: Transition.noTransition);
     }
 
     if (settings.name == 'officerCompleteTasks') {
       return GetPageRoute(
           settings: settings,
-          page: () => const CompleteTasks(),
+          page: () => CompleteTasks(),
           transition: Transition.noTransition);
     }
 

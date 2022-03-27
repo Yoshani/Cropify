@@ -36,8 +36,8 @@ class _VideoPlayerState extends State<VideoPlayer> {
 
 class VideoDisplay extends StatefulWidget {
   final String filePath;
-  final String URLPath;
-  const VideoDisplay({Key? key, this.filePath = '', this.URLPath = ''})
+  final String urlPath;
+  const VideoDisplay({Key? key, this.filePath = '', this.urlPath = ''})
       : super(key: key);
   @override
   _VideoDisplayState createState() => _VideoDisplayState();
@@ -49,6 +49,6 @@ class _VideoDisplayState extends State<VideoDisplay> {
     return VideoPlayer(
         videoPlayerController: widget.filePath.isNotEmpty
             ? VideoPlayerController.file(File(widget.filePath))
-            : VideoPlayerController.network(widget.URLPath));
+            : VideoPlayerController.network(widget.urlPath));
   }
 }
