@@ -13,6 +13,7 @@ class CameraController extends GetxController {
 
   var selectedImagePath = ''.obs;
   final RxList<Media> _mediaList = <Media>[].obs;
+  final RxList<Media> _tempMediaList = <Media>[].obs;
   final Rx<int> _visibleFileIndex = 0.obs;
 
   List<Media>? get medias => _mediaList;
@@ -20,13 +21,13 @@ class CameraController extends GetxController {
 
   void swipeRight() {
     if (_visibleFileIndex.value < _mediaList.length - 1) {
-      _visibleFileIndex.value++;
+      _visibleFileIndex(_visibleFileIndex.value + 1);
     }
   }
 
   void swipeLeft() {
     if (_visibleFileIndex.value != 0) {
-      _visibleFileIndex.value--;
+      _visibleFileIndex(_visibleFileIndex.value - 1);
     }
   }
 
@@ -52,8 +53,9 @@ class CameraController extends GetxController {
       // File file = File(pickedFiles[0].path);
       // print(pickedFiles[0].path);
       // print(createdDate);
-      _mediaList
+      _tempMediaList
           .addAll(pickedFiles.map((file) => Media(file: file, type: "Image")));
+      _mediaList.assignAll(_tempMediaList);
     }
   }
 
@@ -62,7 +64,8 @@ class CameraController extends GetxController {
         await ImagePicker().pickImage(source: ImageSource.camera);
 
     if (pickedFile != null) {
-      _mediaList.add(Media(file: pickedFile, type: "Image"));
+      _tempMediaList.add(Media(file: pickedFile, type: "Image"));
+      _mediaList.assignAll(_tempMediaList);
     }
   }
 
@@ -83,8 +86,9 @@ class CameraController extends GetxController {
               .create();
       thumbnail.writeAsBytesSync(bytes!);
 
-      _mediaList
+      _tempMediaList
           .add(Media(file: pickedFile, type: "Video", thumbnail: thumbnail));
+      _mediaList.assignAll(_tempMediaList);
     }
   }
 

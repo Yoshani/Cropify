@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Camera extends GetView<CameraController> {
-  Camera({Key? key}) : super(key: key);
+  const Camera({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +42,11 @@ class Camera extends GetView<CameraController> {
                                       .medias![controller.visibleFileIndex!]
                                       .file
                                       .path))
-                                  : Expanded(
-                                      child: Container(
-                                        child: VideoDisplay(
-                                          filePath: controller
-                                              .medias![
-                                                  controller.visibleFileIndex!]
-                                              .file
-                                              .path,
-                                        ),
-                                      ),
+                                  : VideoDisplay(
+                                      filePath: controller
+                                          .medias![controller.visibleFileIndex!]
+                                          .file
+                                          .path,
                                     ),
                           decoration: BoxDecoration(
                             border: Border.all(
