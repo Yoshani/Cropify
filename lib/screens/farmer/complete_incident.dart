@@ -2,7 +2,6 @@ import 'package:cropify/controllers/farmer_complete_incident_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/auth_controller.dart';
 import '../../models/incident_status.dart';
 
 class CompleteIncident extends GetWidget<FarmerCompleteIncidentController> {
