@@ -17,11 +17,11 @@ class IncidentController extends GetxController {
     super.onInit();
   }
 
-  void setStatus(
-      String id, IncidentStatus value, String comment, num amount) async {
+  void setStatus(String id, IncidentStatus value, String comment, num amount,
+      {String? to}) async {
     try {
       await Database().setIncidentStatus(id, value, comment, amount);
-      Snackbar.showSuccess("Moved to ${value.name}");
+      Snackbar.showSuccess("Moved to ${value.name} state");
       Get.offAllNamed("/OfficerHomeRoot");
     } catch (e) {
       Snackbar.showError(e.toString());
@@ -29,7 +29,7 @@ class IncidentController extends GetxController {
   }
 
   void startPaymentOption(String id, String name, String accountNum,
-      String bankName, String comment, num amount, String address) {
+      String bankName, String comment, num amount, String address, String to) {
     Map paymentObject = {
       "sandbox": true,
       "merchant_id": "1220017",
@@ -54,7 +54,7 @@ class IncidentController extends GetxController {
       "custom_2": bankName
     };
     PayHere.startPayment(paymentObject, (paymentId) {
-      setStatus(id, IncidentStatus.COMPLETED, comment, amount);
+      setStatus(id, IncidentStatus.COMPLETED, comment, amount, to: to);
       print("One Time Payment Success. Payment Id: $paymentId");
     }, (error) {
       Snackbar.showError(error);

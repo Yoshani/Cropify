@@ -13,6 +13,7 @@ class ReportIncident extends GetView<ReportIncidentController> {
   final TextEditingController acresController = TextEditingController();
 
   final CameraController cameraController = Get.put(CameraController());
+  final UserController userController = Get.put(UserController());
 
   ReportIncident({Key? key}) : super(key: key);
 

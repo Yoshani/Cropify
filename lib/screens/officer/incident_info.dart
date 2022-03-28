@@ -573,7 +573,8 @@ class IncidentInfo extends GetWidget<IncidentController> {
                         incident.user!.bankName!,
                         commentController.text,
                         double.parse(amoountContorller.text),
-                        incident.user!.address!);
+                        incident.user!.address!,
+                        incident.user!.fcmToken!);
                     Get.back();
                   },
                   style: ElevatedButton.styleFrom(primary: Colors.red),

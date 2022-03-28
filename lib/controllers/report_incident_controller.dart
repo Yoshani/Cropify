@@ -46,7 +46,8 @@ class ReportIncidentController extends GetxController {
           name: user.name,
           address: user.farm!.address,
           bankName: user.bank!.name,
-          accountNum: user.bank!.accountNum);
+          accountNum: user.bank!.accountNum,
+          fcmToken: user.fcmToken);
 
       // upload media to firebase storage
       List<MediaDTO> mediaDTOs = [];

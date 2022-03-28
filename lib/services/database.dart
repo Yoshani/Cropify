@@ -19,7 +19,8 @@ class Database {
         "role": user.role,
         "profilePicRef": user.profilePicRef,
         "bank": user.bank,
-        "farm": user.farm
+        "farm": user.farm,
+        "fcmToken": user.fcmToken
       });
       return true;
     } catch (e) {
@@ -35,7 +36,8 @@ class Database {
       DocumentSnapshot _doc =
           await _firestore.collection("users").doc(uid).get();
 
-      return UserModel.fromDocumentSnapshot(documentSnapshot: _doc);
+      return UserModel.fromDocumentSnapshot(
+          id: _doc.id, documentSnapshot: _doc.data() as Map<String, dynamic>);
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -88,7 +90,7 @@ class Database {
   Stream<List<IncidentModel>> incidentStream() {
     return _firestore
         .collection("incidents")
-        // .orderBy("date", descending: true)
+        .orderBy("date", descending: true)
         .snapshots()
         .map((QuerySnapshot querySnapshot) => querySnapshot.docs
             .map((doc) => IncidentModel.fromDocumentSnapshot(
@@ -141,6 +143,7 @@ class Database {
         "nic": user.nic,
         "role": user.role,
         "profilePicRef": user.profilePicRef,
+        "fcmToken": user.fcmToken,
         "bank": user.bank!.toMap(),
         "farm": user.farm!.toMap()
       });

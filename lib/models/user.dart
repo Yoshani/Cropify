@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/bank.dart';
 import 'package:cropify/models/farm.dart';
 
@@ -12,6 +11,7 @@ class UserModel {
   String? profilePicRef;
   BankModel? bank;
   FarmModel? farm;
+  String? fcmToken;
 
   UserModel(
       {this.id,
@@ -22,10 +22,11 @@ class UserModel {
       this.role,
       this.profilePicRef,
       this.bank,
-      this.farm});
+      this.farm,
+      this.fcmToken});
 
-  UserModel.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
-    id = documentSnapshot.id;
+  UserModel.fromDocumentSnapshot(
+      {required this.id, required Map<String, dynamic> documentSnapshot}) {
     name = documentSnapshot["name"];
     phone = documentSnapshot["phone"];
     email = documentSnapshot["email"];
@@ -34,6 +35,7 @@ class UserModel {
     profilePicRef = documentSnapshot["profilePicRef"];
     bank = BankModel.fromData(documentSnapshot["bank"]);
     farm = FarmModel.fromData(documentSnapshot["farm"]);
+    fcmToken = documentSnapshot["fcmToken"] ?? '';
   }
 }
 
@@ -43,14 +45,15 @@ class UserAvatar {
   String? address;
   String? bankName;
   String? accountNum;
+  String? fcmToken;
 
-  UserAvatar({
-    this.userId,
-    this.name,
-    this.address,
-    this.bankName,
-    this.accountNum,
-  });
+  UserAvatar(
+      {this.userId,
+      this.name,
+      this.address,
+      this.bankName,
+      this.accountNum,
+      this.fcmToken});
 
   UserAvatar.fromData(Map<String, dynamic> data) {
     userId = data["userId"];
@@ -58,6 +61,7 @@ class UserAvatar {
     address = data["address"];
     bankName = data["bankName"];
     accountNum = data["accountNum"];
+    fcmToken = data["fcmToken"];
   }
 
   Map<String, dynamic> toMap() {
@@ -66,7 +70,8 @@ class UserAvatar {
       'name': name,
       'address': address,
       'bankName': bankName,
-      'accountNum': accountNum
+      'accountNum': accountNum,
+      'fcmToken': fcmToken
     };
   }
 }
