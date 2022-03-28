@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/incident.dart';
 import 'package:cropify/models/incident_status.dart';
+import 'package:cropify/utils/connectivity.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:cropify/widgets/snackbar.dart';
 
 import '../models/media.dart';
 import '../models/user.dart';
@@ -36,74 +38,87 @@ class ReportIncidentController extends GetxController {
   void reportIncident(UserModel user, List<String> cropTypes, double acres,
       String description, List<Media> media) async {
     isLoading.value = true;
-    UserAvatar _userAvatar = UserAvatar(
-        userId: user.id,
-        name: user.name,
-        address: user.farm!.address,
-        bankName: user.bank!.name,
-        accountNum: user.bank!.accountNum);
 
-    // upload media to firebase storage
-    List<MediaDTO> mediaDTOs = [];
-    try {
-      for (Media mediaObj in media) {
-        File file = File(mediaObj.file.path);
-        final fileName = basename(file.path);
-        final destination = 'incident-media/$fileName';
+    // check internet connectivity
+    bool hasConnectivity = await Connectivity().hasConnection();
+    if (hasConnectivity) {
+      UserAvatar _userAvatar = UserAvatar(
+          userId: user.id,
+          name: user.name,
+          address: user.farm!.address,
+          bankName: user.bank!.name,
+          accountNum: user.bank!.accountNum);
 
-        final Reference storageReference =
-            FirebaseStorage.instance.ref().child(destination);
-        UploadTask uploadTask = storageReference.putFile(file);
-
-        String fileUrl = await (await uploadTask).ref.getDownloadURL();
-
-        String thumbnailUrl = '';
-        if (mediaObj.thumbnail != null) {
-          final thumbnailName = basename(mediaObj.thumbnail!.path);
-          final thumbnailDestination = 'incident-media/$thumbnailName';
+      // upload media to firebase storage
+      List<MediaDTO> mediaDTOs = [];
+      try {
+        for (Media mediaObj in media) {
+          File file = File(mediaObj.file.path);
+          final fileName = basename(file.path);
+          final destination = 'incident-media/$fileName';
 
           final Reference storageReference =
-              FirebaseStorage.instance.ref().child(thumbnailDestination);
-          UploadTask uploadTask = storageReference.putFile(mediaObj.thumbnail!);
+              FirebaseStorage.instance.ref().child(destination);
+          UploadTask uploadTask = storageReference.putFile(file);
 
-          thumbnailUrl = await (await uploadTask).ref.getDownloadURL();
+          String fileUrl = await (await uploadTask).ref.getDownloadURL();
+
+          String thumbnailUrl = '';
+          if (mediaObj.thumbnail != null) {
+            final thumbnailName = basename(mediaObj.thumbnail!.path);
+            final thumbnailDestination = 'incident-media/$thumbnailName';
+
+            final Reference storageReference =
+                FirebaseStorage.instance.ref().child(thumbnailDestination);
+            UploadTask uploadTask =
+                storageReference.putFile(mediaObj.thumbnail!);
+
+            thumbnailUrl = await (await uploadTask).ref.getDownloadURL();
+          }
+
+          mediaDTOs.add(MediaDTO(
+              mediaRef: fileUrl, type: mediaObj.type, thumbnail: thumbnailUrl));
         }
-
-        mediaDTOs.add(MediaDTO(
-            mediaRef: fileUrl, type: mediaObj.type, thumbnail: thumbnailUrl));
+      } catch (e) {
+        Get.snackbar(
+          "Sorry",
+          "Error uploading media",
+          snackPosition: SnackPosition.BOTTOM,
+        );
       }
-    } catch (e) {
-      Get.snackbar(
-        "Sorry",
-        "Error uploading media",
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    }
 
-    try {
-      IncidentModel _incident = IncidentModel(
-          types: cropTypes.join(', '),
-          description: description.trim(),
-          media: mediaDTOs,
-          acres: acres,
-          date: Timestamp.fromDate(DateTime.now()),
-          status: IncidentStatus.NEW,
-          user: _userAvatar,
-          reviewDate: null,
-          rejectDate: null,
-          completeDate: null,
-          amount: null,
-          comment: null);
+      try {
+        IncidentModel _incident = IncidentModel(
+            types: cropTypes.join(', '),
+            description: description.trim(),
+            media: mediaDTOs,
+            acres: acres,
+            date: Timestamp.fromDate(DateTime.now()),
+            status: IncidentStatus.NEW,
+            user: _userAvatar,
+            reviewDate: null,
+            rejectDate: null,
+            completeDate: null,
+            amount: null,
+            comment: null);
 
-      if (await Database().createIncident(_incident)) {
+        if (await Database().createIncident(_incident)) {
+          isLoading.value = false;
+          Get.back(closeOverlays: true);
+          Get.snackbar("Success", "Your incident has been reported",
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green);
+        }
+      } catch (_) {
         isLoading.value = false;
-        Get.back(closeOverlays: true);
-        Get.snackbar("Success", "Your incident has been reported",
-            snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green);
+        Get.snackbar("Sorry", "Something went wrong",
+            snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red);
       }
-    } catch (_) {
+    } else {
       isLoading.value = false;
-      Get.snackbar("Sorry", "Something went wrong",
+      Get.back();
+      Get.snackbar(
+          "You are not connected", "Please check your internet connection",
           snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red);
     }
   }
