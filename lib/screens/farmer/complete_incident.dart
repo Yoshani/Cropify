@@ -277,7 +277,7 @@ class CompleteIncident extends GetWidget<FarmerCompleteIncidentController> {
                                                         children: [
                                                           const SizedBox(
                                                             child: Text(
-                                                                "Amount Received:",
+                                                                "Valued Amount:",
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .black,
