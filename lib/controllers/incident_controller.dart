@@ -22,12 +22,6 @@ class IncidentController extends GetxController {
       {String? to}) async {
     try {
       await Database().setIncidentStatus(id, value, comment, amount);
-      if (value == IncidentStatus.IN_PROGRESS) {
-        Map<String, String> data = {"title": 'Sashika', 'body': 'I love you'};
-        await PushNotificationService().sendMessage(
-            'fve12gmMSoiM_rRvQPJnkN:APA91bFNE_JdVexq1iaQ6qqxfKKRsDCRTuV4qU0JKrxnYEcESL-EUSA78orZAlWupaheSd-fVW8mnsI39OZy0yya_6R_yvH8Uf_hjFkU2l4BABFczYBsZKux5SdlhXaEeAWCn5ZKv-af',
-            data);
-      }
       Snackbar.showSuccess("Moved to ${value.name}");
       Get.offAllNamed("/OfficerHomeRoot");
     } catch (e) {

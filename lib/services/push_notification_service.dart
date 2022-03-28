@@ -25,13 +25,13 @@ class PushNotificationService {
           ]);
     });
 
-    // FirebaseMessaging.onMessage.listen((event) {
-    //   print("Message Open");
-    // });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
-      print("Message Clicked");
+    FirebaseMessaging.onMessage.listen((event) {
+      print("Message Open");
     });
+
+    // FirebaseMessaging.onMessageOpenedApp.listen((event) {
+    //   print("Message Clicked");
+    // });
   }
 
   Future<void> _messageHandler(RemoteMessage message) async {
