@@ -21,7 +21,7 @@ class IncidentController extends GetxController {
       {String? to}) async {
     try {
       await Database().setIncidentStatus(id, value, comment, amount);
-      Snackbar.showSuccess("Moved to ${value.name}");
+      Snackbar.showSuccess("Moved to ${value.name} state");
       Get.offAllNamed("/OfficerHomeRoot");
     } catch (e) {
       Snackbar.showError(e.toString());
