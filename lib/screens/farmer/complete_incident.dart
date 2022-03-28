@@ -116,12 +116,17 @@ class CompleteIncident extends GetWidget<FarmerCompleteIncidentController> {
                                                   onPressed: () {},
                                                   child: Text(
                                                     controller
-                                                        .completeIncidents[
-                                                            index]
-                                                        .status!
-                                                        .name
-                                                        .split("_")
-                                                        .join(" "),
+                                                                .completeIncidents[
+                                                                    index]
+                                                                .status!
+                                                                .name ==
+                                                            "REJECTED"
+                                                        ? controller
+                                                            .completeIncidents[
+                                                                index]
+                                                            .status!
+                                                            .name
+                                                        : "ACCEPTED",
                                                     style: const TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
