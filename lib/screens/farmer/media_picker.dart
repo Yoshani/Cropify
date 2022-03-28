@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cropify/controllers/camera_controller.dart';
+import 'package:cropify/controllers/media_picker_controller.dart';
 
 import 'package:cropify/screens/common/video_settings.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../camera_controller.dart';
+import '../media_picker_controller.dart';
 
 class CameraBinding extends Bindings {
   @override
