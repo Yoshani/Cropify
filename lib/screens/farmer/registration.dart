@@ -231,7 +231,7 @@ class FarmerRegistration extends GetWidget<UserController> {
               ),
               ElevatedButton(
                 child: const Text("Register"),
-                onPressed: () {
+                onPressed: () async {
                   if (nameController.value.text.isEmpty ||
                       phoneController.value.text.isEmpty ||
                       nicController.value.text.isEmpty ||
@@ -251,16 +251,25 @@ class FarmerRegistration extends GetWidget<UserController> {
                         snackStyle: SnackStyle.FLOATING,
                         backgroundColor: Colors.red);
                   } else {
-                    controller.registerUser(
-                      nameController.text,
-                      phoneController.text,
-                      nicController.text,
-                      bankNameController.text,
-                      accountNumController.text,
-                      farmNameController.text,
-                      addressController.text,
-                      regNumController.text,
-                    );
+                    if (await controller
+                        .isFarmRegistered(regNumController.text)) {
+                      controller.registerUser(
+                        nameController.text,
+                        phoneController.text,
+                        nicController.text,
+                        bankNameController.text,
+                        accountNumController.text,
+                        farmNameController.text,
+                        addressController.text,
+                        regNumController.text,
+                      );
+                    }
+
+                    if (controller.isLoading.value) {
+                      Get.dialog(
+                          const Center(child: CircularProgressIndicator()),
+                          barrierDismissible: false);
+                    }
                   }
                 },
               ),

@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:cropify/models/registered_farm.dart';
 import 'package:cropify/widgets/snackbar.dart';
 import 'package:cropify/models/bank.dart';
 import 'package:cropify/models/farm.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
+import 'package:flutter/material.dart';
 
 import '../models/user.dart';
 import '../services/database.dart';
@@ -14,9 +16,11 @@ class UserController extends GetxController {
   final Rx<UserModel> _userModel =
       UserModel().obs; // listen to changes to userModel
 
-  UserModel get user => _userModel.value; // getter
+  final Rx<RegisteredFarmModel> _registeredFarm = RegisteredFarmModel().obs;
 
-  set user(UserModel value) => _userModel.value = value; // setter
+  UserModel get user => _userModel.value;
+
+  set user(UserModel value) => _userModel.value = value;
 
   var isProfilePathSet = false.obs;
   var profilePath = ''.obs;
@@ -34,6 +38,7 @@ class UserController extends GetxController {
 
   void registerUser(String userName, String phone, String nic, String bankName,
       String accountNum, String farmName, String address, String regNum) async {
+    isLoading.value = true;
     try {
       BankModel _bank =
           BankModel(name: bankName.trim(), accountNum: accountNum.trim());
@@ -47,8 +52,37 @@ class UserController extends GetxController {
       user.bank = _bank;
       user.farm = _farm;
 
-      if (await Database().registerUser(user)) {
+      if (await Database().registerUser(user, _registeredFarm.value.id!)) {
+        isLoading.value = false;
         Get.offAllNamed("/farmerHomeRoot");
+      }
+    } on FirebaseException catch (e) {
+      isLoading.value = false;
+      Get.snackbar(
+        "Error registering account",
+        e.message.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  Future<bool> isFarmRegistered(String regNum) async {
+    try {
+      List<RegisteredFarmModel> registered =
+          await Database().isFarmRegistered(regNum);
+      if (registered.isEmpty) {
+        Get.snackbar("Error registering account",
+            "Provided farm registration number is not government registered",
+            snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red);
+      } else {
+        _registeredFarm.value = registered[0];
+        if (_registeredFarm.value.registered!) {
+          Get.snackbar(
+              "Error registering account", "Farm is already registered",
+              snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.red);
+        } else {
+          return true;
+        }
       }
     } on FirebaseException catch (e) {
       Get.snackbar(
@@ -56,7 +90,15 @@ class UserController extends GetxController {
         e.message.toString(),
         snackPosition: SnackPosition.BOTTOM,
       );
+    } catch (e) {
+      isLoading.value = false;
+      Get.snackbar(
+        "Error creating Account",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
+    return false;
   }
 
   void updateOfficer(String userName, String phone, String nic) async {
@@ -84,7 +126,7 @@ class UserController extends GetxController {
 
       if (await Database().updateOfficer(user)) {
         isLoading.value = false;
-        Snackbar.showSuccess("Succefully update the profile");
+        Snackbar.showSuccess("Succefully updated the profile");
         Get.offAllNamed("/OfficerHomeRoot");
       }
     } catch (e) {

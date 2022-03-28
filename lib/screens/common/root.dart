@@ -12,7 +12,7 @@ class Root extends GetWidget<AuthController> {
   Widget build(BuildContext context) {
     return GetX<AuthController>(
       initState: (_) async {
-        Get.put<UserController>(UserController());
+        Get.put<UserController>(UserController(), permanent: true);
       },
       builder: (_) {
         if (Get.find<AuthController>().user?.uid != null) {
