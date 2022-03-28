@@ -1,5 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PushNotificationService {
@@ -10,14 +10,32 @@ class PushNotificationService {
     print("Token body" + token!);
 
     FirebaseMessaging.onMessage.listen((event) {
-      print("Meesage Recieved" + event.notification!.body!);
+      print("message recieved");
+      print(event.notification!.body);
+
       Get.defaultDialog(
-          title: "Notification", content: Text(event.notification!.body!));
+          title: "Notification",
+          content: Text(event.notification!.body!),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text("OK"))
+          ]);
     });
 
-    FirebaseMessaging.onMessage.listen((event) {
-      print("Message Open");
+    // FirebaseMessaging.onMessage.listen((event) {
+    //   print("Message Open");
+    // });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      print("Message Clicked");
     });
+  }
+
+  Future<void> _messageHandler(RemoteMessage message) async {
+    print('background message ${message.notification!.body}');
   }
 
   Future<String?> getFcmToken() {

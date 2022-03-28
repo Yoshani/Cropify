@@ -50,6 +50,8 @@ dependencies:
   payhere_mobilesdk_flutter: ^2.0.0
   firebase_messaging: ^11.2.11
   firebase_core: ^1.13.1
+  cloud_functions: ^3.2.10
+  cloud_functions_web: ^4.2.9
   
 
 dev_dependencies:
