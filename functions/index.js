@@ -19,7 +19,7 @@ exports.sendNotification = functions.firestore
         await messaging.sendToDevice(token, {
           notification: {
             title: "Cropify",
-            body: "Incident Completed"
+            body: `Dear ${name}, your incident reported for ${newValue.acres} acres has been successfully attended. You will receive the allocated amount of Rs.${newValue.amount} reimbursement shortly.`
           }
         });
         console.log("Notification sent successfully to", name);

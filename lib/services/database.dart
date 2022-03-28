@@ -19,7 +19,8 @@ class Database {
         "role": user.role,
         "profilePicRef": user.profilePicRef,
         "bank": user.bank,
-        "farm": user.farm
+        "farm": user.farm,
+        "fcmToken": user.fcmToken
       });
       return true;
     } catch (e) {
@@ -142,6 +143,7 @@ class Database {
         "nic": user.nic,
         "role": user.role,
         "profilePicRef": user.profilePicRef,
+        "fcmToken": user.fcmToken,
         "bank": user.bank!.toMap(),
         "farm": user.farm!.toMap()
       });

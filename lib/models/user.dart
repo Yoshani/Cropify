@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/bank.dart';
 import 'package:cropify/models/farm.dart';
 
@@ -27,8 +26,7 @@ class UserModel {
       this.fcmToken});
 
   UserModel.fromDocumentSnapshot(
-      {required String id, required Map<String, dynamic> documentSnapshot}) {
-    id = id;
+      {required this.id, required Map<String, dynamic> documentSnapshot}) {
     name = documentSnapshot["name"];
     phone = documentSnapshot["phone"];
     email = documentSnapshot["email"];

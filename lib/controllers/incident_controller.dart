@@ -1,6 +1,5 @@
 import 'package:cropify/models/incident.dart';
 import 'package:cropify/models/incident_status.dart';
-import 'package:cropify/services/push_notification_service.dart';
 import 'package:cropify/widgets/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:payhere_mobilesdk_flutter/payhere_mobilesdk_flutter.dart';

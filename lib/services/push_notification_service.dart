@@ -28,10 +28,6 @@ class PushNotificationService {
     FirebaseMessaging.onMessage.listen((event) {
       print("Message Open");
     });
-
-    // FirebaseMessaging.onMessageOpenedApp.listen((event) {
-    //   print("Message Clicked");
-    // });
   }
 
   Future<void> _messageHandler(RemoteMessage message) async {
@@ -40,9 +36,5 @@ class PushNotificationService {
 
   Future<String?> getFcmToken() {
     return _fcm.getToken();
-  }
-
-  Future<void> sendMessage(String to, Map<String, String> data) {
-    return _fcm.sendMessage(to: to, data: data, messageId: "qwe", ttl: 1);
   }
 }
