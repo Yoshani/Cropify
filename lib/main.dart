@@ -12,5 +12,5 @@ void main() async {
       print('Error in initializing Firebase: $e');
     }
   }
-  runApp(const CropifyApp());
+  runApp(CropifyApp());
 }

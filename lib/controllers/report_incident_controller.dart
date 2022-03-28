@@ -37,6 +37,7 @@ class ReportIncidentController extends GetxController {
   void reportIncident(UserModel user, List<String> cropTypes, double acres,
       String description, List<Media> media) async {
     isLoading.value = true;
+<<<<<<< master
 
     // check internet connectivity
     bool hasConnectivity = await Connectivity().hasConnection();
@@ -55,6 +56,34 @@ class ReportIncidentController extends GetxController {
           File file = File(mediaObj.file.path);
           final fileName = basename(file.path);
           final destination = 'incident-media/$fileName';
+=======
+    UserAvatar _userAvatar = UserAvatar(
+        userId: user.id,
+        name: user.name,
+        address: user.farm!.address,
+        bankName: user.bank!.name,
+        accountNum: user.bank!.accountNum,
+        fcmToken: user.fcmToken);
+
+    // upload media to firebase storage
+    List<MediaDTO> mediaDTOs = [];
+    try {
+      for (Media mediaObj in media) {
+        File file = File(mediaObj.file.path);
+        final fileName = basename(file.path);
+        final destination = 'incident-media/$fileName';
+
+        final Reference storageReference =
+            FirebaseStorage.instance.ref().child(destination);
+        UploadTask uploadTask = storageReference.putFile(file);
+
+        String fileUrl = await (await uploadTask).ref.getDownloadURL();
+
+        String thumbnailUrl = '';
+        if (mediaObj.thumbnail != null) {
+          final thumbnailName = basename(mediaObj.thumbnail!.path);
+          final thumbnailDestination = 'incident-media/$thumbnailName';
+>>>>>>> implemnt push notification
 
           final Reference storageReference =
               FirebaseStorage.instance.ref().child(destination);

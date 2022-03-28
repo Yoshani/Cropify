@@ -1,5 +1,6 @@
 import 'package:cropify/models/incident.dart';
 import 'package:cropify/models/incident_status.dart';
+import 'package:cropify/services/push_notification_service.dart';
 import 'package:cropify/widgets/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:payhere_mobilesdk_flutter/payhere_mobilesdk_flutter.dart';
@@ -17,10 +18,16 @@ class IncidentController extends GetxController {
     super.onInit();
   }
 
-  void setStatus(
-      String id, IncidentStatus value, String comment, num amount) async {
+  void setStatus(String id, IncidentStatus value, String comment, num amount,
+      {String? to}) async {
     try {
       await Database().setIncidentStatus(id, value, comment, amount);
+      if (value == IncidentStatus.IN_PROGRESS) {
+        Map<String, String> data = {"title": 'Sashika', 'body': 'I love you'};
+        await PushNotificationService().sendMessage(
+            'fve12gmMSoiM_rRvQPJnkN:APA91bFNE_JdVexq1iaQ6qqxfKKRsDCRTuV4qU0JKrxnYEcESL-EUSA78orZAlWupaheSd-fVW8mnsI39OZy0yya_6R_yvH8Uf_hjFkU2l4BABFczYBsZKux5SdlhXaEeAWCn5ZKv-af',
+            data);
+      }
       Snackbar.showSuccess("Moved to ${value.name}");
       Get.offAllNamed("/OfficerHomeRoot");
     } catch (e) {
@@ -29,7 +36,7 @@ class IncidentController extends GetxController {
   }
 
   void startPaymentOption(String id, String name, String accountNum,
-      String bankName, String comment, num amount, String address) {
+      String bankName, String comment, num amount, String address, String to) {
     Map paymentObject = {
       "sandbox": true,
       "merchant_id": "1220017",
@@ -54,7 +61,7 @@ class IncidentController extends GetxController {
       "custom_2": bankName
     };
     PayHere.startPayment(paymentObject, (paymentId) {
-      setStatus(id, IncidentStatus.COMPLETED, comment, amount);
+      setStatus(id, IncidentStatus.COMPLETED, comment, amount, to: to);
       print("One Time Payment Success. Payment Id: $paymentId");
     }, (error) {
       Snackbar.showError(error);

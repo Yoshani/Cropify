@@ -35,7 +35,8 @@ class Database {
       DocumentSnapshot _doc =
           await _firestore.collection("users").doc(uid).get();
 
-      return UserModel.fromDocumentSnapshot(documentSnapshot: _doc);
+      return UserModel.fromDocumentSnapshot(
+          id: _doc.id, documentSnapshot: _doc.data() as Map<String, dynamic>);
     } catch (e) {
       if (kDebugMode) {
         print(e);

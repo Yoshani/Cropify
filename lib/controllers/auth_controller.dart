@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cropify/services/push_notification_service.dart';
 import 'package:cropify/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cropify/controllers/user_controller.dart';
@@ -41,6 +42,9 @@ class AuthController extends GetxController {
     try {
       UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
+
+      String? fcmToken = await PushNotificationService().getFcmToken();
+
       //create user in database
       UserModel _user = UserModel(
           id: _authResult.user?.uid,
@@ -51,7 +55,8 @@ class AuthController extends GetxController {
           role: "FARMER",
           profilePicRef: null,
           bank: null,
-          farm: null);
+          farm: null,
+          fcmToken: fcmToken);
       if (await Database().createNewUser(_user)) {
         Get.find<UserController>().user = _user;
         Get.back(closeOverlays: true);

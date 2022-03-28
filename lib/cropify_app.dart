@@ -1,11 +1,15 @@
 import 'package:cropify/routes/routes.dart';
 import 'package:cropify/screens/common/theme.dart';
+import 'package:cropify/services/push_notification_service.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import 'controllers/bindings/auth_binding.dart';
 
 class CropifyApp extends StatelessWidget {
-  const CropifyApp({Key? key}) : super(key: key);
+  // const CropifyApp({Key? key}) : super(key: key) ;
+  CropifyApp() {
+    PushNotificationService().initialise();
+  }
 
   @override
   Widget build(BuildContext context) {
