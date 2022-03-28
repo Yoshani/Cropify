@@ -424,27 +424,7 @@ class CompleteIncident extends GetWidget<FarmerCompleteIncidentController> {
                         ),
                       );
                     } else {
-                      return Expanded(
-                        child: Container(
-                          child: const Align(
-                            alignment: FractionalOffset.center,
-                            child: Text(
-                              "No completed reports yet",
-                              style: TextStyle(
-                                fontSize: 25,
-                              ),
-                            ),
-                          ),
-                          alignment: Alignment.center,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/no-incidents.gif"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          width: double.infinity,
-                        ),
-                      );
+                      return const Center(child: CircularProgressIndicator());
                     }
                   },
                 ),

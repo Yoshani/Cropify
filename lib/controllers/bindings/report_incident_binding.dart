@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 class ReportIncidentBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<ReportIncidentController>(ReportIncidentController(),
-        permanent: true);
+    Get.put<ReportIncidentController>(ReportIncidentController());
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cropify/models/incident.dart';
 import 'package:cropify/models/incident_status.dart';
+import 'package:cropify/models/registered_farm.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/user.dart';
@@ -124,8 +125,14 @@ class Database {
             .toList());
   }
 
-  Future<bool> registerUser(UserModel user) async {
+  Future<bool> registerUser(UserModel user, String regFarmId) async {
     try {
+      // update farm to registered
+      await _firestore
+          .collection("registered farms")
+          .doc(regFarmId)
+          .update({"registered": true});
+
       // update user
       await _firestore.collection("users").doc(user.id).update({
         "name": user.name,
@@ -144,6 +151,26 @@ class Database {
         print(e);
       }
       return false;
+    }
+  }
+
+  Future<List<RegisteredFarmModel>> isFarmRegistered(String regNum) async {
+    try {
+      QuerySnapshot _doc = await _firestore
+          .collection("registered farms")
+          .where('regNum', isEqualTo: regNum)
+          .limit(1)
+          .get();
+
+      return _doc.docs
+          .map((DocumentSnapshot doc) =>
+              RegisteredFarmModel.fromDocumentSnapshot(doc))
+          .toList();
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
   }
 
