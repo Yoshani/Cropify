@@ -54,8 +54,7 @@ class AuthController extends GetxController {
           farm: null);
       if (await Database().createNewUser(_user)) {
         Get.find<UserController>().user = _user;
-        // TODO: this might not needed
-        Get.toNamed("/home");
+        Get.back(closeOverlays: true);
       }
     } on FirebaseException catch (e) {
       Get.snackbar(
@@ -139,6 +138,7 @@ class AuthController extends GetxController {
   }
 
   void signOut() async {
+    isLoading.value = true;
     try {
       await _auth.signOut();
       Get.find<UserController>().clear();
@@ -148,6 +148,8 @@ class AuthController extends GetxController {
         e.message.toString(),
         snackPosition: SnackPosition.BOTTOM,
       );
+    } finally {
+      isLoading.value = false;
     }
   }
 }

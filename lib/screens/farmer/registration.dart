@@ -1,4 +1,5 @@
 import 'package:cropify/screens/common/appbar.dart';
+import 'package:cropify/screens/common/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -266,9 +267,7 @@ class FarmerRegistration extends GetWidget<UserController> {
                     }
 
                     if (controller.isLoading.value) {
-                      Get.dialog(
-                          const Center(child: CircularProgressIndicator()),
-                          barrierDismissible: false);
+                      const Loading();
                     }
                   }
                 },

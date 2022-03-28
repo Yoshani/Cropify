@@ -54,7 +54,7 @@ class UserController extends GetxController {
 
       if (await Database().registerUser(user, _registeredFarm.value.id!)) {
         isLoading.value = false;
-        Get.offAllNamed("/farmerHomeRoot");
+        Get.offAllNamed('/root');
       }
     } on FirebaseException catch (e) {
       isLoading.value = false;
