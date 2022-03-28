@@ -68,7 +68,7 @@ class Camera extends GetView<CameraController> {
               height: 10,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 PopupMenuButton<int>(
                     child: Container(
@@ -116,6 +116,13 @@ class Camera extends GetView<CameraController> {
                             value: 2,
                           )
                         ]),
+                IconButton(
+                  onPressed: () {
+                    controller.removeMedia();
+                  },
+                  icon: const Icon(Icons.delete),
+                  color: Colors.red,
+                ),
                 PopupMenuButton<int>(
                     child: Container(
                         decoration: BoxDecoration(

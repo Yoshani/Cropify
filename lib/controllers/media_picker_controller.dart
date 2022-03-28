@@ -66,8 +66,10 @@ class CameraController extends GetxController {
     }
   }
 
-  void removeMedia(int index) {
-    swipeLeft();
-    _mediaList.removeAt(index);
+  void removeMedia() {
+    if (_mediaList.isNotEmpty) {
+      _mediaList.removeAt(visibleFileIndex!);
+      swipeLeft();
+    }
   }
 }
