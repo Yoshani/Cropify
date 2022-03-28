@@ -14,10 +14,10 @@ class AuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Rxn<User> _firebaseUser = Rxn<User>();
 
-  var isProfilePathSet = false.obs;
-  var profilePath = ''.obs;
+  RxBool isProfilePathSet = false.obs;
+  RxString profilePath = ''.obs;
 
-  final isLoading = false.obs;
+  RxBool isLoading = false.obs;
   bool showPassword = false;
 
   User? get user => _firebaseUser.value;
@@ -54,6 +54,7 @@ class AuthController extends GetxController {
           farm: null);
       if (await Database().createNewUser(_user)) {
         Get.find<UserController>().user = _user;
+        // TODO: this might not needed
         Get.toNamed("/home");
       }
     } on FirebaseException catch (e) {
@@ -99,22 +100,26 @@ class AuthController extends GetxController {
           name: name.trim(),
           phone: phone,
           email: _authResult.user?.email,
-          nic: nic.trim(),
+          nic: nic,
           role: "OFFICER",
           profilePicRef: url,
           bank: null,
           farm: null);
       if (await Database().createNewUser(_user)) {
         isLoading.value = false;
-        Get.find<UserController>().user = _user;
-        Get.offAllNamed("/officerHomeRoot");
+        Get.find<UserController>().user =
+            await Database().getUser(_authResult.user?.uid);
+        Get.offAllNamed("/root");
       }
     } on FirebaseException catch (e) {
-      isLoading.value = false;
-      Snackbar.showError("Error Creating Account");
+      Get.snackbar(
+        "Error creating Account",
+        e.message.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } catch (e) {
       isLoading.value = false;
-      Snackbar.showError("Error Creating Account");
+      Snackbar.showError(e.toString());
     }
   }
 

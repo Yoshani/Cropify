@@ -6,12 +6,12 @@ import '../../models/incident_status.dart';
 import '../common/theme.dart';
 
 class CompleteTasks extends StatelessWidget {
-  const CompleteTasks({Key? key}) : super(key: key);
+  CompleteTasks({Key? key}) : super(key: key);
+
+  IncidentController incidentController = Get.find<IncidentController>();
 
   @override
   Widget build(BuildContext context) {
-    IncidentController incidentController =
-        Get.put<IncidentController>(IncidentController());
     return Scaffold(
       body: Column(
         children: [
@@ -58,12 +58,7 @@ class CompleteTasks extends StatelessWidget {
                                           Text(
                                             incidentController
                                                 .incidents[index].user!.name!,
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color.fromARGB(
-                                                    255, 12, 3, 71),
-                                                fontFamily: "AbhayaLibre"),
+                                            style: CropifyThemes.mainTextTheme,
                                           ),
                                           Text(
                                             incidentController
@@ -72,25 +67,19 @@ class CompleteTasks extends StatelessWidget {
                                                 .toString()
                                                 .split(" ")
                                                 .first,
-                                            style: const TextStyle(
-                                                fontSize: 15,
-                                                color: Color.fromARGB(
-                                                    255, 97, 97, 99),
-                                                fontFamily: "AbhayaLibre"),
+                                            style: CropifyThemes.subTextTheme,
                                           ),
                                         ],
                                       ),
                                       Align(
                                         alignment: Alignment.bottomLeft,
-                                        child: Text(
-                                          incidentController
-                                              .incidents[index].types!,
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 97, 97, 99),
-                                              fontFamily: "AbhayaLibre"),
+                                        child: SizedBox(
+                                          width: 200,
+                                          child: Text(
+                                            incidentController
+                                                .incidents[index].types!,
+                                            style: CropifyThemes.subTextTheme,
+                                          ),
                                         ),
                                       ),
                                       Align(
@@ -106,12 +95,8 @@ class CompleteTasks extends StatelessWidget {
                                           },
                                           child: const Text(
                                             "Info",
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontFamily: "AbhayaLibre",
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                            style:
+                                                CropifyThemes.buttonTextTheme,
                                           ),
                                         ),
                                       ),

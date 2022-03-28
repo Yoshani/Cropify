@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OfficerHome extends StatelessWidget {
-  const OfficerHome({Key? key}) : super(key: key);
+  OfficerHome({Key? key}) : super(key: key);
+
+  IncidentController incidentController =
+      Get.put<IncidentController>(IncidentController());
 
   @override
   Widget build(BuildContext context) {
-    IncidentController incidentController =
-        Get.put<IncidentController>(IncidentController());
     return Scaffold(
       body: Column(
         children: [
@@ -72,10 +73,13 @@ class OfficerHome extends StatelessWidget {
                                       ),
                                       Align(
                                         alignment: Alignment.bottomLeft,
-                                        child: Text(
-                                          incidentController
-                                              .incidents[index].types!,
-                                          style: CropifyThemes.subTextTheme,
+                                        child: SizedBox(
+                                          width: 200,
+                                          child: Text(
+                                            incidentController
+                                                .incidents[index].types!,
+                                            style: CropifyThemes.subTextTheme,
+                                          ),
                                         ),
                                       ),
                                       Align(

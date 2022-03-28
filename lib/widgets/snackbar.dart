@@ -20,6 +20,6 @@ class Snackbar {
           message,
           style: const TextStyle(color: Colors.white),
         ),
-        duration: const Duration(seconds: 5));
+        duration: const Duration(seconds: 4));
   }
 }

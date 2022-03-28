@@ -1,14 +1,13 @@
-import 'package:cropify/screens/auth/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/auth_controller.dart';
 
-class Login extends GetWidget<AuthController> {
+class LoginScreen extends GetWidget<AuthController> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  Login({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +90,7 @@ class Login extends GetWidget<AuthController> {
                               TextStyle(color: Color.fromARGB(255, 2, 70, 2)),
                         ),
                         onPressed: () {
-                          Get.to(() => SignUp());
+                          Get.toNamed('/signup-screen');
                         },
                       )
                     ],

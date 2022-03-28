@@ -1,9 +1,9 @@
+import 'package:cropify/screens/auth/login_screen.dart';
 import 'package:cropify/screens/common/root_home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/user_controller.dart';
-import '../auth/login.dart';
 
 class Root extends GetWidget<AuthController> {
   const Root({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class Root extends GetWidget<AuthController> {
         if (Get.find<AuthController>().user?.uid != null) {
           return const RootHome();
         } else {
-          return Login();
+          return LoginScreen();
         }
       },
     );

@@ -72,7 +72,7 @@ class OfficerAccount extends StatelessWidget {
               ),
               Container(
                 margin:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -83,20 +83,12 @@ class OfficerAccount extends StatelessWidget {
                         },
                         child: const Text(
                           "Cancel",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: "AbhayaLibre",
-                            fontSize: 20,
-                          ),
+                          style: CropifyThemes.buttonTextTheme,
                         )),
                     ElevatedButton(
                       child: const Text(
                         "Submit",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "AbhayaLibre",
-                          fontSize: 20,
-                        ),
+                        style: CropifyThemes.buttonTextTheme,
                       ),
                       style: ElevatedButton.styleFrom(primary: Colors.green),
                       onPressed: () {
