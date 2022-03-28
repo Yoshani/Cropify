@@ -79,6 +79,8 @@ class AuthController extends GetxController {
   void createOfficer(String email, String password, String name, String nic,
       String phone) async {
     isLoading.value = true;
+
+    String? fcmToken = await PushNotificationService().getFcmToken();
     try {
       UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
@@ -108,7 +110,8 @@ class AuthController extends GetxController {
           role: "OFFICER",
           profilePicRef: url,
           bank: null,
-          farm: null);
+          farm: null,
+          fcmToken: fcmToken);
       if (await Database().createNewUser(_user)) {
         isLoading.value = false;
         Get.find<UserController>().user =

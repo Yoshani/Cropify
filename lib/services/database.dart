@@ -90,7 +90,7 @@ class Database {
   Stream<List<IncidentModel>> incidentStream() {
     return _firestore
         .collection("incidents")
-        // .orderBy("date", descending: true)
+        .orderBy("date", descending: true)
         .snapshots()
         .map((QuerySnapshot querySnapshot) => querySnapshot.docs
             .map((doc) => IncidentModel.fromDocumentSnapshot(
