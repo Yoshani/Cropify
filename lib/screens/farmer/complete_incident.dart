@@ -2,7 +2,6 @@ import 'package:cropify/controllers/farmer_complete_incident_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/auth_controller.dart';
 import '../../models/incident_status.dart';
 
 class CompleteIncident extends GetWidget<FarmerCompleteIncidentController> {
@@ -117,12 +116,17 @@ class CompleteIncident extends GetWidget<FarmerCompleteIncidentController> {
                                                   onPressed: () {},
                                                   child: Text(
                                                     controller
-                                                        .completeIncidents[
-                                                            index]
-                                                        .status!
-                                                        .name
-                                                        .split("_")
-                                                        .join(" "),
+                                                                .completeIncidents[
+                                                                    index]
+                                                                .status!
+                                                                .name ==
+                                                            "REJECTED"
+                                                        ? controller
+                                                            .completeIncidents[
+                                                                index]
+                                                            .status!
+                                                            .name
+                                                        : "ACCEPTED",
                                                     style: const TextStyle(
                                                         color: Colors.black,
                                                         fontWeight:
@@ -278,7 +282,7 @@ class CompleteIncident extends GetWidget<FarmerCompleteIncidentController> {
                                                         children: [
                                                           const SizedBox(
                                                             child: Text(
-                                                                "Amount Received:",
+                                                                "Valued Amount:",
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .black,

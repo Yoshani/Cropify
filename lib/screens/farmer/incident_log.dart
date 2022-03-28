@@ -1,11 +1,8 @@
-import 'package:cropify/controllers/incident_controller.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/incident_log_controller.dart';
 import '../../models/incident_status.dart';
-import '../common/theme.dart';
 
 class IncidentLog extends GetWidget<IncidentLogController> {
   const IncidentLog({Key? key}) : super(key: key);
