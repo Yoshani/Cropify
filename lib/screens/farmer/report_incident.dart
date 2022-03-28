@@ -1,8 +1,8 @@
-import 'package:cropify/controllers/camera_controller.dart';
+import 'package:cropify/controllers/media_picker_controller.dart';
 import 'package:cropify/controllers/report_incident_controller.dart';
 import 'package:cropify/controllers/user_controller.dart';
 import 'package:cropify/screens/common/appbar.dart';
-import 'package:cropify/screens/farmer/camera.dart';
+import 'package:cropify/screens/farmer/media_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

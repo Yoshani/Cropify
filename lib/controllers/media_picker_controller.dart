@@ -65,4 +65,11 @@ class CameraController extends GetxController {
           .add(Media(file: pickedFile, type: "Video", thumbnail: thumbnail));
     }
   }
+
+  void removeMedia() {
+    if (_mediaList.isNotEmpty) {
+      _mediaList.removeAt(visibleFileIndex!);
+      swipeLeft();
+    }
+  }
 }
