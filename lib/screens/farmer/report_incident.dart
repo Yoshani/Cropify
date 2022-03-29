@@ -307,6 +307,7 @@ class ReportIncident extends GetView<ReportIncidentController> {
               ),
               onPressed: () {
                 Get.back(closeOverlays: true);
+                controller.selectedCrops.clear();
               },
               child: const Text(
                 "Confirm",
