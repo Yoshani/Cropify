@@ -305,7 +305,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
                       fontFamily: "AbhayaLibre"),
                 ),
               ),
-              Text(incident.amount.toString(),
+              Text("Rs." + incident.amount.toString(),
                   style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -480,7 +480,6 @@ class IncidentInfo extends GetWidget<IncidentController> {
                   onPressed: () {
                     incidentController.setStatus(incident.id!,
                         IncidentStatus.REJECTED, commentController.text, 0.0);
-                    Get.offAllNamed("/OfficerHomeRoot");
                   },
                   style: ElevatedButton.styleFrom(primary: Colors.red),
                   child: const Text(

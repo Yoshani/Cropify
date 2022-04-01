@@ -8,12 +8,19 @@ import '../services/database.dart';
 
 class IncidentController extends GetxController {
   final RxList<IncidentModel> _incidentList = <IncidentModel>[].obs;
-
   List<IncidentModel> get incidents => _incidentList;
+
+  final RxList<IncidentModel> _inprogressIncidentList = <IncidentModel>[].obs;
+  List<IncidentModel> get inprogressIncidents => _inprogressIncidentList;
+
+  final RxList<IncidentModel> _completeIncidentList = <IncidentModel>[].obs;
+  List<IncidentModel> get completeIncidents => _completeIncidentList;
 
   @override
   void onInit() async {
     _incidentList.bindStream(Database().incidentStream());
+    _inprogressIncidentList.bindStream(Database().inprogressIncidentStream());
+    _completeIncidentList.bindStream(Database().completeIncidentStream());
     super.onInit();
   }
 
