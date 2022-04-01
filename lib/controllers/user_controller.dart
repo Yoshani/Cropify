@@ -101,11 +101,11 @@ class UserController extends GetxController {
     return false;
   }
 
-  void updateOfficer(String userName, String phone, String nic) async {
+  void updateOfficer(
+      String userName, String phone, String nic, String url) async {
     isLoading.value = true;
     try {
       //upload profile picture to firebase storage
-      String? url;
       if (isProfilePathSet.value == true) {
         String filename = basename(profilePath.value);
         File imageFile = File(profilePath.value);
@@ -115,8 +115,6 @@ class UserController extends GetxController {
         UploadTask uploadTask = storageReference.putFile(imageFile);
 
         url = await (await uploadTask).ref.getDownloadURL();
-      } else {
-        url = "https://urlty.co/Zcs";
       }
 
       user.name = userName.trim();

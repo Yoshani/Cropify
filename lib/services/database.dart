@@ -90,6 +90,33 @@ class Database {
   Stream<List<IncidentModel>> incidentStream() {
     return _firestore
         .collection("incidents")
+        .where('status', whereIn: ["NEW"])
+        .orderBy("date", descending: true)
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map((doc) => IncidentModel.fromDocumentSnapshot(
+                id: doc.id,
+                documentSnapshot: doc.data() as Map<String, dynamic>))
+            .toList());
+  }
+
+  Stream<List<IncidentModel>> inprogressIncidentStream() {
+    return _firestore
+        .collection("incidents")
+        .where('status', whereIn: ["IN_PROGRESS"])
+        .orderBy("date", descending: true)
+        .snapshots()
+        .map((QuerySnapshot querySnapshot) => querySnapshot.docs
+            .map((doc) => IncidentModel.fromDocumentSnapshot(
+                id: doc.id,
+                documentSnapshot: doc.data() as Map<String, dynamic>))
+            .toList());
+  }
+
+  Stream<List<IncidentModel>> completeIncidentStream() {
+    return _firestore
+        .collection("incidents")
+        .where('status', whereIn: ["COMPLETED"])
         .orderBy("date", descending: true)
         .snapshots()
         .map((QuerySnapshot querySnapshot) => querySnapshot.docs
