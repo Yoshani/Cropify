@@ -31,9 +31,6 @@ class OfficerAccount extends StatelessWidget {
       body: Align(
         alignment: Alignment.center,
         child: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-          },
           child: SingleChildScrollView(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,7 +76,7 @@ class OfficerAccount extends StatelessWidget {
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(primary: Colors.grey),
                         onPressed: () {
-                          Get.toNamed("/officerHomeRoot");
+                          Get.back();
                         },
                         child: const Text(
                           "Cancel",
@@ -93,8 +90,11 @@ class OfficerAccount extends StatelessWidget {
                       style: ElevatedButton.styleFrom(primary: Colors.green),
                       onPressed: () {
                         if (GetUtils.isPhoneNumber(phoneController.text)) {
-                          userController.updateOfficer(nameController.text,
-                              phoneController.text, nicController.text);
+                          userController.updateOfficer(
+                              nameController.text,
+                              phoneController.text,
+                              nicController.text,
+                              userController.user.profilePicRef!);
                         } else {
                           Snackbar.showError(
                               "Please enter a valid phone number");
