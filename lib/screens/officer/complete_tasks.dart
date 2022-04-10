@@ -8,7 +8,8 @@ import '../common/theme.dart';
 class CompleteTasks extends StatelessWidget {
   CompleteTasks({Key? key}) : super(key: key);
 
-  IncidentController incidentController = Get.find<IncidentController>();
+  IncidentController incidentController =
+      Get.put<IncidentController>(IncidentController());
 
   int count = 0;
 
@@ -107,7 +108,6 @@ class CompleteTasks extends StatelessWidget {
                       }),
                 );
               } else {
-                // return const Center(child: CircularProgressIndicator());
                 return Center(child: Image.asset("assets/no-records-gif.gif"));
               }
             },

@@ -8,8 +8,8 @@ import '../../controllers/incident_controller.dart';
 class InprogressTasks extends StatelessWidget {
   InprogressTasks({Key? key}) : super(key: key);
 
-  IncidentController incidentController = Get.find<IncidentController>();
-  int count = 0;
+  IncidentController incidentController =
+      Get.put<IncidentController>(IncidentController());
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,6 @@ class InprogressTasks extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: incidentController.inprogressIncidents.length,
                       itemBuilder: (BuildContext context, int index) {
-                        count = count + 1;
                         return Padding(
                           padding:
                               const EdgeInsets.fromLTRB(10.0, 0.0, 0, 10.0),
@@ -108,7 +107,6 @@ class InprogressTasks extends StatelessWidget {
                       }),
                 );
               } else {
-                // return const Center(child: CircularProgressIndicator());
                 return Center(child: Image.asset("assets/no-records-gif.gif"));
               }
             },

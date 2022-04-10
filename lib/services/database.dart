@@ -48,7 +48,11 @@ class Database {
 
   Future<List<IncidentModel>> getIncidents() async {
     try {
-      QuerySnapshot _doc = await _firestore.collection("incidents").get();
+      QuerySnapshot _doc = await _firestore
+          .collection("incidents")
+          .where('status', whereIn: ["IN_PROGRESS"])
+          .orderBy("date", descending: true)
+          .get();
 
       return _doc.docs
           .map((doc) => IncidentModel.fromDocumentSnapshot(

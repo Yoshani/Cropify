@@ -4,6 +4,7 @@ import 'package:cropify/models/incident_status.dart';
 import 'package:cropify/screens/common/theme.dart';
 import 'package:cropify/screens/common/video_settings.dart';
 import 'package:cropify/screens/officer/appbar.dart';
+import 'package:cropify/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +14,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
   IncidentModel incident = Get.arguments;
 
   final TextEditingController commentController = TextEditingController();
-  final TextEditingController amoountContorller = TextEditingController();
+  final TextEditingController amountContorller = TextEditingController();
   final double labelWidth = 135;
 
   @override
@@ -517,7 +518,7 @@ class IncidentInfo extends GetWidget<IncidentController> {
               height: 15,
             ),
             TextFormField(
-              controller: amoountContorller,
+              controller: amountContorller,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 contentPadding:
@@ -565,13 +566,17 @@ class IncidentInfo extends GetWidget<IncidentController> {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    if (amountContorller.text.isEmpty) {
+                      Snackbar.showError("Amount Cannot Be Empty!");
+                      return;
+                    }
                     incidentController.startPaymentOption(
                         incident.id!,
                         incident.user!.name!,
                         incident.user!.accountNum!,
                         incident.user!.bankName!,
                         commentController.text,
-                        double.parse(amoountContorller.text),
+                        double.parse(amountContorller.text),
                         incident.user!.address!,
                         incident.user!.fcmToken!);
                     Get.back();
