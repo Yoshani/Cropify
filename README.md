@@ -1,5 +1,7 @@
 # Cropify
 
+The project is available at https://github.com/Yoshani/Cropify <br>
+
 A Flutter and GetX project for easing the task of farmers claiming compensation from the government for crop damages. Cropify is a mobile phone app-based replacement to the conventional paper-based method used by Sri Lankan farmers to apply for compensation from the government in situations where their crops are fully or partially destroyed due to events such as wild elephant attacks, pests, floods, and droughts. Thus, the system involves a bespoke system designed especially to suit the requirements of the two main end user parties: farmers and government officers, for easy execution of the process of compensation application and the subsequent claim review process solely through the application.
 
 ## Key Features
