@@ -15,8 +15,8 @@ A Flutter and GetX project for easing the task of farmers claiming compensation 
 
 ## Source Code References
 
-[getx_examples](https://github.com/tadaspetra/getx_examples/tree/master/todo_app) by Tadas Petra on user authentication
-[udemyClone](https://github.com/abhishh1/udemyClone/blob/BetaTest/lib/Services/Videosettings.dart) by Abhishek Chavhan on creating a video player
-[Answer](https://stackoverflow.com/questions/49648022/check-whether-there-is-an-internet-connection-available-on-flutter-app) by Günter Zöchbauer on Stackoverflow for checking internet connectivity 
-[Bottom Navigation Bar in Flutter using GetX](https://medium.com/teamartisans/bottom-navigation-bar-in-flutter-using-getx-a59f274b616c) by Ehsan Bigzad on creating a Bottom Navigation Bar
+[getx_examples](https://github.com/tadaspetra/getx_examples/tree/master/todo_app) by Tadas Petra on user authentication <br>
+[udemyClone](https://github.com/abhishh1/udemyClone/blob/BetaTest/lib/Services/Videosettings.dart) by Abhishek Chavhan on creating a video player <br>
+[Answer](https://stackoverflow.com/questions/49648022/check-whether-there-is-an-internet-connection-available-on-flutter-app) by Günter Zöchbauer on Stackoverflow for checking internet connectivity  <br>
+[Bottom Navigation Bar in Flutter using GetX](https://medium.com/teamartisans/bottom-navigation-bar-in-flutter-using-getx-a59f274b616c) by Ehsan Bigzad on creating a Bottom Navigation Bar <br>
 
