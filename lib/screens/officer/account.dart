@@ -39,7 +39,7 @@ class OfficerAccount extends StatelessWidget {
                 height: 15,
               ),
               const Text(
-                "Complete Profile",
+                "Update Profile",
                 style: CropifyThemes.titleTextTheme,
               ),
               const SizedBox(
